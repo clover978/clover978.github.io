@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition  CVPR 2016 这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 BoxCars">
+  <meta name="description" content="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition  arxiv(Baidu) 这篇文章的思路是 attention + 度量学习。其中，attention 部分跟 SENet 如出一辙；度量学习比较像 contrastive loss。文章中定义了四种类型的特征，sasc, sadc, dasc, d">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition">
-<meta property="og:url" content="http://example.com/2021/01/06/Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition/index.html">
+<meta property="og:title" content="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition">
+<meta property="og:url" content="http://example.com/2021/01/06/Paper-Notes-20210106-Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition  CVPR 2016 这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 BoxCars">
+<meta property="og:description" content="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition  arxiv(Baidu) 这篇文章的思路是 attention + 度量学习。其中，attention 部分跟 SENet 如出一辙；度量学习比较像 contrastive loss。文章中定义了四种类型的特征，sasc, sadc, dasc, d">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T06:10:48.000Z">
-<meta property="article:modified_time" content="2021-01-06T06:13:40.906Z">
+<meta property="article:published_time" content="2021-01-06T05:54:07.000Z">
+<meta property="article:modified_time" content="2021-01-06T06:06:22.166Z">
 <meta property="article:author" content="clover978">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="FGVC">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition/">
+<link rel="canonical" href="http://example.com/2021/01/06/Paper-Notes-20210106-Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition | clover978</title>
+  <title>Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition | clover978</title>
   
 
 
@@ -157,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Paper-Notes-20210106-Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -170,7 +170,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition
+          Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition
         </h1>
 
         <div class="post-meta">
@@ -181,7 +181,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 14:10:48 / Modified: 14:13:40" itemprop="dateCreated datePublished" datetime="2021-01-06T14:10:48+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-06 13:54:07 / Modified: 14:06:22" itemprop="dateCreated datePublished" datetime="2021-01-06T13:54:07+08:00">2021-01-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -208,47 +208,76 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition"><a href="#Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition" class="headerlink" title="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition"></a><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Sochor_BoxCars_3D_Boxes_CVPR_2016_paper.pdf">Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition</a></h2><blockquote>
+        <h2 id="Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition"><a href="#Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition" class="headerlink" title="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1806.05372.pdf">Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition</a></h2><blockquote>
 <ul>
-<li><strong>CVPR 2016</strong></li>
-<li>这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 <code>BoxCars</code></li>
+<li><strong>arxiv(Baidu)</strong></li>
+<li>这篇文章的思路是 attention + 度量学习。其中，attention 部分跟 SENet 如出一辙；度量学习比较像 contrastive loss。文章中定义了四种类型的特征，sasc, sadc, dasc, dadc, （s: same, a: attention, d: different, c: class），进行度量学习的时候，定义只有 sasc 是正样本，约束相同类别在相同attention区域学习到相似的特征。</li>
+<li>在 CUB 数据集的准确率达到了 86.5。从 这篇文章 和 MSRA的WS-LAN 来看，attention + 度量学习 的方法是细粒度分类里面比较好的一个研究方向。</li>
 </ul>
 </blockquote>
-<a id="more"></a>
+ <a id="more"></a>
 
 <ul>
-<li><p>3D 包围框：<br>文中没有介绍获得车辆的 3D 包围框 的方法。这是作者之前的一个工作。<a target="_blank" rel="noopener" href="http://www.bmva.org/bmvc/2014/files/paper013.pdf">Automatic camera  calibration for traffic understanding</a></p>
+<li><p>OSME (One-Squeeze Multi-Excitation Attention Module)：<br>这一部分，按照我的理解，可以说是完全照搬的 SENet，没有任何创新点。作者说明了 SENet 中 SE module 的原理。文中提出的网络结构，将提取到的特征，分别经过两个 SE module，得到的两个 re-weighted feature map，称为 attention1， attention2.<br>我理解的 OSME module 与 SE module 的区别就是一个是单路的，一个是双路的。</p>
 </li>
-<li><p>车辆图片平展：<br>获得 3D 包围框后，将其展开成 2D 图像，具体方法类似于将立体的纸盒子在平面上铺开。很简单的一个思路。</p>
+<li><p>Multi-Attention Multi-Class Constraint：<br>这一部分，作者使用了度量学习的方法，每次训练的时候，网络会输入 2N 对图片，其中每一对图片都来自于同一类别。然后一对图片分别经过 OSME 的上半支和下半支，这样可以得到四种类别的特征。sasc, sadc, dasc, dadc，在 softmax 的基础上，作者对 hinge loss 进行改进，提出 MAMC Constraint，四种特征。挑选出一个特征作为 anchor，然后分三种情况：</p>
+<ul>
+<li>正样本是 sasc， 负样本是 {sadc, dasc, dadc};</li>
+<li>正样本是 sadc， 负样本是 {dadc};</li>
+<li>正样本是 dasc， 负样本是 {dadc};<br>在每种情况下，定义出 MAMC loss，最小化与正样本的特征距离，最大化与负样本的特征距离。</li>
+</ul>
 </li>
-<li><p>车辆的视角信息：<br>作者用三个向量来对车辆的视角信息进行编码。分别是 <code>车尾-车头向量、车内-车外向量，车底-车顶向量</code>。通过这三个向量，可以完整表示出车辆的视角。</p>
-</li>
-<li><p>栅格化包围框：<br>作者同时提出另外一种方法描述车辆的视角。将车辆的矩形包围框中用四种颜色进行表示。其中 车顶用黄色，车侧用红色，车头/车尾同蓝色，其他位置用白色。这样一幅新的栅格化图像同样可以确定出车辆的视角。  </p>
-</li>
-<li><p>平铺图 + 视角辅助信息 训练：<br>平铺图直接进入 CNN 进行卷积操作；<br>视角编码通过 6x6 的矩阵表示，使用三向量表示的情况下，矩阵的第一行表示 3 个二维向量，其他行用 0 填充；使用栅格化包围框表示的情况下，直接将 bbox rescale 成 6x6 的矩阵。<br>文中只说 view encoding 是加在卷积操作之后，但是具体怎么加没有说明。</p>
-</li>
-<li><p>Bbox Cars 数据集：<br>作者同时还公布了一个新的数据集，数据集中的图片是从道路车辆监控视频中获取的，主要特点就是包含了车辆的 3D box 信息。</p>
-</li>
-<li><p>实验结果：<br>作者提出的方法需要数据集标注了车辆的 3D box 信息，具体怎么在 CompCars 数据集上做的实验阐述的不太清楚，下面是实验结果：</p>
+<li><p>实验结果：</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th>top1</th>
-<th>top5</th>
+<th>acc</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>baseline</td>
-<td>0.767</td>
-<td>0.917</td>
+<td>VGG19</td>
+<td>79.0</td>
 </tr>
 <tr>
-<td>ours</td>
-<td>0.848</td>
-<td>0.954</td>
+<td>ResNet50</td>
+<td>81.7</td>
+</tr>
+<tr>
+<td>ResNet101</td>
+<td>82.5</td>
+</tr>
+<tr>
+<td>ResNet-50 + OSME</td>
+<td>84.9</td>
+</tr>
+<tr>
+<td>ResNet-50 + OSME + MAMC_1</td>
+<td>85.4</td>
+</tr>
+<tr>
+<td>ResNet-50 + OSME + MAMC</td>
+<td>86.2</td>
+</tr>
+<tr>
+<td>ResNet-50 + OSME_3 + MAMC</td>
+<td>86.3</td>
+</tr>
+<tr>
+<td>ResNet-101 + OSME + MAMC</td>
+<td>86.5</td>
+</tr>
+<tr>
+<td>RACNN</td>
+<td>85.3</td>
+</tr>
+<tr>
+<td>MACNN</td>
+<td>86.5</td>
 </tr>
 </tbody></table>
+<p>OSME_3: 使用 3 个 attention<br>MAMC_1：定义 MAMC loss 的时候，只区分第一种情况。  </p>
+<p>使用 ResNet50 作为 backbone， OSME 提升了 3.2%， MAMC 提升了 1.3% 的准确率。值得一提的是，相比于 MACNN，文中提出的网络结构要简单的多，在效率上具有很大的优势。</p>
 </li>
 </ul>
 
@@ -270,12 +299,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/06/A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification/" rel="prev" title="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification">
-      <i class="fa fa-chevron-left"></i> A Large-Scale Car Dataset for Fine-grained Categotozation and Verification
+    <a href="/2021/01/06/Paper-Notes-20210106-Fine-grained-Image-Classification-by-Visual-Semantic-Embedding/" rel="prev" title="Fine-grained Image Classification by Visual-Semantic Embedding">
+      <i class="fa fa-chevron-left"></i> Fine-grained Image Classification by Visual-Semantic Embedding
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/COCO-dataset-format/" rel="next" title="COCO dataset format">
-      COCO dataset format <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/06/Paper-Notes-20210106-A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification/" rel="next" title="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification">
+      A Large-Scale Car Dataset for Fine-grained Categotozation and Verification <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -335,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition"><span class="nav-number">1.</span> <span class="nav-text">Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition"><span class="nav-number">1.</span> <span class="nav-text">Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -349,19 +378,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
