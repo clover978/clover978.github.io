@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1. 安装 git, node.js, Hexo  参考 Hexo 官方教程  2. 添加 github pages 新建 github repository   新建 hexo 分支，并设置为默认分支 添加 ssh hey  12ssh-keygen -t rsacat .ssh\id_rsa.pub 在 settings -&gt; SSH and GPG keys -&gt; New SS">
+  <meta name="description" content="The unreasonable effectiveness of noisy data for fine-grained recognition  ECCV 2016 这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。   网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。   加入大量网络数据后，训练的效果得到了大幅度的提升，目前在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo installation">
-<meta property="og:url" content="http://example.com/2021/01/06/hexo-installation/index.html">
+<meta property="og:title" content="The unreasonable effectiveness of noisy data for fine-grained recognition">
+<meta property="og:url" content="http://example.com/2021/01/06/The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="1. 安装 git, node.js, Hexo  参考 Hexo 官方教程  2. 添加 github pages 新建 github repository   新建 hexo 分支，并设置为默认分支 添加 ssh hey  12ssh-keygen -t rsacat .ssh\id_rsa.pub 在 settings -&gt; SSH and GPG keys -&gt; New SS">
+<meta property="og:description" content="The unreasonable effectiveness of noisy data for fine-grained recognition  ECCV 2016 这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。   网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。   加入大量网络数据后，训练的效果得到了大幅度的提升，目前在">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T01:32:59.000Z">
-<meta property="article:modified_time" content="2021-01-06T06:08:35.376Z">
+<meta property="article:published_time" content="2021-01-06T05:46:06.000Z">
+<meta property="article:modified_time" content="2021-01-06T06:06:30.316Z">
 <meta property="article:author" content="clover978">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="FGVC">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/hexo-installation/">
+<link rel="canonical" href="http://example.com/2021/01/06/The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>hexo installation | clover978</title>
+  <title>The unreasonable effectiveness of noisy data for fine-grained recognition | clover978</title>
   
 
 
@@ -156,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/hexo-installation/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +170,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hexo installation
+          The unreasonable effectiveness of noisy data for fine-grained recognition
         </h1>
 
         <div class="post-meta">
@@ -180,7 +181,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 09:32:59 / Modified: 14:08:35" itemprop="dateCreated datePublished" datetime="2021-01-06T09:32:59+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-06 13:46:06 / Modified: 14:06:30" itemprop="dateCreated datePublished" datetime="2021-01-06T13:46:06+08:00">2021-01-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +189,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/Paper-notes/" itemprop="url" rel="index"><span itemprop="name">Paper notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-notes/FGVC/" itemprop="url" rel="index"><span itemprop="name">FGVC</span></a>
                 </span>
             </span>
 
@@ -203,29 +208,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<h2 id="1-安装-git-node-js-Hexo"><a href="#1-安装-git-node-js-Hexo" class="headerlink" title="1. 安装 git, node.js, Hexo"></a>1. 安装 git, node.js, Hexo</h2><p>  参考<a href="!https://hexo.io/zh-cn/docs/"> Hexo 官方教程</a></p>
-<hr>
-<h2 id="2-添加-github-pages"><a href="#2-添加-github-pages" class="headerlink" title="2. 添加 github pages"></a>2. 添加 github pages</h2><ul>
-<li>新建 github repository  </li>
-<li>新建 hexo 分支，并设置为默认分支</li>
-<li>添加 ssh hey  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">cat .ssh\id_rsa.pub</span><br></pre></td></tr></table></figure>
-在 <code>settings -&gt; SSH and GPG keys -&gt; New SSH key</code> 里面添加公钥。</li>
-<li>新建 hexo 博客  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone clover978.github.io</span><br><span class="line">hexo init clover978.github.io</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-在 <code>clover978.github.io/_config.yml</code> 里设置如下字段：    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: &#39;git&#39;</span><br><span class="line">repo: https:&#x2F;&#x2F;github.com&#x2F;clover978&#x2F;clover978.github.io</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-
-
-</li>
+        <h2 id="The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><a href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition" class="headerlink" title="The unreasonable effectiveness of noisy data for fine-grained recognition"></a><a target="_blank" rel="noopener" href="http://cn.arxiv.org/pdf/1511.06789.pdf">The unreasonable effectiveness of noisy data for fine-grained recognition</a></h2><blockquote>
+<ul>
+<li><strong>ECCV 2016</strong></li>
+<li>这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。  </li>
+<li>网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。  </li>
+<li>加入大量网络数据后，训练的效果得到了大幅度的提升，目前在 CUB 数据集上准确率达到了 92.3  </li>
 </ul>
-<hr>
-<h2 id="3-安装-theme"><a href="#3-安装-theme" class="headerlink" title="3. 安装 theme"></a>3. 安装 theme</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+</blockquote>
+ <a id="more"></a>
 
-<h2 id="4-其他设置"><a href="#4-其他设置" class="headerlink" title="4. 其他设置"></a>4. 其他设置</h2><p>  参考 <code>_config.yml</code> 和 <code>themes/next/_config.yml</code> 里的各种字段，设置页面布局。</p>
-<h2 id="5-发布-blog"><a href="#5-发布-blog" class="headerlink" title="5. 发布 blog"></a>5. 发布 blog</h2><ul>
-<li>编写 blog<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br><span class="line"># 编辑 _post 里面生成 md 文件</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></li>
-<li>同步 hexo  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;add new blog&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+<ul>
+<li><p>cross-domain noise:<br><code>cross-domain noise</code> 指的是不属于这一大类的图片，例如搜索某种鸟，出来的结果是昆虫的图片。通过人工标注量化了这种噪声，发现这种情况比较少，并且当图片数目增多的时候，噪声占的比例也会减少。<br>这种噪声对结果的影响也比较小。</p>
+</li>
+<li><p>cross-category noise:<br><code>cross-category noise</code> 指的是将其他子类的图片混入搜索结果的情况。这种噪声的比例难以量化，并且对结果的影响比较大，作者将搜索结果中重复的图片去除掉来减少这些噪声。</p>
+</li>
+<li><p>active learning：<br>作者还提出两种标注方法辅助去除噪声。1）使用预训练好的模型，挑选搜索结果中置信度高的结果；2）人工筛选搜索结果。</p>
+</li>
+<li><p>实验结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CUB</th>
+<th>web-raw</th>
+<th>web-filter</th>
+<th>L-bird</th>
+<th>L-bird(MC)</th>
+<th>L-bird+CUB</th>
+<th>L-bird+CUB(MC)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>acc</td>
+<td>84.4</td>
+<td>87.7</td>
+<td>89.0</td>
+<td>91.9</td>
+<td>92.3</td>
+<td>92.2</td>
+<td>92.8</td>
+</tr>
+</tbody></table>
+<pre><code>`CUB`：CUB 数据集  
+`web-raw`：web 爬取数据集  
+`web-filter`： 去除 `cross-category noise`  
+`L-Bird`: 爬取所有鸟类的图片，进行预训练，然后在 web-filter 上 finetune  
+`MC`：测试的时候使用 multi-crop</code></pre>
+</li>
 </ul>
 
     </div>
@@ -236,7 +266,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/FGVC/" rel="tag"># FGVC</a>
           </div>
 
         
@@ -244,10 +275,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/" rel="next" title="The unreasonable effectiveness of noisy data for fine-grained recognition">
-      The unreasonable effectiveness of noisy data for fine-grained recognition <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/06/hexo-installation/" rel="prev" title="hexo installation">
+      <i class="fa fa-chevron-left"></i> hexo installation
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/Embedding-label-structures-for-fine-grained-feature-representation/" rel="next" title="Embedding label structures for fine-grained feature representation">
+      Embedding label structures for fine-grained feature representation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -307,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-git-node-js-Hexo"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 git, node.js, Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0-github-pages"><span class="nav-number">2.</span> <span class="nav-text">2. 添加 github pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85-theme"><span class="nav-number">3.</span> <span class="nav-text">3. 安装 theme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">4. 其他设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8F%91%E5%B8%83-blog"><span class="nav-number">5.</span> <span class="nav-text">5. 发布 blog</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><span class="nav-number">1.</span> <span class="nav-text">The unreasonable effectiveness of noisy data for fine-grained recognition</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

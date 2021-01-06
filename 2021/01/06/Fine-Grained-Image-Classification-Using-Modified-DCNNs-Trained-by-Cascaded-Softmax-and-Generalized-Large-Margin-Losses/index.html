@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1. 安装 git, node.js, Hexo  参考 Hexo 官方教程  2. 添加 github pages 新建 github repository   新建 hexo 分支，并设置为默认分支 添加 ssh hey  12ssh-keygen -t rsacat .ssh\id_rsa.pub 在 settings -&gt; SSH and GPG keys -&gt; New SS">
+  <meta name="description" content="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses  TNNLS 2018 这篇文章提出了两个创新点，一个是 级联softmax结构，另一个是 泛化 large-margin loss。主要的思想就是细粒度分类中的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo installation">
-<meta property="og:url" content="http://example.com/2021/01/06/hexo-installation/index.html">
+<meta property="og:title" content="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses">
+<meta property="og:url" content="http://example.com/2021/01/06/Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="1. 安装 git, node.js, Hexo  参考 Hexo 官方教程  2. 添加 github pages 新建 github repository   新建 hexo 分支，并设置为默认分支 添加 ssh hey  12ssh-keygen -t rsacat .ssh\id_rsa.pub 在 settings -&gt; SSH and GPG keys -&gt; New SS">
+<meta property="og:description" content="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses  TNNLS 2018 这篇文章提出了两个创新点，一个是 级联softmax结构，另一个是 泛化 large-margin loss。主要的思想就是细粒度分类中的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T01:32:59.000Z">
-<meta property="article:modified_time" content="2021-01-06T06:08:35.376Z">
+<meta property="article:published_time" content="2021-01-06T05:53:45.000Z">
+<meta property="article:modified_time" content="2021-01-06T06:06:51.075Z">
 <meta property="article:author" content="clover978">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="FGVC">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/hexo-installation/">
+<link rel="canonical" href="http://example.com/2021/01/06/Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>hexo installation | clover978</title>
+  <title>Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses | clover978</title>
   
 
 
@@ -156,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/hexo-installation/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -169,7 +170,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          hexo installation
+          Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses
         </h1>
 
         <div class="post-meta">
@@ -180,7 +181,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 09:32:59 / Modified: 14:08:35" itemprop="dateCreated datePublished" datetime="2021-01-06T09:32:59+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-06 13:53:45 / Modified: 14:06:51" itemprop="dateCreated datePublished" datetime="2021-01-06T13:53:45+08:00">2021-01-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -188,7 +189,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+                  <a href="/categories/Paper-notes/" itemprop="url" rel="index"><span itemprop="name">Paper notes</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Paper-notes/FGVC/" itemprop="url" rel="index"><span itemprop="name">FGVC</span></a>
                 </span>
             </span>
 
@@ -203,29 +208,109 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
-<h2 id="1-安装-git-node-js-Hexo"><a href="#1-安装-git-node-js-Hexo" class="headerlink" title="1. 安装 git, node.js, Hexo"></a>1. 安装 git, node.js, Hexo</h2><p>  参考<a href="!https://hexo.io/zh-cn/docs/"> Hexo 官方教程</a></p>
-<hr>
-<h2 id="2-添加-github-pages"><a href="#2-添加-github-pages" class="headerlink" title="2. 添加 github pages"></a>2. 添加 github pages</h2><ul>
-<li>新建 github repository  </li>
-<li>新建 hexo 分支，并设置为默认分支</li>
-<li>添加 ssh hey  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">cat .ssh\id_rsa.pub</span><br></pre></td></tr></table></figure>
-在 <code>settings -&gt; SSH and GPG keys -&gt; New SSH key</code> 里面添加公钥。</li>
-<li>新建 hexo 博客  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone clover978.github.io</span><br><span class="line">hexo init clover978.github.io</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-在 <code>clover978.github.io/_config.yml</code> 里设置如下字段：    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">type: &#39;git&#39;</span><br><span class="line">repo: https:&#x2F;&#x2F;github.com&#x2F;clover978&#x2F;clover978.github.io</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-
-
-</li>
+        <h2 id="Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses"><a href="#Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses" class="headerlink" title="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses"></a><a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8419081">Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses</a></h2><blockquote>
+<ul>
+<li><strong>TNNLS 2018</strong></li>
+<li>这篇文章提出了两个创新点，一个是 级联softmax结构，另一个是 泛化 large-margin loss。主要的思想就是细粒度分类中的标签是具有层次结构的，large-margin loss 是度量学习中提出的概念，这里在细粒度分类问题中进行了改进。</li>
+<li>文章摆了大量的公式，所以我是没怎么仔细看的，并且它的结果并不很出色。使用 VGG 作为 backbone，在 CUB 上准确率是 77.0，结合 bilinear-CNN，从 84.1 提升到了 85.4</li>
 </ul>
-<hr>
-<h2 id="3-安装-theme"><a href="#3-安装-theme" class="headerlink" title="3. 安装 theme"></a>3. 安装 theme</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+</blockquote>
+ <a id="more"></a>
 
-<h2 id="4-其他设置"><a href="#4-其他设置" class="headerlink" title="4. 其他设置"></a>4. 其他设置</h2><p>  参考 <code>_config.yml</code> 和 <code>themes/next/_config.yml</code> 里的各种字段，设置页面布局。</p>
-<h2 id="5-发布-blog"><a href="#5-发布-blog" class="headerlink" title="5. 发布 blog"></a>5. 发布 blog</h2><ul>
-<li>编写 blog<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br><span class="line"># 编辑 _post 里面生成 md 文件</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></li>
-<li>同步 hexo  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;add new blog&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></li>
+<ul>
+<li><p>Cascaded Softmax Loss：<br>级联softmax，见文中的 <code>插图3</code>，其实是一个很简单的结构，假设识别任务中有 50 个粗分类，每个分类中有 4 个细分类，总共 200 分类。传统的网络，直接通过 fc8(200)+softmax 进行训练，这里改成了 fc8(200)+ softmax + fc9(50)+softmax 训练，并且在 fc7 和 fc(9) 之间添加了一个 skip connection. 网络的 loss 则变成了每一层 softmax 的 loss 相加。</p>
+</li>
+<li><p>Generalized Large-Margin Loss：<br>泛化 large-margin loss，这个用起来其实也很简单，就是在 fc7 添加一个 loss层 进行监督，large-margin loss 的作用就是增加类间距离，减小类内距离，在标签具有分层结构的情况下，对每个 level 的标签都进行这样的约束，这一部分文中使用了大量的公式，没有仔细看。</p>
+</li>
+<li><p>实验结果：<br>作者的这个改动可以应用到任何 CNN 结构中，所以作者做了大量的实验：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>w/o bbox</th>
+<th>with bbox</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>googlenet+SM</td>
+<td>73.6</td>
+<td>77.4</td>
+</tr>
+<tr>
+<td>googlenet+CSM</td>
+<td>74.6</td>
+<td>78.4</td>
+</tr>
+<tr>
+<td>googlenet+SC+CSM</td>
+<td>75.3</td>
+<td>79.0</td>
+</tr>
+<tr>
+<td>googlenet+SM+GLM</td>
+<td>76.8</td>
+<td>80.5</td>
+</tr>
+<tr>
+<td>googlenet+CSM+GLM</td>
+<td>77.1</td>
+<td>81.3</td>
+</tr>
+<tr>
+<td>googlenet+SC+CSM+GLM</td>
+<td>77.6</td>
+<td>82.0</td>
+</tr>
+<tr>
+<td>VGG+SM</td>
+<td>72.5</td>
+<td>78.6</td>
+</tr>
+<tr>
+<td>VGG+SC+CSM+GLM</td>
+<td>77.0</td>
+<td>82.4</td>
+</tr>
+<tr>
+<td>B-CNN</td>
+<td>84.1</td>
+<td>84.8</td>
+</tr>
+<tr>
+<td>B-CNN+SC+CSM+GLM</td>
+<td>85.4</td>
+<td>85.7</td>
+</tr>
+<tr>
+<td>googlenet+SM+contrastive</td>
+<td>74.1</td>
+<td>77.8</td>
+</tr>
+<tr>
+<td>googlenet+SM+triplet</td>
+<td>74.1</td>
+<td>78.0</td>
+</tr>
+<tr>
+<td>googlenet+SM+center loss</td>
+<td>74.5</td>
+<td>78.4</td>
+</tr>
+<tr>
+<td>googlenet+SM+min-max</td>
+<td>75.1</td>
+<td>78.9</td>
+</tr>
+</tbody></table>
+<p><code>SM: softmax</code><br><code>CSM: cascaded softmax</code><br><code>SC: skip connection</code><br><code>GLM: generlized large-margin loss</code>  </p>
+<p>通过对比可以看出：  </p>
+<ul>
+<li>GLM 对结果的影响是最大的， 76.8</li>
+<li>单独 CSM 的效果并不明显，加上 SC 后还能提高一下。 74.6 -&gt; 75.3</li>
+<li>在 VGG， googlenet 上有明显的提高，但是在 B-CNN 上的提高就比较小了。</li>
+<li>GLM 相对于其他的 度量学习 方法效果也是最好的。</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -236,7 +321,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/FGVC/" rel="tag"># FGVC</a>
           </div>
 
         
@@ -244,10 +330,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/" rel="next" title="The unreasonable effectiveness of noisy data for fine-grained recognition">
-      The unreasonable effectiveness of noisy data for fine-grained recognition <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/06/Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification/" rel="prev" title="Weakly Supervised Local Attention Network for Fine-Grained Visual Classification">
+      <i class="fa fa-chevron-left"></i> Weakly Supervised Local Attention Network for Fine-Grained Visual Classification
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/Fine-grained-Image-Classification-by-Visual-Semantic-Embedding/" rel="next" title="Fine-grained Image Classification by Visual-Semantic Embedding">
+      Fine-grained Image Classification by Visual-Semantic Embedding <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -307,7 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85-git-node-js-Hexo"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 git, node.js, Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0-github-pages"><span class="nav-number">2.</span> <span class="nav-text">2. 添加 github pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85-theme"><span class="nav-number">3.</span> <span class="nav-text">3. 安装 theme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">4. 其他设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%8F%91%E5%B8%83-blog"><span class="nav-number">5.</span> <span class="nav-text">5. 发布 blog</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses"><span class="nav-number">1.</span> <span class="nav-text">Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
