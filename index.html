@@ -150,6 +150,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/COCO-dataset-format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="clover978">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="clover978">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/06/COCO-dataset-format/" class="post-title-link" itemprop="url">COCO dataset format</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-06 19:28:43 / Modified: 19:46:06" itemprop="dateCreated datePublished" datetime="2021-01-06T19:28:43+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index"><span itemprop="name">others</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">- annotations</span><br><span class="line">    - <span class="string">&#x27;info&#x27;</span>: <span class="built_in">dict</span></span><br><span class="line">    - <span class="string">&#x27;licenses&#x27;</span> <span class="built_in">list</span></span><br><span class="line">    - <span class="string">&#x27;images&#x27;</span></span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">        - <span class="string">&#x27;filename&#x27;</span>: <span class="built_in">str</span></span><br><span class="line">        - <span class="string">&#x27;id&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;height&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;width&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;flickr_url&#x27;</span>: <span class="built_in">str</span></span><br><span class="line">        - <span class="string">&#x27;license&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;coco_url&#x27;</span>: <span class="built_in">str</span></span><br><span class="line">        - <span class="string">&#x27;date_captured&#x27;</span>: <span class="built_in">str</span></span><br><span class="line">        &#125;, </span><br><span class="line">        ...</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">    - <span class="string">&#x27;annotations&#x27;</span></span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">        - <span class="string">&#x27;segmentation&#x27;</span>: <span class="built_in">list</span></span><br><span class="line">        - <span class="string">&#x27;num_keypoints&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;area&#x27;</span>: <span class="built_in">float</span></span><br><span class="line">        - <span class="string">&#x27;is_crowd&#x27;</span>: <span class="built_in">bool</span></span><br><span class="line">        - <span class="string">&#x27;keypoint&#x27;</span>: </span><br><span class="line">            - x1, y1, k1   <span class="comment"># k=0 不可见未标注；k=1 不可见标注； k=2 可见标注</span></span><br><span class="line">            - x2, y2, k2</span><br><span class="line">            - ......</span><br><span class="line">        - <span class="string">&#x27;bbox&#x27;</span>: <span class="built_in">list</span></span><br><span class="line">            - ( x1, y1, w1, h1 )</span><br><span class="line">            - ( x2, y2, w2, h2 )</span><br><span class="line">            - ......</span><br><span class="line">        - <span class="string">&#x27;category_id&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;image_id&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;id&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        &#125;, </span><br><span class="line">        ...</span><br><span class="line">        ...</span><br><span class="line">    ]</span><br><span class="line">    - <span class="string">&#x27;categories&#x27;</span>:</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">        - <span class="string">&#x27;id&#x27;</span>: <span class="built_in">int</span></span><br><span class="line">        - <span class="string">&#x27;keypoints&#x27;</span>:</span><br><span class="line">            - kpt-name1</span><br><span class="line">            - kpt-name2</span><br><span class="line">            - ...</span><br><span class="line">        - <span class="string">&#x27;skeleton&#x27;</span>: </span><br><span class="line">            - (pair1_index1, pair1_index2)</span><br><span class="line">            - (pair2_index1, pair2_index2)</span><br><span class="line">            - ...</span><br><span class="line">        - <span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;person&#x27;</span></span><br><span class="line">        - <span class="string">&#x27;supercategory&#x27;</span>: <span class="string">&#x27;person&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -975,19 +1042,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
