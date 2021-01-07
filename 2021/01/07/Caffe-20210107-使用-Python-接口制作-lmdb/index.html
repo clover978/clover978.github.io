@@ -1,385 +1,385 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>使用 Python 接口制作 lmdb - clover978</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="使用 lmdb 的 Python 接口制作数据集Caffe 输入格式：一般来说，使用 Caffe 训练的过程，网络结构的第一层是都用来处理输入数据的，输入数据的形式大多数为图片（NLP 工作中，输入的一般是文本的特征，不过这种情况不太常见）。Caffe 的数据输入层有以下几种：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="使用 Python 接口制作 lmdb">
-<meta property="og:url" content="http://example.com/2021/01/07/Caffe-20210107-%E4%BD%BF%E7%94%A8-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C-lmdb/index.html">
-<meta property="og:site_name" content="clover978">
-<meta property="og:description" content="使用 lmdb 的 Python 接口制作数据集Caffe 输入格式：一般来说，使用 Caffe 训练的过程，网络结构的第一层是都用来处理输入数据的，输入数据的形式大多数为图片（NLP 工作中，输入的一般是文本的特征，不过这种情况不太常见）。Caffe 的数据输入层有以下几种：">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-07T02:33:48.000Z">
-<meta property="article:modified_time" content="2021-01-07T02:36:10.508Z">
-<meta property="article:author" content="clover978">
-<meta property="article:tag" content="Caffe">
-<meta property="article:tag" content="LMDB">
-<meta property="article:tag" content="Python">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/01/07/Caffe-20210107-%E4%BD%BF%E7%94%A8-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C-lmdb/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>使用 Python 接口制作 lmdb | clover978</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">clover978</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Caffe-20210107-%E4%BD%BF%E7%94%A8-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C-lmdb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="clover978">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="clover978">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          使用 Python 接口制作 lmdb
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用 Python 接口制作 lmdb">
               
+            </span>
 
-              <time title="Created: 2021-01-07 10:33:48 / Modified: 10:36:10" itemprop="dateCreated datePublished" datetime="2021-01-07T10:33:48+08:00">2021-01-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Caffe/" itemprop="url" rel="index"><span itemprop="name">Caffe</span></a>
-                </span>
-            </span>
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-07 10:33" pubdate>
+        January 7, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      903 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <h1 id="使用-lmdb-的-Python-接口制作数据集"><a href="#使用-lmdb-的-Python-接口制作数据集" class="headerlink" title="使用 lmdb 的 Python 接口制作数据集"></a>使用 lmdb 的 Python 接口制作数据集</h1><h2 id="Caffe-输入格式："><a href="#Caffe-输入格式：" class="headerlink" title="Caffe 输入格式："></a>Caffe 输入格式：</h2><p>一般来说，使用 Caffe 训练的过程，网络结构的第一层是都用来处理输入数据的，输入数据的形式大多数为图片（NLP 工作中，输入的一般是文本的特征，不过这种情况不太常见）。Caffe 的数据输入层有以下几种：</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 Python 接口制作 lmdb</h1>
+            
+            <div class="markdown-body">
+              <h1 id="使用-lmdb-的-Python-接口制作数据集"><a href="#使用-lmdb-的-Python-接口制作数据集" class="headerlink" title="使用 lmdb 的 Python 接口制作数据集"></a>使用 lmdb 的 Python 接口制作数据集</h1><h2 id="Caffe-输入格式："><a href="#Caffe-输入格式：" class="headerlink" title="Caffe 输入格式："></a>Caffe 输入格式：</h2><p>一般来说，使用 Caffe 训练的过程，网络结构的第一层是都用来处理输入数据的，输入数据的形式大多数为图片（NLP 工作中，输入的一般是文本的特征，不过这种情况不太常见）。Caffe 的数据输入层有以下几种：</p>
 <a id="more"></a>
 
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@p3d-container:/bigdata/dxx/pseudo-3d-residual-networks/caffe/src/caffe/layers# ll *data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  4118 Mar 22 09:25 base_data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  4313 Mar 22 09:25 data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  4826 Mar 22 09:25 dummy_data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  6136 Mar 22 09:25 hdf5_data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  6946 Mar 22 09:25 image_data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root  4414 Mar 22 09:25 memory_data_layer.cpp</span><br><span class="line">-rw-r--r-- 1 root root 17544 Mar 22 09:25 window_data_layer.cpp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###############################################################</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 其中，base_data_layer.cpp 定义了数据层的基类；</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># data_layer.cpp 支持 **lmdb/leveldb** 格式的输入</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># hdf5_data_layer.cpp 支持 **hdf5** 格式的输入</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># image_data_layer.cpp 支持 **图片** 直接输入</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 其他的三个 layer 我不太了解，感兴趣可以查阅相关资料</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###############################################################</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">root@p3d-container:/bigdata/dxx/pseudo-3d-residual-networks/caffe/src/caffe/layers# ll *data_layer.cpp<br>-rw-r--r-- 1 root root  4118 Mar 22 09:25 base_data_layer.cpp<br>-rw-r--r-- 1 root root  4313 Mar 22 09:25 data_layer.cpp<br>-rw-r--r-- 1 root root  4826 Mar 22 09:25 dummy_data_layer.cpp<br>-rw-r--r-- 1 root root  6136 Mar 22 09:25 hdf5_data_layer.cpp<br>-rw-r--r-- 1 root root  6946 Mar 22 09:25 image_data_layer.cpp<br>-rw-r--r-- 1 root root  4414 Mar 22 09:25 memory_data_layer.cpp<br>-rw-r--r-- 1 root root 17544 Mar 22 09:25 window_data_layer.cpp<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">###############################################################</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 其中，base_data_layer.cpp 定义了数据层的基类；</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># data_layer.cpp 支持 **lmdb/leveldb** 格式的输入</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># hdf5_data_layer.cpp 支持 **hdf5** 格式的输入</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># image_data_layer.cpp 支持 **图片** 直接输入</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 其他的三个 layer 我不太了解，感兴趣可以查阅相关资料</span></span><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment">###############################################################</span></span><br></code></pre></td></tr></table></figure>
 <p>我们平时最常见的情况就是使用 lmdb/leveldb 作为输入，Caffe 的 mnist example 就是使用的这两个格式。因为这样比直接使用 image 进行输入要更快一些（原因可能是因为 lmdb/leveldb 支持 prefetch 操作，可以节省 IO 时间），其中 lmdb 比 leveldb 更快，体积更小。<br>目前 Caffe 最常见的输入就是 lmdb 格式。那么怎么制作 lmdb 呢？ Caffe 提供了一个 convert_imageset 程序，按照指定的格式整理好 image 和 label，直接调用命令可以将图片转换为 lmdb。具体操作参考官网，这里不详细介绍。</p>
 <h2 id="lmdb-的-Python-接口"><a href="#lmdb-的-Python-接口" class="headerlink" title="lmdb 的 Python 接口"></a>lmdb 的 Python 接口</h2><p>简单的情况下，我们可以直接利用官方提供的工具，将图片数据转换为 lmdb，然后利用 data_layer 的 transform_param 对数据进行简单的预处理或者数据增强操作。但是某些特殊情况下，transform_param 可能无法实现我们想要的预处理。这种情况下，我们可以修改 data_layer 的源码，实现想要的功能，当然这样就比较麻烦了，更为简单的方法就是，我们可以在制作 lmdb 之前先实现想要的预处理操作，然后将图片制作成 lmdb，这就是下面要介绍的内容。同理，如果想用这种方法实现比较复杂的数据增强功能也是可以的，不过，这种情况下，lmdb 占用的空间会相应的增加。<br>我这次的任务是让 Caffe 实现视频输入功能，因此需要将 16 个连续视频帧 stack 起来，制作成一个 clip，后续的网络会对 clip 进行卷积操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">import lmdb</span><br><span class="line">import numpy as np</span><br><span class="line">import cv2</span><br><span class="line">import caffe</span><br><span class="line">from caffe.proto import caffe_pb2</span><br><span class="line"></span><br><span class="line">#basic setting</span><br><span class="line"># 这个设置用来存放lmdb数据的目录</span><br><span class="line">lmdb_file &#x3D; &#39;lmdb_data&#39;</span><br><span class="line">batch_size &#x3D; 256</span><br><span class="line"></span><br><span class="line"># create the lmdb file</span><br><span class="line"># map_size指的是数据库的最大容量，根据需求设置</span><br><span class="line">lmdb_env &#x3D; lmdb.open(lmdb_file, map_size&#x3D;int(1e12))</span><br><span class="line">lmdb_txn &#x3D; lmdb_env.begin(write&#x3D;True)</span><br><span class="line"># 因为caffe中经常采用datum这种数据结构存储数据</span><br><span class="line">datum &#x3D; caffe_pb2.Datum()</span><br><span class="line"></span><br><span class="line">item_id &#x3D; -1</span><br><span class="line">for x in range(1000):</span><br><span class="line">    item_id +&#x3D; 1</span><br><span class="line"></span><br><span class="line">    #prepare the data and label</span><br><span class="line">    </span><br><span class="line">    #data &#x3D; np.ones((3,64,64), np.uint8) * (item_id%128 + 64) #CxHxW array, uint8 or float</span><br><span class="line">    # pic_path设置成图像目录, 0表示读入灰度图</span><br><span class="line">    data &#x3D; cv2.imread(pic_path, 0)</span><br><span class="line">    # label 设置图像的label就行</span><br><span class="line">    label &#x3D; item_id%128 + 64</span><br><span class="line"></span><br><span class="line">    # save in datum</span><br><span class="line">    datum &#x3D; caffe.io.array_to_datum(data, label)</span><br><span class="line">    keystr &#x3D; &#39;&#123;:0&gt;8d&#125;&#39;.format(item_id)</span><br><span class="line">    lmdb_txn.put( keystr, datum.SerializeToString() )</span><br><span class="line"></span><br><span class="line">    # write batch</span><br><span class="line">    if(item_id + 1) % batch_size &#x3D;&#x3D; 0:</span><br><span class="line">        lmdb_txn.commit()</span><br><span class="line">        lmdb_txn &#x3D; lmdb_env.begin(write&#x3D;True)</span><br><span class="line">        print (item_id + 1)</span><br><span class="line"></span><br><span class="line"># write last batch</span><br><span class="line">if (item_id+1) % batch_size !&#x3D; 0:</span><br><span class="line">    lmdb_txn.commit()</span><br><span class="line">    print &#39;last batch&#39;</span><br><span class="line">    print (item_id + 1)</span><br></pre></td></tr></table></figure>
-    </div>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">import</span> lmdb<br><span class="hljs-attribute">import</span> numpy as np<br><span class="hljs-attribute">import</span> cv<span class="hljs-number">2</span><br><span class="hljs-attribute">import</span> caffe<br><span class="hljs-attribute">from</span> caffe.proto import caffe_pb<span class="hljs-number">2</span><br><br><span class="hljs-comment">#basic setting</span><br><span class="hljs-comment"># 这个设置用来存放lmdb数据的目录</span><br><span class="hljs-attribute">lmdb_file</span> = &#x27;lmdb_data&#x27;<br><span class="hljs-attribute">batch_size</span> = <span class="hljs-number">256</span><br><br><span class="hljs-comment"># create the lmdb file</span><br><span class="hljs-comment"># map_size指的是数据库的最大容量，根据需求设置</span><br><span class="hljs-attribute">lmdb_env</span> = lmdb.open(lmdb_file, map_size=int(<span class="hljs-number">1</span>e<span class="hljs-number">12</span>))<br><span class="hljs-attribute">lmdb_txn</span> = lmdb_env.begin(write=True)<br><span class="hljs-comment"># 因为caffe中经常采用datum这种数据结构存储数据</span><br><span class="hljs-attribute">datum</span> = caffe_pb<span class="hljs-number">2</span>.Datum()<br><br><span class="hljs-attribute">item_id</span> = -<span class="hljs-number">1</span><br><span class="hljs-attribute">for</span> x in range(<span class="hljs-number">1000</span>):<br>    <span class="hljs-attribute">item_id</span> += <span class="hljs-number">1</span><br><br>    <span class="hljs-comment">#prepare the data and label</span><br>    <br>    <span class="hljs-comment">#data = np.ones((3,64,64), np.uint8) * (item_id%128 + 64) #CxHxW array, uint8 or float</span><br>    <span class="hljs-comment"># pic_path设置成图像目录, 0表示读入灰度图</span><br>    <span class="hljs-attribute">data</span> = cv<span class="hljs-number">2</span>.imread(pic_path, <span class="hljs-number">0</span>)<br>    <span class="hljs-comment"># label 设置图像的label就行</span><br>    <span class="hljs-attribute">label</span> = item_id%<span class="hljs-number">128</span> + <span class="hljs-number">64</span><br><br>    <span class="hljs-comment"># save in datum</span><br>    <span class="hljs-attribute">datum</span> = caffe.io.array_to_datum(data, label)<br>    <span class="hljs-attribute">keystr</span> = &#x27;&#123;:<span class="hljs-number">0</span>&gt;<span class="hljs-number">8</span>d&#125;&#x27;.format(item_id)<br>    <span class="hljs-attribute">lmdb_txn</span>.put( keystr, datum.SerializeToString() )<br><br>    <span class="hljs-comment"># write batch</span><br>    <span class="hljs-attribute">if</span>(item_id + <span class="hljs-number">1</span>) % batch_size == <span class="hljs-number">0</span>:<br>        <span class="hljs-attribute">lmdb_txn</span>.commit()<br>        <span class="hljs-attribute">lmdb_txn</span> = lmdb_env.begin(write=True)<br>        <span class="hljs-attribute">print</span> (item_id + <span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># write last batch</span><br><span class="hljs-attribute">if</span> (item_id+<span class="hljs-number">1</span>) % batch_size != <span class="hljs-number">0</span>:<br>    <span class="hljs-attribute">lmdb_txn</span>.commit()<br>    <span class="hljs-attribute">print</span> &#x27;last batch&#x27;<br>    <span class="hljs-attribute">print</span> (item_id + <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Caffe/">Caffe</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Caffe/">Caffe</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LMDB/">LMDB</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-%E6%9F%A5%E7%9C%8B-caffemodel-%E5%86%85%E5%AE%B9/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">查看 caffemodel 内容</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-Py-faster-rcnn/">
+                        <span class="hidden-mobile">Py-faster-rcnn</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Caffe/" rel="tag"># Caffe</a>
-              <a href="/tags/LMDB/" rel="tag"># LMDB</a>
-              <a href="/tags/Python/" rel="tag"># Python</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-Py-faster-rcnn/" rel="prev" title="Py-faster-rcnn">
-      <i class="fa fa-chevron-left"></i> Py-faster-rcnn
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-%E6%9F%A5%E7%9C%8B-caffemodel-%E5%86%85%E5%AE%B9/" rel="next" title="查看 caffemodel 内容">
-      查看 caffemodel 内容 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-lmdb-%E7%9A%84-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">使用 lmdb 的 Python 接口制作数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Caffe-%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">Caffe 输入格式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lmdb-%E7%9A%84-Python-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.2.</span> <span class="nav-text">lmdb 的 Python 接口</span></a></li></ol></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">clover978</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">clover978</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -387,6 +387,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -399,9 +442,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

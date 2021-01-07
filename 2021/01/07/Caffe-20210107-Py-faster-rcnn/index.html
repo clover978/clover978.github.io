@@ -1,219 +1,245 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>Py-faster-rcnn - clover978</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="使用 faster-rcnn 检测游戏中的血条https:&#x2F;&#x2F;github.com&#x2F;rbgirshick&#x2F;py-faster-rcnn这一周使用 rbg 大神的 py-faster-rcnn 训练王者荣耀视频中的人物血条，因为之前已经有不少经验，以为可以直接了当得到结果，但是事实却并不那么如意，现在将实验过程简单总结一下。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Py-faster-rcnn">
-<meta property="og:url" content="http://example.com/2021/01/07/Caffe-20210107-Py-faster-rcnn/index.html">
-<meta property="og:site_name" content="clover978">
-<meta property="og:description" content="使用 faster-rcnn 检测游戏中的血条https:&#x2F;&#x2F;github.com&#x2F;rbgirshick&#x2F;py-faster-rcnn这一周使用 rbg 大神的 py-faster-rcnn 训练王者荣耀视频中的人物血条，因为之前已经有不少经验，以为可以直接了当得到结果，但是事实却并不那么如意，现在将实验过程简单总结一下。">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-07T02:25:06.000Z">
-<meta property="article:modified_time" content="2021-01-07T02:32:12.913Z">
-<meta property="article:author" content="clover978">
-<meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="Caffe">
-<meta property="article:tag" content="Object Detection">
-<meta property="article:tag" content="Faster RCNN">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/01/07/Caffe-20210107-Py-faster-rcnn/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>Py-faster-rcnn | clover978</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">clover978</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Caffe-20210107-Py-faster-rcnn/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="clover978">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="clover978">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Py-faster-rcnn
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Py-faster-rcnn">
               
+            </span>
 
-              <time title="Created: 2021-01-07 10:25:06 / Modified: 10:32:12" itemprop="dateCreated datePublished" datetime="2021-01-07T10:25:06+08:00">2021-01-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Caffe/" itemprop="url" rel="index"><span itemprop="name">Caffe</span></a>
-                </span>
-            </span>
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-07 10:25" pubdate>
+        January 7, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <h1 id="使用-faster-rcnn-检测游戏中的血条"><a href="#使用-faster-rcnn-检测游戏中的血条" class="headerlink" title="使用 faster-rcnn 检测游戏中的血条"></a>使用 faster-rcnn 检测游戏中的血条</h1><p><a target="_blank" rel="noopener" href="https://github.com/rbgirshick/py-faster-rcnn">https://github.com/rbgirshick/py-faster-rcnn</a><br>这一周使用 rbg 大神的 py-faster-rcnn 训练王者荣耀视频中的人物血条，因为之前已经有不少经验，以为可以直接了当得到结果，但是事实却并不那么如意，现在将实验过程简单总结一下。</p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Py-faster-rcnn</h1>
+            
+            <div class="markdown-body">
+              <h1 id="使用-faster-rcnn-检测游戏中的血条"><a href="#使用-faster-rcnn-检测游戏中的血条" class="headerlink" title="使用 faster-rcnn 检测游戏中的血条"></a>使用 faster-rcnn 检测游戏中的血条</h1><p><a target="_blank" rel="noopener" href="https://github.com/rbgirshick/py-faster-rcnn">https://github.com/rbgirshick/py-faster-rcnn</a><br>这一周使用 rbg 大神的 py-faster-rcnn 训练王者荣耀视频中的人物血条，因为之前已经有不少经验，以为可以直接了当得到结果，但是事实却并不那么如意，现在将实验过程简单总结一下。</p>
 <a id="more"></a>
 
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
 <li>实验环境：<br>实验的环境配置是 <code>Python-2.7, OpenCV-2.4.9, Caffe-1.0, cudnn-v6</code></li>
-<li>安装依赖项：<br>faster-rcnn 使用的是 Caffe 框架，首先需要安装 Caffe 的依赖，另外还需要一些 Python 环境，通过 pip 即可安装。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install cpython easydict</span><br></pre></td></tr></table></figure>
+<li>安装依赖项：<br>faster-rcnn 使用的是 Caffe 框架，首先需要安装 Caffe 的依赖，另外还需要一些 Python 环境，通过 pip 即可安装。<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> cpython easydict<br></code></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h2 id="编译-faster-rcnn"><a href="#编译-faster-rcnn" class="headerlink" title="编译 faster-rcnn"></a>编译 faster-rcnn</h2><ul>
-<li>从 github pull 代码  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone --recursive https:&#x2F;&#x2F;github.com&#x2F;rbgirshick&#x2F;py-faster-rcnn.git</span><br></pre></td></tr></table></figure></li>
-<li>更新 Caffe<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/rzjmpb/article/details/52373012">http://blog.csdn.net/rzjmpb/article/details/52373012</a><br>github 中的代码使用的 Caffe 版本很古老，因此不支持 cudnnv5，为了使用 cudnn，可以升级 Caffe 或者安装低版本的 cudnn，这里选择升级 Caffe.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd py-faster-rcnn&#x2F;caffe-fast-rcnn&#x2F;</span><br><span class="line">git remote add caffe https:&#x2F;&#x2F;github.com&#x2F;BVLC&#x2F;caffe.git </span><br><span class="line"># git config --list </span><br><span class="line">git fetch caffe</span><br><span class="line">git merge -X theirs caffe&#x2F;master</span><br></pre></td></tr></table></figure>
-<strong><em>merge 之后需要注释掉 python_layer.hpp 中的一行代码</em></strong><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi caffe-fast-rcnn/include/caffe/layers/python_layer.hpp +29</span></span><br><span class="line">// self_.attr(&quot;phase&quot;) = static_cast&lt;int&gt;(this-&gt;phase_);              // &lt;================</span><br></pre></td></tr></table></figure>
+<li>从 github pull 代码  <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone --recursive https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/rbgirshick/</span>py-faster-rcnn.git<br></code></pre></td></tr></table></figure></li>
+<li>更新 Caffe<br><a target="_blank" rel="noopener" href="http://blog.csdn.net/rzjmpb/article/details/52373012">http://blog.csdn.net/rzjmpb/article/details/52373012</a><br>github 中的代码使用的 Caffe 版本很古老，因此不支持 cudnnv5，为了使用 cudnn，可以升级 Caffe 或者安装低版本的 cudnn，这里选择升级 Caffe.<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd py-faster-rcnn<span class="hljs-regexp">/caffe-fast-rcnn/</span><br>git remote add caffe https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/BVLC/</span>caffe.git <br><span class="hljs-comment"># git config --list </span><br>git fetch caffe<br>git merge -X theirs caffe/master<br></code></pre></td></tr></table></figure>
+<strong><em>merge 之后需要注释掉 python_layer.hpp 中的一行代码</em></strong><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> vi caffe-fast-rcnn/include/caffe/layers/python_layer.hpp +29</span><br>// self_.attr(&quot;phase&quot;) = static_cast&lt;int&gt;(this-&gt;phase_);              // &lt;================<br></code></pre></td></tr></table></figure>
 
 
 </li>
@@ -222,7 +248,7 @@
 <li><p>配置 Makefile.config<br>注意打开 <code>WITH_PYTHON_LAYER=1</code></p>
 </li>
 <li><p>编译Caffe 和 faster-rcnn</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd py-faster-rcnn&#x2F;caffe-fater-rcnn&#x2F;</span><br><span class="line">make -j</span><br><span class="line">make pycaffe</span><br><span class="line">cd py-faster-rcnn&#x2F;lib&#x2F;</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span> <span class="hljs-keyword">py</span>-faster-rcnn/caffe-fater-rcnn/<br><span class="hljs-keyword">make</span> -<span class="hljs-keyword">j</span><br><span class="hljs-keyword">make</span> pycaffe<br><span class="hljs-keyword">cd</span> <span class="hljs-keyword">py</span>-faster-rcnn/lib/<br><span class="hljs-keyword">make</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>Caffe 默认使用的是 Python2, OpenCV2; faster-rcnn 使用系统环境变量中的 Python 解释器。一定要注意两者保持一致，特别是由于不可抗原因必须使用 Python3 的场景，确保 Caffe 和 faster-rcnn 的编译环境保持一致（<em>faster-rcnn 中有大量的 Python2 接口不被 Python3兼容，使用 Python3 需要做很多修改，或者在 Github 上寻找其他 fork 分支</em>）</p>
 </blockquote>
@@ -230,34 +256,34 @@
 </ul>
 <h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>一般按照 pascal_voc 的格式准备数据，需要准备三个文件夹  </p>
 <ul>
-<li><code>my_data/VOC2007/Annotations/</code><br><code>Annotation</code> 文件夹下面是 XML 文件，具体格式如下：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">annotation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">folder</span>&gt;</span>VOC2007<span class="tag">&lt;/<span class="name">folder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filename</span>&gt;</span>img.jpg<span class="tag">&lt;/<span class="name">filename</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">size</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">width</span>&gt;</span>1280<span class="tag">&lt;/<span class="name">width</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">height</span>&gt;</span>720<span class="tag">&lt;/<span class="name">height</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">depth</span>&gt;</span>3<span class="tag">&lt;/<span class="name">depth</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">size</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">object</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bndbox</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xmin</span>&gt;</span>548<span class="tag">&lt;/<span class="name">xmin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xmax</span>&gt;</span>711<span class="tag">&lt;/<span class="name">xmax</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ymin</span>&gt;</span>255<span class="tag">&lt;/<span class="name">ymin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ymax</span>&gt;</span>287<span class="tag">&lt;/<span class="name">ymax</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bndbox</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>health_blue<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">truncated</span>&gt;</span>0<span class="tag">&lt;/<span class="name">truncated</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">difficult</span>&gt;</span>0<span class="tag">&lt;/<span class="name">difficult</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">object</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bndbox</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xmin</span>&gt;</span>675<span class="tag">&lt;/<span class="name">xmin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xmax</span>&gt;</span>842<span class="tag">&lt;/<span class="name">xmax</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ymin</span>&gt;</span>373<span class="tag">&lt;/<span class="name">ymin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ymax</span>&gt;</span>407<span class="tag">&lt;/<span class="name">ymax</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bndbox</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>health_red<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">truncated</span>&gt;</span>0<span class="tag">&lt;/<span class="name">truncated</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">difficult</span>&gt;</span>0<span class="tag">&lt;/<span class="name">difficult</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">segmented</span>&gt;</span>0<span class="tag">&lt;/<span class="name">segmented</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">annotation</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><code>my_data/VOC2007/Annotations/</code><br><code>Annotation</code> 文件夹下面是 XML 文件，具体格式如下：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs HTML"><span class="hljs-tag">&lt;<span class="hljs-name">annotation</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">folder</span>&gt;</span>VOC2007<span class="hljs-tag">&lt;/<span class="hljs-name">folder</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">filename</span>&gt;</span>img.jpg<span class="hljs-tag">&lt;/<span class="hljs-name">filename</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">size</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">width</span>&gt;</span>1280<span class="hljs-tag">&lt;/<span class="hljs-name">width</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">height</span>&gt;</span>720<span class="hljs-tag">&lt;/<span class="hljs-name">height</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">depth</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">depth</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">size</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">object</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">bndbox</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xmin</span>&gt;</span>548<span class="hljs-tag">&lt;/<span class="hljs-name">xmin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xmax</span>&gt;</span>711<span class="hljs-tag">&lt;/<span class="hljs-name">xmax</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ymin</span>&gt;</span>255<span class="hljs-tag">&lt;/<span class="hljs-name">ymin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ymax</span>&gt;</span>287<span class="hljs-tag">&lt;/<span class="hljs-name">ymax</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">bndbox</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>health_blue<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">truncated</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">truncated</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">difficult</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">difficult</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">object</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">object</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">bndbox</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xmin</span>&gt;</span>675<span class="hljs-tag">&lt;/<span class="hljs-name">xmin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">xmax</span>&gt;</span>842<span class="hljs-tag">&lt;/<span class="hljs-name">xmax</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ymin</span>&gt;</span>373<span class="hljs-tag">&lt;/<span class="hljs-name">ymin</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">ymax</span>&gt;</span>407<span class="hljs-tag">&lt;/<span class="hljs-name">ymax</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">bndbox</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>health_red<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">truncated</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">truncated</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">difficult</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">difficult</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">object</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">segmented</span>&gt;</span>0<span class="hljs-tag">&lt;/<span class="hljs-name">segmented</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">annotation</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
 <li><code>my_data/VOC2007/ImageSets/</code><br><code>ImageSets/Main</code> 文件夹下面是 TXT 文件，总共有 4 个，分别是 <code>trainval.txt</code>, <code>train.txt</code>, <code>val.txt</code>, <code>test.txt</code>， 文件中每一行代表一张图片；  </li>
 <li><code>my_data/VOC2007/JPEGImages/</code><br><code>JPEGImages</code> 文件夹下面保存的是图片。  </li>
 </ul>
 <p><strong>这里有几个小细节：<br>（1）图片的文件名后缀是 .jpg；<br>（2）ImageSets 文件夹下面的 txt 是没有后缀的；<br>（3）xml 中矩形框字段的 tag 是 bndbox，不是常用的 bbox；<br>（4）cls 的名字最好全部使用小写英文字母和下划线，因为 faster-rcnn 会将字符全部转换为小写；<br>（5）注意检查 xml 中是否每一张图片都含有 object 字段，没有 object 字段的 xml 进入网络训练不会报错，但是对训练结果会有影响。</strong>  </p>
 <ul>
 <li><p>制作完数据集后，在 <code>data/</code> 目录下，建立软连接，指向 <code>my_data/</code> 文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd py-faster-rcnn&#x2F;data&#x2F;</span><br><span class="line">ln -s my_data&#x2F; VOCdevkit2007</span><br></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span> <span class="hljs-keyword">py</span>-faster-rcnn/data/<br><span class="hljs-keyword">ln</span> -s my_data/ VOCdevkit2007<br></code></pre></td></tr></table></figure>
 <h2 id="更改网络设置"><a href="#更改网络设置" class="headerlink" title="更改网络设置"></a>更改网络设置</h2><p>faster-rcnn 的网络结构由两部分组成，一部分在 <code>models/</code> 目录下，这里的主要包含 prototxt， 用来初始化 Solver 和 Network；另一部分在 <code>lib/</code> 目录下，这里包含 rpn, roi_layer, nms 等模块，以及用来 读取和解析 xml 文件的代码。  </p>
 </li>
 <li><p><code>models/</code><br>py-faster-rcnn 提供了两种训练方法，一种是 alt-opt 训练，一种是 end2end 训练，关于两种训练的差别可以参考 Github 上的 readme，另外我们还可以选择使用三种不同的 Backbone Network： {VGG16, VGG-M, ZF}，这里我们选择性能最好的 VGG16，训练方式为 end2end 训练。对应目录为 <code>models/pascal_voc/VGG16/faster_rcnn_end2end/</code><br>– 修改 train.prototxt</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">$ vi models&#x2F;pascal_voc&#x2F;VGG16&#x2F;faster_rcnn_end2end&#x2F;train.prototxt</span><br><span class="line"># input_data 层（第 11 行）， 修改 num_classes 为 cls+1</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &#39;input-data&#39;</span><br><span class="line">    type: &#39;Python&#39;</span><br><span class="line">    top: &#39;data&#39;</span><br><span class="line">    top: &#39;im_info&#39;</span><br><span class="line">    top: &#39;gt_boxes&#39;</span><br><span class="line">    python_param &#123;</span><br><span class="line">        module: &#39;roi_data_layer.layer&#39;</span><br><span class="line">        layer: &#39;RoIDataLayer&#39;</span><br><span class="line">        # param_str: &quot;&#39;num_classes&#39;: 21&quot;</span><br><span class="line">        param_str: &quot;&#39;num_classes&#39;: 3&quot;              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"># roi_data 层（第 530 行）， 修改 num_classes 为 cls+1</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &#39;roi-data&#39;</span><br><span class="line">    type: &#39;Python&#39;</span><br><span class="line">    bottom: &#39;rpn_rois&#39;</span><br><span class="line">    bottom: &#39;gt_boxes&#39;</span><br><span class="line">    top: &#39;rois&#39;</span><br><span class="line">    top: &#39;labels&#39;</span><br><span class="line">    top: &#39;bbox_targets&#39;</span><br><span class="line">    top: &#39;bbox_inside_weights&#39;</span><br><span class="line">    top: &#39;bbox_outside_weights&#39;</span><br><span class="line">    python_param &#123;</span><br><span class="line">        module: &#39;rpn.proposal_target_layer&#39;</span><br><span class="line">        layer: &#39;ProposalTargetLayer&#39;</span><br><span class="line">        # param_str: &quot;&#39;num_classes&#39;: 21&quot;</span><br><span class="line">        param_str: &quot;&#39;num_classes&#39;: 3&quot;              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"># cls_score 层（第 620 行）， 修改 num_output 为 cls+1</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &quot;cls_score&quot;</span><br><span class="line">    type: &quot;InnerProduct&quot;</span><br><span class="line">    bottom: &quot;fc7&quot;</span><br><span class="line">    top: &quot;cls_score&quot;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 1</span><br><span class="line">    &#125;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 2</span><br><span class="line">    &#125;</span><br><span class="line">    inner_product_param &#123;</span><br><span class="line">        # num_output: 21</span><br><span class="line">        num_output: 3              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">        weight_filler &#123;</span><br><span class="line">            type: &quot;gaussian&quot;</span><br><span class="line">            std: 0.01</span><br><span class="line">        &#125;</span><br><span class="line">        bias_filler &#123;</span><br><span class="line">            type: &quot;constant&quot;</span><br><span class="line">            value: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"># box_pred 层（第 643 行）， 修改 num_output 为 4*(cls+1)</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &quot;bbox_pred&quot;</span><br><span class="line">    type: &quot;InnerProduct&quot;</span><br><span class="line">    bottom: &quot;fc7&quot;</span><br><span class="line">    top: &quot;bbox_pred&quot;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 1</span><br><span class="line">    &#125;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 2</span><br><span class="line">    &#125;</span><br><span class="line">    inner_product_param &#123;</span><br><span class="line">        # num_output: 84</span><br><span class="line">        num_output: 12              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">        weight_filler &#123;</span><br><span class="line">            type: &quot;gaussian&quot;</span><br><span class="line">            std: 0.001</span><br><span class="line">        &#125;</span><br><span class="line">        bias_filler &#123;</span><br><span class="line">            type: &quot;constant&quot;</span><br><span class="line">            value: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs puppet">$ vi models/pascal_voc/VGG16/faster_rcnn_end2end/train.prototxt<br><span class="hljs-comment"># input_data 层（第 11 行）， 修改 num_classes 为 cls+1</span><br><span class="hljs-keyword">layer</span> &#123;<br>    <span class="hljs-literal">name</span>: <span class="hljs-string">&#x27;input-data&#x27;</span><br>    <span class="hljs-built_in">type</span>: <span class="hljs-string">&#x27;Python&#x27;</span><br>    top: <span class="hljs-string">&#x27;data&#x27;</span><br>    top: <span class="hljs-string">&#x27;im_info&#x27;</span><br>    top: <span class="hljs-string">&#x27;gt_boxes&#x27;</span><br>    python_param &#123;<br>        module: <span class="hljs-string">&#x27;roi_data_layer.layer&#x27;</span><br>        layer: <span class="hljs-string">&#x27;RoIDataLayer&#x27;</span><br>        <span class="hljs-comment"># param_str: &quot;&#x27;num_classes&#x27;: 21&quot;</span><br>        param_str: <span class="hljs-string">&quot;&#x27;num_classes&#x27;: 3&quot;</span>              <span class="hljs-comment"># &lt;================</span><br>    &#125;<br>&#125;<br><span class="hljs-comment"># roi_data 层（第 530 行）， 修改 num_classes 为 cls+1</span><br><span class="hljs-keyword">layer</span> &#123;<br>    <span class="hljs-literal">name</span>: <span class="hljs-string">&#x27;roi-data&#x27;</span><br>    <span class="hljs-built_in">type</span>: <span class="hljs-string">&#x27;Python&#x27;</span><br>    bottom: <span class="hljs-string">&#x27;rpn_rois&#x27;</span><br>    bottom: <span class="hljs-string">&#x27;gt_boxes&#x27;</span><br>    top: <span class="hljs-string">&#x27;rois&#x27;</span><br>    top: <span class="hljs-string">&#x27;labels&#x27;</span><br>    top: <span class="hljs-string">&#x27;bbox_targets&#x27;</span><br>    top: <span class="hljs-string">&#x27;bbox_inside_weights&#x27;</span><br>    top: <span class="hljs-string">&#x27;bbox_outside_weights&#x27;</span><br>    python_param &#123;<br>        module: <span class="hljs-string">&#x27;rpn.proposal_target_layer&#x27;</span><br>        layer: <span class="hljs-string">&#x27;ProposalTargetLayer&#x27;</span><br>        <span class="hljs-comment"># param_str: &quot;&#x27;num_classes&#x27;: 21&quot;</span><br>        param_str: <span class="hljs-string">&quot;&#x27;num_classes&#x27;: 3&quot;</span>              <span class="hljs-comment"># &lt;================</span><br>    &#125;<br>&#125;<br><span class="hljs-comment"># cls_score 层（第 620 行）， 修改 num_output 为 cls+1</span><br><span class="hljs-keyword">layer</span> &#123;<br>    <span class="hljs-literal">name</span>: <span class="hljs-string">&quot;cls_score&quot;</span><br>    <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;InnerProduct&quot;</span><br>    bottom: <span class="hljs-string">&quot;fc7&quot;</span><br>    top: <span class="hljs-string">&quot;cls_score&quot;</span><br>    param &#123;<br>        lr_mult: <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">param</span> &#123;<br>        lr_mult: <span class="hljs-number">2</span><br>    &#125;<br>    <span class="hljs-keyword">inner_product_param</span> &#123;<br>        <span class="hljs-comment"># num_output: 21</span><br>        num_output: <span class="hljs-number">3</span>              <span class="hljs-comment"># &lt;================</span><br>        weight_filler &#123;<br>            <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;gaussian&quot;</span><br>            std: <span class="hljs-number">0</span>.<span class="hljs-number">01</span><br>        &#125;<br>        <span class="hljs-keyword">bias_filler</span> &#123;<br>            <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;constant&quot;</span><br>            value: <span class="hljs-number">0</span><br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment"># box_pred 层（第 643 行）， 修改 num_output 为 4*(cls+1)</span><br><span class="hljs-keyword">layer</span> &#123;<br>    <span class="hljs-literal">name</span>: <span class="hljs-string">&quot;bbox_pred&quot;</span><br>    <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;InnerProduct&quot;</span><br>    bottom: <span class="hljs-string">&quot;fc7&quot;</span><br>    top: <span class="hljs-string">&quot;bbox_pred&quot;</span><br>    param &#123;<br>        lr_mult: <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-keyword">param</span> &#123;<br>        lr_mult: <span class="hljs-number">2</span><br>    &#125;<br>    <span class="hljs-keyword">inner_product_param</span> &#123;<br>        <span class="hljs-comment"># num_output: 84</span><br>        num_output: <span class="hljs-number">12</span>              <span class="hljs-comment"># &lt;================</span><br>        weight_filler &#123;<br>            <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;gaussian&quot;</span><br>            std: <span class="hljs-number">0</span>.<span class="hljs-number">001</span><br>        &#125;<br>        <span class="hljs-keyword">bias_filler</span> &#123;<br>            <span class="hljs-built_in">type</span>: <span class="hljs-string">&quot;constant&quot;</span><br>            value: <span class="hljs-number">0</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>  – 修改 test.prototxt</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">$ vi models&#x2F;pascal_voc&#x2F;VGG16&#x2F;faster_rcnn_end2end&#x2F;test.prototxt</span><br><span class="line"># cls_score 层（第 567 行）， 修改 num_output 为 cls+1</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &quot;cls_score&quot;</span><br><span class="line">    type: &quot;InnerProduct&quot;</span><br><span class="line">    bottom: &quot;fc7&quot;</span><br><span class="line">    top: &quot;cls_score&quot;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 1</span><br><span class="line">    &#125;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 2</span><br><span class="line">    &#125;</span><br><span class="line">    inner_product_param &#123;</span><br><span class="line">        # num_output: 21</span><br><span class="line">        num_output: 3              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">        weight_filler &#123;</span><br><span class="line">            type: &quot;gaussian&quot;</span><br><span class="line">            std: 0.01</span><br><span class="line">        &#125;</span><br><span class="line">        bias_filler &#123;</span><br><span class="line">            type: &quot;constant&quot;</span><br><span class="line">            value: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"># box_pred 层（第 592 行）， 修改 num_output 为 4*(cls+1)</span><br><span class="line">layer &#123;</span><br><span class="line">    name: &quot;bbox_pred&quot;</span><br><span class="line">    type: &quot;InnerProduct&quot;</span><br><span class="line">    bottom: &quot;fc7&quot;</span><br><span class="line">    top: &quot;bbox_pred&quot;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 1</span><br><span class="line">    &#125;</span><br><span class="line">    param &#123;</span><br><span class="line">        lr_mult: 2</span><br><span class="line">    &#125;</span><br><span class="line">    inner_product_param &#123;</span><br><span class="line">        # num_output: 84</span><br><span class="line">        num_output: 12              # &lt;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">        weight_filler &#123;</span><br><span class="line">            type: &quot;gaussian&quot;</span><br><span class="line">            std: 0.001</span><br><span class="line">        &#125;</span><br><span class="line">        bias_filler &#123;</span><br><span class="line">            type: &quot;constant&quot;</span><br><span class="line">            value: 0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs dts">$ vi models/pascal_voc/VGG16/faster_rcnn_end2end/test.prototxt<br><span class="hljs-meta"># cls_score 层（第 567 行）， 修改 num_output 为 cls+1</span><br><span class="hljs-class">layer </span>&#123;<br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;cls_score&quot;</span><br><span class="hljs-symbol">    type:</span> <span class="hljs-string">&quot;InnerProduct&quot;</span><br><span class="hljs-symbol">    bottom:</span> <span class="hljs-string">&quot;fc7&quot;</span><br><span class="hljs-symbol">    top:</span> <span class="hljs-string">&quot;cls_score&quot;</span><br>    <span class="hljs-class">param </span>&#123;<br><span class="hljs-symbol">        lr_mult:</span> <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-class">param </span>&#123;<br><span class="hljs-symbol">        lr_mult:</span> <span class="hljs-number">2</span><br>    &#125;<br>    <span class="hljs-class">inner_product_param </span>&#123;<br>        <span class="hljs-meta"># num_output: 21</span><br><span class="hljs-symbol">        num_output:</span> <span class="hljs-number">3</span>              <span class="hljs-meta"># &lt;================</span><br>        <span class="hljs-class">weight_filler </span>&#123;<br><span class="hljs-symbol">            type:</span> <span class="hljs-string">&quot;gaussian&quot;</span><br><span class="hljs-symbol">            std:</span> <span class="hljs-number">0.01</span><br>        &#125;<br>        <span class="hljs-class">bias_filler </span>&#123;<br><span class="hljs-symbol">            type:</span> <span class="hljs-string">&quot;constant&quot;</span><br><span class="hljs-symbol">            value:</span> <span class="hljs-number">0</span><br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-meta"># box_pred 层（第 592 行）， 修改 num_output 为 4*(cls+1)</span><br><span class="hljs-class">layer </span>&#123;<br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;bbox_pred&quot;</span><br><span class="hljs-symbol">    type:</span> <span class="hljs-string">&quot;InnerProduct&quot;</span><br><span class="hljs-symbol">    bottom:</span> <span class="hljs-string">&quot;fc7&quot;</span><br><span class="hljs-symbol">    top:</span> <span class="hljs-string">&quot;bbox_pred&quot;</span><br>    <span class="hljs-class">param </span>&#123;<br><span class="hljs-symbol">        lr_mult:</span> <span class="hljs-number">1</span><br>    &#125;<br>    <span class="hljs-class">param </span>&#123;<br><span class="hljs-symbol">        lr_mult:</span> <span class="hljs-number">2</span><br>    &#125;<br>    <span class="hljs-class">inner_product_param </span>&#123;<br>        <span class="hljs-meta"># num_output: 84</span><br><span class="hljs-symbol">        num_output:</span> <span class="hljs-number">12</span>              <span class="hljs-meta"># &lt;================</span><br>        <span class="hljs-class">weight_filler </span>&#123;<br><span class="hljs-symbol">            type:</span> <span class="hljs-string">&quot;gaussian&quot;</span><br><span class="hljs-symbol">            std:</span> <span class="hljs-number">0.001</span><br>        &#125;<br>        <span class="hljs-class">bias_filler </span>&#123;<br><span class="hljs-symbol">            type:</span> <span class="hljs-string">&quot;constant&quot;</span><br><span class="hljs-symbol">            value:</span> <span class="hljs-number">0</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>  – 修改 solver.prototxt<br>  修改 solver 中的参数，使之适合训练自己的数据；<br>  faster-rcnn 的另外大多数网络参数在 <code>lib/fast-rcnn/config.py</code> 中，附有详细的注释，可以参考注释进行修改。</p>
 </li>
 <li><p><code>lib/</code><br>  – 修改 pascal_voc.py<br>  由于自己训练数据的类别数与 pascal_voc 不同，因此需要稍微修改一下</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi lib/datasets/pascal_voc.py</span><br><span class="line"><span class="comment"># 修改 self._classes 为自己的类别：</span></span><br><span class="line"><span class="comment"># self._classes = (&#x27;__background__&#x27;, # always index 0</span></span><br><span class="line"><span class="comment">#             &#x27;aeroplane&#x27;, &#x27;bicycle&#x27;, &#x27;bird&#x27;, &#x27;boat&#x27;,</span></span><br><span class="line"><span class="comment">#             &#x27;bottle&#x27;, &#x27;bus&#x27;, &#x27;car&#x27;, &#x27;cat&#x27;, &#x27;chair&#x27;,</span></span><br><span class="line"><span class="comment">#             &#x27;cow&#x27;, &#x27;diningtable&#x27;, &#x27;dog&#x27;, &#x27;horse&#x27;,</span></span><br><span class="line"><span class="comment">#             &#x27;motorbike&#x27;, &#x27;person&#x27;, &#x27;pottedplant&#x27;,</span></span><br><span class="line"><span class="comment">#             &#x27;sheep&#x27;, &#x27;sofa&#x27;, &#x27;train&#x27;, &#x27;tvmonitor&#x27;)</span></span><br><span class="line">self._classes = (<span class="string">&#x27;__background__&#x27;</span>, <span class="comment"># always index 0</span></span><br><span class="line">             <span class="string">&#x27;health_blue&#x27;</span>, <span class="string">&#x27;health_red&#x27;</span>)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python">vi lib/datasets/pascal_voc.py<br><span class="hljs-comment"># 修改 self._classes 为自己的类别：</span><br><span class="hljs-comment"># self._classes = (&#x27;__background__&#x27;, # always index 0</span><br><span class="hljs-comment">#             &#x27;aeroplane&#x27;, &#x27;bicycle&#x27;, &#x27;bird&#x27;, &#x27;boat&#x27;,</span><br><span class="hljs-comment">#             &#x27;bottle&#x27;, &#x27;bus&#x27;, &#x27;car&#x27;, &#x27;cat&#x27;, &#x27;chair&#x27;,</span><br><span class="hljs-comment">#             &#x27;cow&#x27;, &#x27;diningtable&#x27;, &#x27;dog&#x27;, &#x27;horse&#x27;,</span><br><span class="hljs-comment">#             &#x27;motorbike&#x27;, &#x27;person&#x27;, &#x27;pottedplant&#x27;,</span><br><span class="hljs-comment">#             &#x27;sheep&#x27;, &#x27;sofa&#x27;, &#x27;train&#x27;, &#x27;tvmonitor&#x27;)</span><br>self._classes = (<span class="hljs-string">&#x27;__background__&#x27;</span>, <span class="hljs-comment"># always index 0</span><br>             <span class="hljs-string">&#x27;health_blue&#x27;</span>, <span class="hljs-string">&#x27;health_red&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h2 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h2><ol>
 <li><p>建立测试结果的文件夹：  </p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p data/VOCdevkit2007/results/VOC2007/Main/</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir -p data/VOCdevkit2007/results/VOC2007/Main/<br></code></pre></td></tr></table></figure>
 <p> 训练完成后，会进行一次测试，如果不手动新建文件夹，测试的时候会报错说找不到这个目录。  </p>
 </li>
 <li><p>直接使用 faster-rcnn 的 脚本进行训练：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;experiments&#x2F;scripts&#x2F;faster_rcnn_end2end.sh 0 VGG16 pascal_voc</span><br></pre></td></tr></table></figure>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">.<span class="hljs-regexp">/experiments/</span>scripts/faster_rcnn_end2end.sh <span class="hljs-number">0</span> VGG16 pascal_voc<br></code></pre></td></tr></table></figure>
 <p> 最大迭代次数在 <code>./experiments/scripts/faster_rcnn_end2end.sh</code> 中进行设置；<br> 训练的 log 存储在 <code>experiments/logs/</code> 中， 也可以自己重定向出来。</p>
 </li>
 </ol>
@@ -267,9 +293,9 @@
 <li><p>如果想使用单张图片进行测试，并且看到可视化效果，可以参考 <code>tools/demo.py</code>， <code>demo.py</code> 使用 matplotlib 进行可视化，对脚本稍加修改，可以将测试结果保存成图片存储下来。  </p>
 </li>
 <li><p>修改脚本代码：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line"># --------------------------------------------------------</span><br><span class="line"># Faster R-CNN</span><br><span class="line"># Copyright (c) 2015 Microsoft</span><br><span class="line"># Licensed under The MIT License [see LICENSE for details]</span><br><span class="line"># Written by Ross Girshick</span><br><span class="line"># --------------------------------------------------------</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Demo script showing detections in sample images.</span><br><span class="line">See README.md for installation instructions before running.</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import _init_paths</span><br><span class="line">from fast_rcnn.config import cfg</span><br><span class="line">from fast_rcnn.test import im_detect</span><br><span class="line">from fast_rcnn.nms_wrapper import nms</span><br><span class="line">from utils.timer import Timer</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">import scipy.io as sio</span><br><span class="line">import caffe, os, sys, cv2</span><br><span class="line">import argparse</span><br><span class="line">import glob</span><br><span class="line"></span><br><span class="line">CLASSES&#x3D;(&#39;__background__&#39;,&#39;health_blue&#39;,&#39;health_red&#39;)</span><br><span class="line"></span><br><span class="line">def vis_detections(im, class_name, dets, thresh&#x3D;0.5):</span><br><span class="line">    inds &#x3D; np.where(dets[:, -1] &gt;&#x3D; thresh)[0]</span><br><span class="line">    boxes, scores &#x3D; ([], [])</span><br><span class="line">    for i in inds:</span><br><span class="line">        bbox &#x3D; dets[i, :4]</span><br><span class="line">        score &#x3D; dets[i, -1]</span><br><span class="line">        boxes.append( dets[i, :4] )</span><br><span class="line">        scores.append(score)</span><br><span class="line">        print(bbox, score)</span><br><span class="line">    return boxes, scores</span><br><span class="line"></span><br><span class="line">def demo(net, im, filename, out_dir):</span><br><span class="line">    timer &#x3D; Timer()</span><br><span class="line">    timer.tic()</span><br><span class="line">    scores, boxes &#x3D; im_detect(net, im)</span><br><span class="line">    timer.toc()</span><br><span class="line">    print(&#39;-----------------------------------------------------&#39;)</span><br><span class="line">    print ((&#39;Detection &#123;&#125; took &#123;:.3f&#125;s for &#123;:d&#125; object proposals&#39;).format(filename, timer.total_time, boxes.shape[0]))</span><br><span class="line"></span><br><span class="line">    CONF_THRESH &#x3D; 0.8</span><br><span class="line">    NMS_THRESH &#x3D; 0.1</span><br><span class="line">    for cls_ind, cls in enumerate(CLASSES[1:]):</span><br><span class="line">        cls_ind +&#x3D; 1 # because we skipped background</span><br><span class="line">        cls_boxes &#x3D; boxes[:, 4*cls_ind:4*(cls_ind + 1)]</span><br><span class="line">        cls_scores &#x3D; scores[:, cls_ind]</span><br><span class="line">        dets &#x3D; np.hstack((cls_boxes,</span><br><span class="line">                        cls_scores[:, np.newaxis])).astype(np.float32)</span><br><span class="line">        keep &#x3D; nms(dets, NMS_THRESH)</span><br><span class="line">        dets &#x3D; dets[keep, :]</span><br><span class="line"></span><br><span class="line">        _boxes, _scores &#x3D; vis_detections(im, cls, dets, thresh&#x3D;CONF_THRESH)</span><br><span class="line">        for box, score in zip( _boxes, _scores):</span><br><span class="line">            display_str &#x3D; cls + &#39; &#39; + str(score)</span><br><span class="line">            cv2.rectangle(im, tuple(box[:2]), tuple(box[2:]), (255,0,0), 2)</span><br><span class="line">            cv2.putText(im, display_str, tuple(box[:2]), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)</span><br><span class="line"></span><br><span class="line">    cv2.imwrite( os.path.join( out_dir, filename), im)</span><br><span class="line"></span><br><span class="line">def parse_args():</span><br><span class="line">    &quot;&quot;&quot;Parse input arguments.&quot;&quot;&quot;</span><br><span class="line">    parser &#x3D; argparse.ArgumentParser(description&#x3D;&#39;Faster R-CNN demo&#39;)</span><br><span class="line">    parser.add_argument(&#39;model_name&#39;, help&#x3D;&#39;model name&#39;,</span><br><span class="line">                        type&#x3D;str)</span><br><span class="line">    parser.add_argument(&#39;--gpu&#39;, dest&#x3D;&#39;gpu_id&#39;, help&#x3D;&#39;GPU device id to use [0]&#39;,</span><br><span class="line">                        default&#x3D;1, type&#x3D;int)</span><br><span class="line">    parser.add_argument(&#39;--cpu&#39;, dest&#x3D;&#39;cpu_mode&#39;,</span><br><span class="line">                        help&#x3D;&#39;Use CPU mode (overrides --gpu)&#39;,</span><br><span class="line">                        action&#x3D;&#39;store_true&#39;)</span><br><span class="line">    parser.add_argument(&#39;--data_dir&#39;, dest&#x3D;&#39;data_dir&#39;, help&#x3D;&#39;data path&#39;,default&#x3D;&#39;&#x2F;bigdata&#x2F;dxx&#x2F;py-faster-rcnn&#x2F;demo&#x2F;&#39;,</span><br><span class="line">                        type&#x3D;str)</span><br><span class="line">    parser.add_argument(&#39;--video_name&#39;, dest&#x3D;&#39;video_name&#39;, help&#x3D;&#39;video name&#39;,default&#x3D;&#39;test.mp4&#39;,</span><br><span class="line">                        type&#x3D;str)</span><br><span class="line">    parser.add_argument(&#39;--image_name&#39;, dest&#x3D;&#39;image_name&#39;, help&#x3D;&#39;image name&#39;,default&#x3D;&#39;test.mp4&#39;,</span><br><span class="line">                        type&#x3D;str)</span><br><span class="line">    parser.add_argument(&#39;--model_dir&#39;, dest&#x3D;&#39;model_dir&#39;, help&#x3D;&#39;model path&#39;,default&#x3D;&#39;&#x2F;bigdata&#x2F;dxx&#x2F;py-faster-rcnn&#x2F;models&#x2F;&#39;,</span><br><span class="line">                        type&#x3D;str)</span><br><span class="line">    args &#x3D; parser.parse_args()</span><br><span class="line">    return args</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    cfg.TEST.HAS_RPN &#x3D; True  # Use RPN for proposals</span><br><span class="line">    args &#x3D; parse_args()</span><br><span class="line"></span><br><span class="line">    out_dir &#x3D; os.path.join(args.data_dir, args.model_name)</span><br><span class="line">    if not os.path.exists(out_dir):</span><br><span class="line">        os.mkdir(out_dir)</span><br><span class="line">        os.system(&#39;&#123;&#125; &#123;&#125; &#123;&#125;&#39;.format(&#39;chmod&#39;, &#39;777&#39;, out_dir))</span><br><span class="line">    print(&#39;output images to &#123;&#125;&#39;.format(out_dir))</span><br><span class="line">    prototxt &#x3D; &#39;models&#x2F;pascal_voc&#x2F;VGG16&#x2F;faster_rcnn_end2end&#x2F;test.prototxt&#39;</span><br><span class="line">    caffemodel &#x3D; os.path.join(args.model_dir, args.model_name, &#39;vgg16_faster_rcnn_final.caffemodel&#39;)</span><br><span class="line"></span><br><span class="line">    if args.cpu_mode:</span><br><span class="line">        caffe.set_mode_cpu()</span><br><span class="line">    else:</span><br><span class="line">        caffe.set_mode_gpu()</span><br><span class="line">        caffe.set_device(args.gpu_id)</span><br><span class="line">        cfg.GPU_ID &#x3D; args.gpu_id</span><br><span class="line"></span><br><span class="line">    net &#x3D; caffe.Net(prototxt, caffemodel, caffe.TEST)</span><br><span class="line">    print (&#39;\n\nLoaded network &#123;:s&#125;&#39;.format(caffemodel))</span><br><span class="line"></span><br><span class="line">    image_f &#x3D; os.path.join(args.data_dir, &#39;image&#39;, args.image_name, &#39;*.jpg&#39;)</span><br><span class="line">    for im_f in sorted(glob.glob(image_f)):</span><br><span class="line">        im &#x3D; cv2.imread(im_f)</span><br><span class="line">        demo(net, im, os.path.basename(im_f), out_dir)</span><br><span class="line">    &#39;&#39;&#39;</span><br><span class="line">    video_f &#x3D; os.path.join(args.data_dir, &#39;video&#39;, args.video_name)</span><br><span class="line">    video_cap &#x3D; cv2.VideoCapture(video_f)</span><br><span class="line">    frame_cnt &#x3D; int(video_cap.get(cv2.CAP_PROP_FRAME_COUNT))</span><br><span class="line">    error_frame &#x3D; max(20, frame_cnt &#x2F; 50)</span><br><span class="line">    for i, frame_index in enumerate(range(0, frame_cnt, 10)):</span><br><span class="line">        video_cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)</span><br><span class="line">        status, frame &#x3D; video_cap.read()</span><br><span class="line">        if not status:</span><br><span class="line">                error_frame -&#x3D; 1</span><br><span class="line">                if error_frame &gt; 0:</span><br><span class="line">                    continue</span><br><span class="line">                video_cap.release()</span><br><span class="line">                raise Exception(&#39;Bad video file&#39;)</span><br><span class="line"></span><br><span class="line">        demo(net, frame, frame_index+&#39;.jpg&#39;, out_dir)</span><br><span class="line">    &#39;&#39;&#39;</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><br><span class="hljs-comment"># --------------------------------------------------------</span><br><span class="hljs-comment"># Faster R-CNN</span><br><span class="hljs-comment"># Copyright (c) 2015 Microsoft</span><br><span class="hljs-comment"># Licensed under The MIT License [see LICENSE for details]</span><br><span class="hljs-comment"># Written by Ross Girshick</span><br><span class="hljs-comment"># --------------------------------------------------------</span><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Demo script showing detections in sample images.</span><br><span class="hljs-string">See README.md for installation instructions before running.</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> _init_paths<br><span class="hljs-keyword">from</span> fast_rcnn.config <span class="hljs-keyword">import</span> cfg<br><span class="hljs-keyword">from</span> fast_rcnn.test <span class="hljs-keyword">import</span> im_detect<br><span class="hljs-keyword">from</span> fast_rcnn.nms_wrapper <span class="hljs-keyword">import</span> nms<br><span class="hljs-keyword">from</span> utils.timer <span class="hljs-keyword">import</span> Timer<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> scipy.io <span class="hljs-keyword">as</span> sio<br><span class="hljs-keyword">import</span> caffe, os, sys, cv2<br><span class="hljs-keyword">import</span> argparse<br><span class="hljs-keyword">import</span> glob<br><br>CLASSES=(<span class="hljs-string">&#x27;__background__&#x27;</span>,<span class="hljs-string">&#x27;health_blue&#x27;</span>,<span class="hljs-string">&#x27;health_red&#x27;</span>)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">vis_detections</span>(<span class="hljs-params">im, class_name, dets, thresh=<span class="hljs-number">0.5</span></span>):</span><br>    inds = np.where(dets[:, -<span class="hljs-number">1</span>] &gt;= thresh)[<span class="hljs-number">0</span>]<br>    boxes, scores = ([], [])<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> inds:<br>        bbox = dets[i, :<span class="hljs-number">4</span>]<br>        score = dets[i, -<span class="hljs-number">1</span>]<br>        boxes.append( dets[i, :<span class="hljs-number">4</span>] )<br>        scores.append(score)<br>        print(bbox, score)<br>    <span class="hljs-keyword">return</span> boxes, scores<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">demo</span>(<span class="hljs-params">net, im, filename, out_dir</span>):</span><br>    timer = Timer()<br>    timer.tic()<br>    scores, boxes = im_detect(net, im)<br>    timer.toc()<br>    print(<span class="hljs-string">&#x27;-----------------------------------------------------&#x27;</span>)<br>    <span class="hljs-built_in">print</span> ((<span class="hljs-string">&#x27;Detection &#123;&#125; took &#123;:.3f&#125;s for &#123;:d&#125; object proposals&#x27;</span>).<span class="hljs-built_in">format</span>(filename, timer.total_time, boxes.shape[<span class="hljs-number">0</span>]))<br><br>    CONF_THRESH = <span class="hljs-number">0.8</span><br>    NMS_THRESH = <span class="hljs-number">0.1</span><br>    <span class="hljs-keyword">for</span> cls_ind, cls <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(CLASSES[<span class="hljs-number">1</span>:]):<br>        cls_ind += <span class="hljs-number">1</span> <span class="hljs-comment"># because we skipped background</span><br>        cls_boxes = boxes[:, <span class="hljs-number">4</span>*cls_ind:<span class="hljs-number">4</span>*(cls_ind + <span class="hljs-number">1</span>)]<br>        cls_scores = scores[:, cls_ind]<br>        dets = np.hstack((cls_boxes,<br>                        cls_scores[:, np.newaxis])).astype(np.float32)<br>        keep = nms(dets, NMS_THRESH)<br>        dets = dets[keep, :]<br><br>        _boxes, _scores = vis_detections(im, cls, dets, thresh=CONF_THRESH)<br>        <span class="hljs-keyword">for</span> box, score <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>( _boxes, _scores):<br>            display_str = cls + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">str</span>(score)<br>            cv2.rectangle(im, <span class="hljs-built_in">tuple</span>(box[:<span class="hljs-number">2</span>]), <span class="hljs-built_in">tuple</span>(box[<span class="hljs-number">2</span>:]), (<span class="hljs-number">255</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>), <span class="hljs-number">2</span>)<br>            cv2.putText(im, display_str, <span class="hljs-built_in">tuple</span>(box[:<span class="hljs-number">2</span>]), cv2.FONT_HERSHEY_SIMPLEX, <span class="hljs-number">0.7</span>, (<span class="hljs-number">255</span>,<span class="hljs-number">255</span>,<span class="hljs-number">255</span>), <span class="hljs-number">2</span>)<br><br>    cv2.imwrite( os.path.join( out_dir, filename), im)<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parse_args</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;Parse input arguments.&quot;&quot;&quot;</span><br>    parser = argparse.ArgumentParser(description=<span class="hljs-string">&#x27;Faster R-CNN demo&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;model_name&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;model name&#x27;</span>,<br>                        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--gpu&#x27;</span>, dest=<span class="hljs-string">&#x27;gpu_id&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;GPU device id to use [0]&#x27;</span>,<br>                        default=<span class="hljs-number">1</span>, <span class="hljs-built_in">type</span>=<span class="hljs-built_in">int</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--cpu&#x27;</span>, dest=<span class="hljs-string">&#x27;cpu_mode&#x27;</span>,<br>                        <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;Use CPU mode (overrides --gpu)&#x27;</span>,<br>                        action=<span class="hljs-string">&#x27;store_true&#x27;</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--data_dir&#x27;</span>, dest=<span class="hljs-string">&#x27;data_dir&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;data path&#x27;</span>,default=<span class="hljs-string">&#x27;/bigdata/dxx/py-faster-rcnn/demo/&#x27;</span>,<br>                        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--video_name&#x27;</span>, dest=<span class="hljs-string">&#x27;video_name&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;video name&#x27;</span>,default=<span class="hljs-string">&#x27;test.mp4&#x27;</span>,<br>                        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--image_name&#x27;</span>, dest=<span class="hljs-string">&#x27;image_name&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;image name&#x27;</span>,default=<span class="hljs-string">&#x27;test.mp4&#x27;</span>,<br>                        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)<br>    parser.add_argument(<span class="hljs-string">&#x27;--model_dir&#x27;</span>, dest=<span class="hljs-string">&#x27;model_dir&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;model path&#x27;</span>,default=<span class="hljs-string">&#x27;/bigdata/dxx/py-faster-rcnn/models/&#x27;</span>,<br>                        <span class="hljs-built_in">type</span>=<span class="hljs-built_in">str</span>)<br>    args = parser.parse_args()<br>    <span class="hljs-keyword">return</span> args<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    cfg.TEST.HAS_RPN = <span class="hljs-literal">True</span>  <span class="hljs-comment"># Use RPN for proposals</span><br>    args = parse_args()<br><br>    out_dir = os.path.join(args.data_dir, args.model_name)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.exists(out_dir):<br>        os.mkdir(out_dir)<br>        os.system(<span class="hljs-string">&#x27;&#123;&#125; &#123;&#125; &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;chmod&#x27;</span>, <span class="hljs-string">&#x27;777&#x27;</span>, out_dir))<br>    print(<span class="hljs-string">&#x27;output images to &#123;&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(out_dir))<br>    prototxt = <span class="hljs-string">&#x27;models/pascal_voc/VGG16/faster_rcnn_end2end/test.prototxt&#x27;</span><br>    caffemodel = os.path.join(args.model_dir, args.model_name, <span class="hljs-string">&#x27;vgg16_faster_rcnn_final.caffemodel&#x27;</span>)<br><br>    <span class="hljs-keyword">if</span> args.cpu_mode:<br>        caffe.set_mode_cpu()<br>    <span class="hljs-keyword">else</span>:<br>        caffe.set_mode_gpu()<br>        caffe.set_device(args.gpu_id)<br>        cfg.GPU_ID = args.gpu_id<br><br>    net = caffe.Net(prototxt, caffemodel, caffe.TEST)<br>    <span class="hljs-built_in">print</span> (<span class="hljs-string">&#x27;\n\nLoaded network &#123;:s&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(caffemodel))<br><br>    image_f = os.path.join(args.data_dir, <span class="hljs-string">&#x27;image&#x27;</span>, args.image_name, <span class="hljs-string">&#x27;*.jpg&#x27;</span>)<br>    <span class="hljs-keyword">for</span> im_f <span class="hljs-keyword">in</span> <span class="hljs-built_in">sorted</span>(glob.glob(image_f)):<br>        im = cv2.imread(im_f)<br>        demo(net, im, os.path.basename(im_f), out_dir)<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    video_f = os.path.join(args.data_dir, &#x27;video&#x27;, args.video_name)</span><br><span class="hljs-string">    video_cap = cv2.VideoCapture(video_f)</span><br><span class="hljs-string">    frame_cnt = int(video_cap.get(cv2.CAP_PROP_FRAME_COUNT))</span><br><span class="hljs-string">    error_frame = max(20, frame_cnt / 50)</span><br><span class="hljs-string">    for i, frame_index in enumerate(range(0, frame_cnt, 10)):</span><br><span class="hljs-string">        video_cap.set(cv2.CAP_PROP_POS_FRAMES, frame_index)</span><br><span class="hljs-string">        status, frame = video_cap.read()</span><br><span class="hljs-string">        if not status:</span><br><span class="hljs-string">                error_frame -= 1</span><br><span class="hljs-string">                if error_frame &gt; 0:</span><br><span class="hljs-string">                    continue</span><br><span class="hljs-string">                video_cap.release()</span><br><span class="hljs-string">                raise Exception(&#x27;Bad video file&#x27;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">        demo(net, frame, frame_index+&#x27;.jpg&#x27;, out_dir)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure></li>
 <li><p>测试图片的路径格式如下：  </p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+ /bigdata/dxx/py-faster-rcnn/</span><br><span class="line">    + models/</span><br><span class="line">        + &lt;model_name&gt;/</span><br><span class="line">            - vgg16_faster_rcnn_final.caffemodel</span><br><span class="line">    + demo/</span><br><span class="line">        + video/</span><br><span class="line">            - test.mp4</span><br><span class="line">        + image/</span><br><span class="line">            + test.mp4/</span><br><span class="line">                - 001.jpg</span><br><span class="line">                - 002.jpg</span><br><span class="line">        + &lt;model_name&gt;/  # detection results</span><br><span class="line">            - 001.jpg</span><br><span class="line">            - 002.jpg</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">+ /bigdata/dxx/py-faster-rcnn/<br>    + models/<br>        + &lt;model_name&gt;/<br>            - vgg16_faster_rcnn_final.caffemodel<br>    + demo/<br>        + video/<br>            - test.mp4<br>        + image/<br>            + test.mp4/<br>                - 001.jpg<br>                - 002.jpg<br>        + &lt;model_name&gt;/  # detection results<br>            - 001.jpg<br>            - 002.jpg<br></code></pre></td></tr></table></figure></li>
 <li><p><code>python tools/demo.py &lt;model_name&gt;</code></p>
 </li>
 <li><p>这次使用了迭代 5000 次的模型进行测试，在两个视频上进行了简单的测试，在测试的 100 张图片上，完全没有出现 漏检或错检，准确率达到 1.0</p>
@@ -283,191 +309,165 @@
 <li><p><strong><code>AttributeError: can&#39;t set attribute</code></strong><br>  这是由于 git merge 之后没有修改 <code>caffe-fast-rcnn/include/caffe/layers/python_layer.hpp</code> 导致的。</p>
 </li>
 <li><p><strong><code>AttributeError: &#39;module&#39; object has no attribute &#39;text_format&#39;</code></strong><br>  这个和 protobuf 的版本有关</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vi lib&#x2F;fast-rcnn&#x2F;train.py</span><br><span class="line">+ import google.protobuf.text_format</span><br></pre></td></tr></table></figure>
+  <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">$ vi lib<span class="hljs-regexp">/fast-rcnn/</span>train.py<br>+ <span class="hljs-keyword">import</span> google.protobuf.text_format<br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong><code>TypeError: slice indices must be integers or None or have an __index__ method</code></strong>  </p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $ vi lib/rpn/proposal_target_layer.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_get_bbox_regression_labels</span>(<span class="params">bbox_target_data, num_classes</span>):</span></span><br><span class="line">    clss = bbox_target_data[:, <span class="number">0</span>]</span><br><span class="line">    bbox_targets = np.zeros((clss.size, <span class="number">4</span> * num_classes), dtype=np.float32)</span><br><span class="line">    bbox_inside_weights = np.zeros(bbox_targets.shape, dtype=np.float32)</span><br><span class="line">    inds = np.where(clss &gt; <span class="number">0</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> ind <span class="keyword">in</span> inds:</span><br><span class="line">        ind = <span class="built_in">int</span>(ind)                  &lt;=================              </span><br><span class="line">        cls = clss[ind]</span><br><span class="line">        start = <span class="built_in">int</span>(<span class="number">4</span> * cls)            &lt;=================</span><br><span class="line">        end = <span class="built_in">int</span>(start + <span class="number">4</span>)            &lt;=================</span><br><span class="line">        bbox_targets[ind, start:end] = bbox_target_data[ind, <span class="number">1</span>:]</span><br><span class="line">        bbox_inside_weights[ind, start:end] = cfg.TRAIN.BBOX_INSIDE_WEIGHTS</span><br><span class="line">    <span class="keyword">return</span> bbox_targets, bbox_inside_weights</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># $ vi lib/rpn/proposal_target_layer.py</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_get_bbox_regression_labels</span>(<span class="hljs-params">bbox_target_data, num_classes</span>):</span><br>    clss = bbox_target_data[:, <span class="hljs-number">0</span>]<br>    bbox_targets = np.zeros((clss.size, <span class="hljs-number">4</span> * num_classes), dtype=np.float32)<br>    bbox_inside_weights = np.zeros(bbox_targets.shape, dtype=np.float32)<br>    inds = np.where(clss &gt; <span class="hljs-number">0</span>)[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">for</span> ind <span class="hljs-keyword">in</span> inds:<br>        ind = <span class="hljs-built_in">int</span>(ind)                  &lt;=================              <br>        cls = clss[ind]<br>        start = <span class="hljs-built_in">int</span>(<span class="hljs-number">4</span> * cls)            &lt;=================<br>        end = <span class="hljs-built_in">int</span>(start + <span class="hljs-number">4</span>)            &lt;=================<br>        bbox_targets[ind, start:end] = bbox_target_data[ind, <span class="hljs-number">1</span>:]<br>        bbox_inside_weights[ind, start:end] = cfg.TRAIN.BBOX_INSIDE_WEIGHTS<br>    <span class="hljs-keyword">return</span> bbox_targets, bbox_inside_weights<br><br></code></pre></td></tr></table></figure>
 </li>
 <li><p><strong><code>TypeError: &#39;numpy.float64&#39; object cannot be interpreted as an index</code></strong><br>  <a target="_blank" rel="noopener" href="https://github.com/rbgirshick/py-faster-rcnn/issues/481">https://github.com/rbgirshick/py-faster-rcnn/issues/481</a><br>  numpy1.12 版本以后，不再支持 1.0，2.0 这样的浮点数作为索引，因此需要安装低版本的numpy  </p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U numpy&#x3D;&#x3D;1.11.0</span><br></pre></td></tr></table></figure>
+  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip</span> install -U numpy==<span class="hljs-number">1</span>.<span class="hljs-number">11</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 <p>  另外还可以找到所有出问题的地方，使用 astype() 函数进行类型转换  </p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ vi lib/roi_data_layer/minibatch.py +<span class="number">26</span></span><br><span class="line">fg_rois_per_image = np.<span class="built_in">round</span>(cfg.TRAIN.FG_FRACTION *rois_per_image).astype(np.<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">$ vi lib/datasets/ds_utils.py +<span class="number">12</span></span><br><span class="line">hashes = np.<span class="built_in">round</span>(boxes * scale).dot(v).astype(np.<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">$ vi lib/fast_rcnn/test.py line +<span class="number">129</span></span><br><span class="line">hashes = np.<span class="built_in">round</span>(blobs[<span class="string">&#x27;rois&#x27;</span>] * cfg.DEDUP_BOXES).dot(v).astype(np.<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">$ vi lib/rpn/proposal_target_layer.py +<span class="number">60</span></span><br><span class="line">fg_rois_per_image = np.<span class="built_in">round</span>(cfg.TRAIN.FG_FRACTION * rois_per_image).astype(np.<span class="built_in">int</span>)</span><br></pre></td></tr></table></figure></li>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Python">$ vi lib/roi_data_layer/minibatch.py +<span class="hljs-number">26</span><br>fg_rois_per_image = np.<span class="hljs-built_in">round</span>(cfg.TRAIN.FG_FRACTION *rois_per_image).astype(np.<span class="hljs-built_in">int</span>)<br><br>$ vi lib/datasets/ds_utils.py +<span class="hljs-number">12</span><br>hashes = np.<span class="hljs-built_in">round</span>(boxes * scale).dot(v).astype(np.<span class="hljs-built_in">int</span>)<br><br>$ vi lib/fast_rcnn/test.py line +<span class="hljs-number">129</span><br>hashes = np.<span class="hljs-built_in">round</span>(blobs[<span class="hljs-string">&#x27;rois&#x27;</span>] * cfg.DEDUP_BOXES).dot(v).astype(np.<span class="hljs-built_in">int</span>)<br><br>$ vi lib/rpn/proposal_target_layer.py +<span class="hljs-number">60</span><br>fg_rois_per_image = np.<span class="hljs-built_in">round</span>(cfg.TRAIN.FG_FRACTION * rois_per_image).astype(np.<span class="hljs-built_in">int</span>)<br></code></pre></td></tr></table></figure></li>
 </ul>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Caffe/">Caffe</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Caffe/">Caffe</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Object-Detection/">Object Detection</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Faster-RCNN/">Faster RCNN</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-%E4%BD%BF%E7%94%A8-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C-lmdb/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用 Python 接口制作 lmdb</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-openpose-train/">
+                        <span class="hidden-mobile">openpose_train</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/Caffe/" rel="tag"># Caffe</a>
-              <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
-              <a href="/tags/Faster-RCNN/" rel="tag"># Faster RCNN</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-openpose-train/" rel="prev" title="openpose_train">
-      <i class="fa fa-chevron-left"></i> openpose_train
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-%E4%BD%BF%E7%94%A8-Python-%E6%8E%A5%E5%8F%A3%E5%88%B6%E4%BD%9C-lmdb/" rel="next" title="使用 Python 接口制作 lmdb">
-      使用 Python 接口制作 lmdb <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-faster-rcnn-%E6%A3%80%E6%B5%8B%E6%B8%B8%E6%88%8F%E4%B8%AD%E7%9A%84%E8%A1%80%E6%9D%A1"><span class="nav-number">1.</span> <span class="nav-text">使用 faster-rcnn 检测游戏中的血条</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-faster-rcnn"><span class="nav-number">1.2.</span> <span class="nav-text">编译 faster-rcnn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="nav-number">1.3.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E7%BD%91%E7%BB%9C%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">更改网络设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.5.</span> <span class="nav-text">开始训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.6.</span> <span class="nav-text">测试模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%88%97%E8%A1%A8"><span class="nav-number">1.7.</span> <span class="nav-text">错误列表</span></a></li></ol></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">clover978</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">clover978</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -475,6 +475,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -487,9 +530,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

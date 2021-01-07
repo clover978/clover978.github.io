@@ -1,232 +1,259 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>Non-local Neural Network - clover978</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Facebook 的 Non-local 开源了，上周简单试验了一下怎么用。记录一下步骤https:&#x2F;&#x2F;github.com&#x2F;facebookresearch&#x2F;video-nonlocal-net">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Non-local Neural Network">
-<meta property="og:url" content="http://example.com/2021/01/07/Caffe2-20210107-Non-local-Neural-Network/index.html">
-<meta property="og:site_name" content="clover978">
-<meta property="og:description" content="Facebook 的 Non-local 开源了，上周简单试验了一下怎么用。记录一下步骤https:&#x2F;&#x2F;github.com&#x2F;facebookresearch&#x2F;video-nonlocal-net">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-07T01:47:01.000Z">
-<meta property="article:modified_time" content="2021-01-07T01:56:32.100Z">
-<meta property="article:author" content="clover978">
-<meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="Action Recgnition">
-<meta property="article:tag" content="Caffe2">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/01/07/Caffe2-20210107-Non-local-Neural-Network/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>Non-local Neural Network | clover978</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">clover978</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Caffe2-20210107-Non-local-Neural-Network/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="clover978">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="clover978">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Non-local Neural Network
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Non-local Neural Network">
               
+            </span>
 
-              <time title="Created: 2021-01-07 09:47:01 / Modified: 09:56:32" itemprop="dateCreated datePublished" datetime="2021-01-07T09:47:01+08:00">2021-01-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Caffe2/" itemprop="url" rel="index"><span itemprop="name">Caffe2</span></a>
-                </span>
-            </span>
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-07 09:47" pubdate>
+        January 7, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>Facebook 的 Non-local 开源了，上周简单试验了一下怎么用。记录一下步骤<br><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net">https://github.com/facebookresearch/video-nonlocal-net</a></p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Non-local Neural Network</h1>
+            
+            <div class="markdown-body">
+              <p>Facebook 的 Non-local 开源了，上周简单试验了一下怎么用。记录一下步骤<br><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net">https://github.com/facebookresearch/video-nonlocal-net</a></p>
 <a id="more"></a>
 
 <hr>
 <h2 id="Caffe2-Install"><a href="#Caffe2-Install" class="headerlink" title="Caffe2 Install"></a>Caffe2 Install</h2><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/blob/master/INSTALL.md">https://github.com/facebookresearch/video-nonlocal-net/blob/master/INSTALL.md</a></p>
 <ul>
-<li>依赖库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recrusive http://github.com/caffe2/caffe2.git</span><br><span class="line"></span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y --no-install-recommends \</span><br><span class="line">    build-essential \</span><br><span class="line">    cmake \</span><br><span class="line">    git \</span><br><span class="line">    libgoogle-glog-dev \</span><br><span class="line">    libgtest-dev \</span><br><span class="line">    libiomp-dev \</span><br><span class="line">    libleveldb-dev \</span><br><span class="line">    liblmdb-dev \</span><br><span class="line">    libopencv-dev \</span><br><span class="line">    libopenmpi-dev \</span><br><span class="line">    libsnappy-dev \</span><br><span class="line">    libprotobuf-dev \</span><br><span class="line">    openmpi-bin \</span><br><span class="line">    openmpi-doc \</span><br><span class="line">    protobuf-compiler \</span><br><span class="line">    python-dev \</span><br><span class="line">    python-pip                          </span><br><span class="line">pip install \</span><br><span class="line">    future \</span><br><span class="line">    numpy \</span><br><span class="line">    protobuf</span><br></pre></td></tr></table></figure></li>
-<li>中间可能需要安装 <code>setuptools</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt install wget</span><br><span class="line">wget http://pypi.python.org/packages/<span class="built_in">source</span>/s/setuptools/setuptools-0.6c11.tar.gz</span><br><span class="line">tar -xvf setuptools-0.6c11.tar.gz</span><br><span class="line"><span class="built_in">cd</span> setuptools-0.6c11</span><br><span class="line">python setup.py build</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure></li>
-<li>Clone Non-local 代码<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> caffe2</span><br><span class="line">git <span class="built_in">clone</span> --recursive https://github.com/facebookresearch/video-nonlocal-net.git</span><br><span class="line">rm -rf caffe2/video/</span><br><span class="line">cp -r video-nonlocal-net/caffe2_customized_ops/video/ caffe2/video/</span><br></pre></td></tr></table></figure></li>
-<li>Make  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># use_ffmpeg ON</span></span><br><span class="line">make -j</span><br><span class="line">python caffe2_setup.py install      <span class="comment"># (not sure how it works)</span></span><br></pre></td></tr></table></figure></li>
-<li>配置环境变量<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH=&lt;caffe2-dir&gt;/video-nonlocal-net/lib:<span class="variable">$PYTHONPATH</span></span><br></pre></td></tr></table></figure>
+<li>依赖库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --recrusive http://github.com/caffe2/caffe2.git<br><br>apt-get update<br>apt-get install -y --no-install-recommends \<br>    build-essential \<br>    cmake \<br>    git \<br>    libgoogle-glog-dev \<br>    libgtest-dev \<br>    libiomp-dev \<br>    libleveldb-dev \<br>    liblmdb-dev \<br>    libopencv-dev \<br>    libopenmpi-dev \<br>    libsnappy-dev \<br>    libprotobuf-dev \<br>    openmpi-bin \<br>    openmpi-doc \<br>    protobuf-compiler \<br>    python-dev \<br>    python-pip                          <br>pip install \<br>    future \<br>    numpy \<br>    protobuf<br></code></pre></td></tr></table></figure></li>
+<li>中间可能需要安装 <code>setuptools</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install wget<br>wget http://pypi.python.org/packages/<span class="hljs-built_in">source</span>/s/setuptools/setuptools-0.6c11.tar.gz<br>tar -xvf setuptools-0.6c11.tar.gz<br><span class="hljs-built_in">cd</span> setuptools-0.6c11<br>python setup.py build<br>python setup.py install<br></code></pre></td></tr></table></figure></li>
+<li>Clone Non-local 代码<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> caffe2<br>git <span class="hljs-built_in">clone</span> --recursive https://github.com/facebookresearch/video-nonlocal-net.git<br>rm -rf caffe2/video/<br>cp -r video-nonlocal-net/caffe2_customized_ops/video/ caffe2/video/<br></code></pre></td></tr></table></figure></li>
+<li>Make  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># use_ffmpeg ON</span><br>make -j<br>python caffe2_setup.py install      <span class="hljs-comment"># (not sure how it works)</span><br></code></pre></td></tr></table></figure></li>
+<li>配置环境变量<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PYTHONPATH=&lt;caffe2-dir&gt;/video-nonlocal-net/lib:<span class="hljs-variable">$PYTHONPATH</span><br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
 <h2 id="Data-Preparation"><a href="#Data-Preparation" class="headerlink" title="Data Preparation"></a>Data Preparation</h2><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/blob/master/DATASET.md">https://github.com/facebookresearch/video-nonlocal-net/blob/master/DATASET.md</a></p>
 <p>我是用 UCF-101 数据集进行 finetune 的，主要参照了官方的链接制作 LMDB</p>
 <ul>
-<li>图片准备<br>首先下载解压 UCF-101 数据集到 <code>/data</code> 目录下<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@dxx# ls /data/</span><br><span class="line">UCF-101/  ucfTrainTestlist/</span><br></pre></td></tr></table></figure></li>
-<li>生成 list 文件<br>官方文档里面使用 gen_py_list.py 生成 trainlist.txt<br>这里我们直接用 ucf101 提供的 trainlist01.txt<br>我们还需要做另外两个工作 （1）ucf101 的标签是从 1 开始，需要改成 0； （2）ucf101 中的 testlist01.txt 里面没有标签信息，需要自己加上<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;caffe2-dir&gt;/video-nonlocal-net/process_data/</span><br><span class="line">cp -r kinetics/ ucf101/</span><br><span class="line"><span class="built_in">cd</span> ucf101/</span><br><span class="line"></span><br><span class="line">rm -f *.txt</span><br><span class="line">cp /data/ucfTrainTestlist/classInd.txt .</span><br><span class="line">cp /data/ucfTrainTestlist/trainlist01.txt .</span><br><span class="line">cp /data/ucfTrainTestlist/testlist01.txt .</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python gen_py_list_football.py</span><br><span class="line"><span class="string">&#x27;&#x27;</span><span class="string">&#x27;</span></span><br><span class="line"><span class="string">&gt;&gt;&gt;python</span></span><br><span class="line"><span class="string">d = &#123;&#125;</span></span><br><span class="line"><span class="string">for line in open(&#x27;</span>classInd.txt<span class="string">&#x27;):</span></span><br><span class="line"><span class="string">    ind, label = line.strip().split()</span></span><br><span class="line"><span class="string">    d[label] = ind</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">with open(&#x27;</span>trainlist.txt<span class="string">&#x27;, &#x27;</span>w<span class="string">&#x27;) as f:</span></span><br><span class="line"><span class="string">    for line in open(&#x27;</span>trainlist01.txt<span class="string">&#x27;):</span></span><br><span class="line"><span class="string">        img, ind = line.strip().split()</span></span><br><span class="line"><span class="string">        if ind == &#x27;</span>101<span class="string">&#x27;:</span></span><br><span class="line"><span class="string">            ind = &#x27;</span>0<span class="string">&#x27;</span></span><br><span class="line"><span class="string">        f.write(&#x27;</span>/data/UCF-101/<span class="string">&#x27; + img + &#x27;</span> <span class="string">&#x27; + ind + &#x27;</span>\n<span class="string">&#x27;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">with open(&#x27;</span>vallist.txt<span class="string">&#x27;, &#x27;</span>w<span class="string">&#x27;) as f:</span></span><br><span class="line"><span class="string">    for line in open(&#x27;</span>testlist01.txt<span class="string">&#x27;):</span></span><br><span class="line"><span class="string">        img = line.strip()</span></span><br><span class="line"><span class="string">        label = img.split(&#x27;</span>/<span class="string">&#x27;)[0]</span></span><br><span class="line"><span class="string">        ind = d[label]</span></span><br><span class="line"><span class="string">        if ind == &#x27;</span>101<span class="string">&#x27;:</span></span><br><span class="line"><span class="string">            ind = &#x27;</span>0<span class="string">&#x27;</span></span><br><span class="line"><span class="string">        f.write(&#x27;</span>/data/UCF-101/<span class="string">&#x27; + img + &#x27;</span> <span class="string">&#x27; + ind + &#x27;</span>\n<span class="string">&#x27;)</span></span><br><span class="line"><span class="string">&#x27;</span><span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>resize 数据集<br>为了加快训练时候的 IO 速度，我们可以提前把数据集 resize 好，官方直接写好了一个脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改 downscale_video_joblib.py:21,22</span></span><br><span class="line">YOUR_DATASET_FOLDER/train/  --&gt; /data/UCF-101/</span><br><span class="line">YOUR_DATASET_FOLDER/train_256/  --&gt; /data/UCF-101_s256/      <span class="comment"># 注意不能少了路径最后的 &#x27;/&#x27;</span></span><br><span class="line"></span><br><span class="line">pip install joblib pandas</span><br><span class="line">mkdir -p /data/UCF-101_s256/</span><br><span class="line">python downscale_video_joblib.py</span><br><span class="line"><span class="comment"># 修改 downscale_video_joblib.py:20</span></span><br><span class="line">trainlist.txt  --&gt;  vallist.txt</span><br><span class="line">python downscale_video_joblib.py</span><br></pre></td></tr></table></figure></li>
-<li>生成 LMDB<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/UCF-101/UCF-101_s256/g&#x27;</span> trainlist.txt</span><br><span class="line">sed -i <span class="string">&#x27;s/UCF-101/UCF-101_s256/g&#x27;</span> vallist.txt</span><br><span class="line">python shuffle_list_rep.py trainlist_shuffle_rep.txt</span><br><span class="line"></span><br><span class="line">pip install lmdb</span><br><span class="line">bash run_createdb.sh</span><br><span class="line">bash run_createdb_test.sh</span><br><span class="line">bash run_createdb_test_multicrop.sh</span><br></pre></td></tr></table></figure>
+<li>图片准备<br>首先下载解压 UCF-101 数据集到 <code>/data</code> 目录下<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text">root@dxx# ls /data/<br>UCF-101/  ucfTrainTestlist/<br></code></pre></td></tr></table></figure></li>
+<li>生成 list 文件<br>官方文档里面使用 gen_py_list.py 生成 trainlist.txt<br>这里我们直接用 ucf101 提供的 trainlist01.txt<br>我们还需要做另外两个工作 （1）ucf101 的标签是从 1 开始，需要改成 0； （2）ucf101 中的 testlist01.txt 里面没有标签信息，需要自己加上<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> &lt;caffe2-dir&gt;/video-nonlocal-net/process_data/<br>cp -r kinetics/ ucf101/<br><span class="hljs-built_in">cd</span> ucf101/<br><br>rm -f *.txt<br>cp /data/ucfTrainTestlist/classInd.txt .<br>cp /data/ucfTrainTestlist/trainlist01.txt .<br>cp /data/ucfTrainTestlist/testlist01.txt .<br><br><br>python gen_py_list_football.py<br><span class="hljs-string">&#x27;&#x27;</span><span class="hljs-string">&#x27;</span><br><span class="hljs-string">&gt;&gt;&gt;python</span><br><span class="hljs-string">d = &#123;&#125;</span><br><span class="hljs-string">for line in open(&#x27;</span>classInd.txt<span class="hljs-string">&#x27;):</span><br><span class="hljs-string">    ind, label = line.strip().split()</span><br><span class="hljs-string">    d[label] = ind</span><br><span class="hljs-string">    </span><br><span class="hljs-string">with open(&#x27;</span>trainlist.txt<span class="hljs-string">&#x27;, &#x27;</span>w<span class="hljs-string">&#x27;) as f:</span><br><span class="hljs-string">    for line in open(&#x27;</span>trainlist01.txt<span class="hljs-string">&#x27;):</span><br><span class="hljs-string">        img, ind = line.strip().split()</span><br><span class="hljs-string">        if ind == &#x27;</span>101<span class="hljs-string">&#x27;:</span><br><span class="hljs-string">            ind = &#x27;</span>0<span class="hljs-string">&#x27;</span><br><span class="hljs-string">        f.write(&#x27;</span>/data/UCF-101/<span class="hljs-string">&#x27; + img + &#x27;</span> <span class="hljs-string">&#x27; + ind + &#x27;</span>\n<span class="hljs-string">&#x27;)</span><br><span class="hljs-string"></span><br><span class="hljs-string">with open(&#x27;</span>vallist.txt<span class="hljs-string">&#x27;, &#x27;</span>w<span class="hljs-string">&#x27;) as f:</span><br><span class="hljs-string">    for line in open(&#x27;</span>testlist01.txt<span class="hljs-string">&#x27;):</span><br><span class="hljs-string">        img = line.strip()</span><br><span class="hljs-string">        label = img.split(&#x27;</span>/<span class="hljs-string">&#x27;)[0]</span><br><span class="hljs-string">        ind = d[label]</span><br><span class="hljs-string">        if ind == &#x27;</span>101<span class="hljs-string">&#x27;:</span><br><span class="hljs-string">            ind = &#x27;</span>0<span class="hljs-string">&#x27;</span><br><span class="hljs-string">        f.write(&#x27;</span>/data/UCF-101/<span class="hljs-string">&#x27; + img + &#x27;</span> <span class="hljs-string">&#x27; + ind + &#x27;</span>\n<span class="hljs-string">&#x27;)</span><br><span class="hljs-string">&#x27;</span><span class="hljs-string">&#x27;&#x27;</span><br></code></pre></td></tr></table></figure></li>
+<li>resize 数据集<br>为了加快训练时候的 IO 速度，我们可以提前把数据集 resize 好，官方直接写好了一个脚本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 修改 downscale_video_joblib.py:21,22</span><br>YOUR_DATASET_FOLDER/train/  --&gt; /data/UCF-101/<br>YOUR_DATASET_FOLDER/train_256/  --&gt; /data/UCF-101_s256/      <span class="hljs-comment"># 注意不能少了路径最后的 &#x27;/&#x27;</span><br><br>pip install joblib pandas<br>mkdir -p /data/UCF-101_s256/<br>python downscale_video_joblib.py<br><span class="hljs-comment"># 修改 downscale_video_joblib.py:20</span><br>trainlist.txt  --&gt;  vallist.txt<br>python downscale_video_joblib.py<br></code></pre></td></tr></table></figure></li>
+<li>生成 LMDB<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sed -i <span class="hljs-string">&#x27;s/UCF-101/UCF-101_s256/g&#x27;</span> trainlist.txt<br>sed -i <span class="hljs-string">&#x27;s/UCF-101/UCF-101_s256/g&#x27;</span> vallist.txt<br>python shuffle_list_rep.py trainlist_shuffle_rep.txt<br><br>pip install lmdb<br>bash run_createdb.sh<br>bash run_createdb_test.sh<br>bash run_createdb_test_multicrop.sh<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
 <hr>
 <h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p><a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/blob/master/README.md">https://github.com/facebookresearch/video-nonlocal-net/blob/master/README.md</a></p>
 <p>训练过程可以有很多种设置，这里我选择的是 <code>run_i3d_nlnet_400k.sh</code> 这个脚本，具体区别看官方说明。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;caffe2-dir&gt;&#x2F;video-nonlocal-net&#x2F;scripts&#x2F;</span><br><span class="line">pip install networkx</span><br><span class="line">apt install python-yaml</span><br><span class="line"></span><br><span class="line"># 设置一下 yaml 文件:  ..&#x2F;configs&#x2F;DBG_kinetics_resnet_8gpu_c2d_nonlocal_400k.yaml</span><br><span class="line"># GPU_NUMS</span><br><span class="line"># MODEL.NUM_CLASSES</span><br><span class="line"># TRAIN.BATCH_SIZE</span><br><span class="line"># TEST.BATCH_SIZE</span><br><span class="line"># TEST.DATASET_SIZE</span><br><span class="line"></span><br><span class="line">#  修改 solver 超参数</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 修改  run_i3d_nlnet_400k.sh</span><br><span class="line"># 6: TRAIN.PARAMS_FILE ..&#x2F;data&#x2F;pretrained_model&#x2F;i3d_nonlocal_8x8_IN_pretrain_400k_clean.pkl \</span><br><span class="line"># 14: FILENAME_GT ..&#x2F;process_data&#x2F;ucf101&#x2F;vallist.txt \</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line">chmod 777 run_i3d_nlnet_400k.sh</span><br><span class="line">.&#x2F;run_i3d_nlnet_400k.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vala">cd &lt;caffe2-dir&gt;/video-nonlocal-net/scripts/<br>pip install networkx<br>apt install python-yaml<br><br><span class="hljs-meta"># 设置一下 yaml 文件:  ../configs/DBG_kinetics_resnet_8gpu_c2d_nonlocal_400k.yaml</span><br><span class="hljs-meta"># GPU_NUMS</span><br><span class="hljs-meta"># MODEL.NUM_CLASSES</span><br><span class="hljs-meta"># TRAIN.BATCH_SIZE</span><br><span class="hljs-meta"># TEST.BATCH_SIZE</span><br><span class="hljs-meta"># TEST.DATASET_SIZE</span><br><br><span class="hljs-meta">#  修改 solver 超参数</span><br><br><br><span class="hljs-meta"># 修改  run_i3d_nlnet_400k.sh</span><br><span class="hljs-meta"># 6: TRAIN.PARAMS_FILE ../data/pretrained_model/i3d_nonlocal_8x8_IN_pretrain_400k_clean.pkl \</span><br><span class="hljs-meta"># 14: FILENAME_GT ../process_data/ucf101/vallist.txt \</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta">#</span><br>chmod <span class="hljs-number">777</span> run_i3d_nlnet_400k.sh<br>./run_i3d_nlnet_400k.sh<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>按照上面的步骤基本可以开始训练 ucf101了，这里的预训练模型有两种选择，一种是在 Kinetics 上训练时选择的 ImageNet 预训练模型，脚本里面名字是 <a target="_blank" rel="noopener" href="https://s3.amazonaws.com/video-nonlocal/pretrained_model.tar.gz"><code>../data/pretrained_model/r50_pretrain_c2_model_iter450450_clean.pkl</code></a>; 一种是在 Kinetics 上训练好的模型 <a target="_blank" rel="noopener" href="https://s3.amazonaws.com/video-nonlocal/i3d_nonlocal_8x8_IN_pretrain_400k.pkl"><code>i3d_nonlocal_8x8_IN_pretrain_400k</code></a>。<br>我选择的是后者，但是刚开始训练的时候就会认为已经进行到了 400k 次迭代，所以直接结束了训练。我最后在 <code>../tools/train_net_video.py:131</code> 加上 <code>start_model_iter = 0</code>训练了起来（小伙伴可以尝试其他更好的解决办法）。一旦网络保存过一次 checkpoint，下次训练就会从 checkpoint 里选择最新的模型继续训练，这个时候就可以删掉 <code>start_model_iter = 0</code> 了。</p>
 </blockquote>
@@ -234,7 +261,7 @@
 <h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>视频分类这一块的模型测试，通常都会有两层意思，<br>一个是对测试视频进行上述的数据准备操作，对于 C3D (caffe版) 来说，是生成 lst 文件；对于 Non-local I3D (caffe2版) 来说，是生成 lmdb 文件，这两个文件的作用都是定义测试 clip 在 video/image-squence 中对应的帧号，网络读取数据准备的结果文件后，会组织数据送入后面的卷积层。（当然，数据准备过程只与输入层的实现相关，与网络结构没有关系），这一部分工作与训练几乎没有区别，并且可以方便进行测试，因此很容易跑通。<br>另一个意思就是对视频输入进行分类测试，也就是落地部署，一般的开源项目只为了让人复现实验结果，并不会实现这一部分。视频输入 与 文本/lmdb 输入具有不小的 gap，为了能够直接在视频上测试，需要对网络的输入模块进行改动，下面是 caffe2 版 Non-local I3D 部署的步骤。</p>
 <ul>
 <li>Input layer modification<br><a target="_blank" rel="noopener" href="https://github.com/clover978/video-nonlocal-net/blob/master/tools/deploy_net_video_local.py">https://github.com/clover978/video-nonlocal-net/blob/master/tools/deploy_net_video_local.py</a></li>
-<li>Image propocess<br><code>caffe2_customized_ops/video/customized_video_input_op.h:200-221</code> summarize 了 Non-local I3D 的 video_input_op 对视频帧进行的预处理过程。更改后的网络结构需要实现对应的功能。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># customized_video_input_op.h:206,  scale</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_scale</span>(<span class="params">frame, size=(<span class="params"><span class="number">320</span>, <span class="number">256</span></span>)</span>):</span></span><br><span class="line">    <span class="keyword">return</span> cv2.resize(frame, size)</span><br><span class="line"></span><br><span class="line"><span class="comment"># customized_video_input_op.h:208,210,  crop</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_crop</span>(<span class="params">frame, crop_size=<span class="number">224</span>, <span class="built_in">type</span>=<span class="string">&#x27;random&#x27;</span></span>):</span></span><br><span class="line">    <span class="comment"># type: &#123;&#x27;random&#x27;, &#x27;center&#x27;&#125;</span></span><br><span class="line">    h, w  = frame.shape[:<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">type</span> == <span class="string">&#x27;random&#x27;</span>:</span><br><span class="line">        x = random.randint(crop_size//<span class="number">2</span>, w-crop_size//<span class="number">2</span>-<span class="number">1</span>)</span><br><span class="line">        y = random.randint(crop_size//<span class="number">2</span>, h-crop_size//<span class="number">2</span>-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">elif</span> <span class="built_in">type</span> == <span class="string">&#x27;center&#x27;</span>:</span><br><span class="line">        x = w//<span class="number">2</span></span><br><span class="line">        y = h//<span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        logger.warning(<span class="string">&#x27;unknow type, use center crop instead&#x27;</span>)</span><br><span class="line">        x = w//<span class="number">2</span></span><br><span class="line">        y = h//<span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> frame[y-crop_size//<span class="number">2</span>:y+crop_size//<span class="number">2</span>, x-crop_size//<span class="number">2</span>:x+crop_size//<span class="number">2</span>, :]</span><br><span class="line"></span><br><span class="line"><span class="comment"># customized_video_input_op.h:211,212,  sampling</span></span><br><span class="line"><span class="comment"># @sa: deploy_net_video_local:collect_clip()</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># customized_video_input_op.h:213,  normalize</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_normalize</span>(<span class="params">clip, mean=<span class="number">128</span>, std=<span class="number">1</span></span>):</span></span><br><span class="line">    <span class="comment"># just do it over clip</span></span><br><span class="line">    <span class="keyword">return</span> (clip-mean)/std</span><br><span class="line">    </span><br><span class="line"><span class="comment"># customized_video_input_op.h:219,   channel_swap</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_channel_swap</span>(<span class="params">frame, use_bgr=<span class="literal">True</span></span>):</span></span><br><span class="line">    <span class="keyword">if</span> use_bgr:</span><br><span class="line">        <span class="keyword">return</span> cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> frame</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<li>Image propocess<br><code>caffe2_customized_ops/video/customized_video_input_op.h:200-221</code> summarize 了 Non-local I3D 的 video_input_op 对视频帧进行的预处理过程。更改后的网络结构需要实现对应的功能。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment"># customized_video_input_op.h:206,  scale</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_scale</span>(<span class="hljs-params">frame, size=(<span class="hljs-params"><span class="hljs-number">320</span>, <span class="hljs-number">256</span></span>)</span>):</span><br>    <span class="hljs-keyword">return</span> cv2.resize(frame, size)<br><br><span class="hljs-comment"># customized_video_input_op.h:208,210,  crop</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_crop</span>(<span class="hljs-params">frame, crop_size=<span class="hljs-number">224</span>, <span class="hljs-built_in">type</span>=<span class="hljs-string">&#x27;random&#x27;</span></span>):</span><br>    <span class="hljs-comment"># type: &#123;&#x27;random&#x27;, &#x27;center&#x27;&#125;</span><br>    h, w  = frame.shape[:<span class="hljs-number">2</span>]<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span> == <span class="hljs-string">&#x27;random&#x27;</span>:<br>        x = random.randint(crop_size//<span class="hljs-number">2</span>, w-crop_size//<span class="hljs-number">2</span>-<span class="hljs-number">1</span>)<br>        y = random.randint(crop_size//<span class="hljs-number">2</span>, h-crop_size//<span class="hljs-number">2</span>-<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">type</span> == <span class="hljs-string">&#x27;center&#x27;</span>:<br>        x = w//<span class="hljs-number">2</span><br>        y = h//<span class="hljs-number">2</span><br>    <span class="hljs-keyword">else</span>:<br>        logger.warning(<span class="hljs-string">&#x27;unknow type, use center crop instead&#x27;</span>)<br>        x = w//<span class="hljs-number">2</span><br>        y = h//<span class="hljs-number">2</span><br>    <span class="hljs-keyword">return</span> frame[y-crop_size//<span class="hljs-number">2</span>:y+crop_size//<span class="hljs-number">2</span>, x-crop_size//<span class="hljs-number">2</span>:x+crop_size//<span class="hljs-number">2</span>, :]<br><br><span class="hljs-comment"># customized_video_input_op.h:211,212,  sampling</span><br><span class="hljs-comment"># @sa: deploy_net_video_local:collect_clip()</span><br><br><span class="hljs-comment"># customized_video_input_op.h:213,  normalize</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_normalize</span>(<span class="hljs-params">clip, mean=<span class="hljs-number">128</span>, std=<span class="hljs-number">1</span></span>):</span><br>    <span class="hljs-comment"># just do it over clip</span><br>    <span class="hljs-keyword">return</span> (clip-mean)/std<br>    <br><span class="hljs-comment"># customized_video_input_op.h:219,   channel_swap</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">_channel_swap</span>(<span class="hljs-params">frame, use_bgr=<span class="hljs-literal">True</span></span>):</span><br>    <span class="hljs-keyword">if</span> use_bgr:<br>        <span class="hljs-keyword">return</span> cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> frame<br><br></code></pre></td></tr></table></figure>
 
 
 </li>
@@ -242,12 +269,12 @@
 <hr>
 <h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><ol>
 <li><p>训练过程中，会周期性地进行 test，我在 test 的时候报错</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Traceback:</span><br><span class="line">    File &quot;lib&#x2F;utils&#x2F;misc.py:200&quot;:</span><br><span class="line">        used_gpu_memory &#x3D; out_dict[&#39;Used GPU Memory&#39;]</span><br><span class="line">KeyError: Used GPU Memory</span><br></pre></td></tr></table></figure>
+ <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">Traceback:</span><br>    File <span class="hljs-string">&quot;lib/utils/misc.py:200&quot;</span>:<br>        used_gpu_memory = out_dict[<span class="hljs-string">&#x27;Used GPU Memory&#x27;</span>]<br><span class="hljs-attr">KeyError:</span> Used GPU Memory<br></code></pre></td></tr></table></figure>
 <p> 查了半天不知道正确的 key 是什么，直接注释掉了 <code>lib/utils/metrics.py:343</code> </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># json_stats[&#39;used_gpu_memory&#39;] &#x3D; misc.get_gpu_stats()</span><br></pre></td></tr></table></figure>
+ <figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit"><span class="hljs-meta"># json_stats[<span class="hljs-string">&#x27;used_gpu_memory&#x27;</span>] = misc.get_gpu_stats()</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>关于训练时使用 <code>i3d_nonlocal_8x8_IN_pretrain_400k</code> 会直接结束训练的问题，作者提供了一个新的脚本，重置了 lr, iteration, momentum 等信息。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;caffe2-dir&gt;&#x2F;video-nonlocal-net&#x2F;process_data&#x2F;convert_models&#x2F;</span><br><span class="line"># 修改 modify_blob_rm.py: 5,6 行</span><br><span class="line">input_model_file  --&gt; ..&#x2F;..&#x2F;data&#x2F;pretrained_model&#x2F;i3d_nonlocal_8x8_IN_pretrain_400k.pkl</span><br><span class="line">output_model_file  --&gt;  ..&#x2F;..&#x2F;data&#x2F;pretrianed_model&#x2F;i3d_nonlocal_8x8_IN_pretrain_400k_clean.pkl</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd &lt;caffe2-dir&gt;<span class="hljs-regexp">/video-nonlocal-net/</span>process_data<span class="hljs-regexp">/convert_models/</span><br><span class="hljs-comment"># 修改 modify_blob_rm.py: 5,6 行</span><br>input_model_file  --&gt; ..<span class="hljs-regexp">/../</span>data<span class="hljs-regexp">/pretrained_model/i</span>3d_nonlocal_8x8_IN_pretrain_400k.pkl<br>output_model_file  --&gt;  ..<span class="hljs-regexp">/../</span>data<span class="hljs-regexp">/pretrianed_model/i</span>3d_nonlocal_8x8_IN_pretrain_400k_clean.pkl<br></code></pre></td></tr></table></figure></li>
 <li><p>finetune 的时候，log 中显示的进度是根据 Kinetic 数据集的规模计算，有很大的出入，具体的设置在 <code>&lt;caffe2-dir&gt;/video-nonlocal-net/lib/core/config.py:78</code>, 配置 yaml 文件可以修改，添加 <code>TRAIN.DATASET_SIZE = 9537</code> </p>
 </li>
 <li><p>训练是输入的是视频，具体按照怎样的规则得到 clip ？<br>github issue 中有两个是与这个问题相关的，可以参考 <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/issues/12">#12</a> <a target="_blank" rel="noopener" href="https://github.com/facebookresearch/video-nonlocal-net/issues/15">#15</a><br>简单来说，第一步会 decode 出输入视频的所有帧，此时如果遇到太短的视频会抛弃掉，从源代码看，最小是 32K 字节。<code>==&gt; video/customized_video_decoder.cc:79</code><br>第二步从解码出来的帧中，随机选择 clip_length 长度的图片进行训练。 <code>==&gt; video/customized_video_io.cc:674,687</code></p>
@@ -256,179 +283,152 @@
 </li>
 </ol>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Caffe2/">Caffe2</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Action-Recgnition/">Action Recgnition</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Caffe2/">Caffe2</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">tensorflow object-detecct-api</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/07/Pytorch-20210107-TSN-Pytorch/">
+                        <span class="hidden-mobile">TSN-Pytorch</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/Action-Recgnition/" rel="tag"># Action Recgnition</a>
-              <a href="/tags/Caffe2/" rel="tag"># Caffe2</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Pytorch-20210107-TSN-Pytorch/" rel="prev" title="TSN-Pytorch">
-      <i class="fa fa-chevron-left"></i> TSN-Pytorch
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/" rel="next" title="tensorflow object-detecct-api">
-      tensorflow object-detecct-api <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Caffe2-Install"><span class="nav-number">1.</span> <span class="nav-text">Caffe2 Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Preparation"><span class="nav-number">2.</span> <span class="nav-text">Data Preparation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Train"><span class="nav-number">3.</span> <span class="nav-text">Train</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test"><span class="nav-number">4.</span> <span class="nav-text">Test</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">5.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">clover978</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">clover978</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -436,6 +436,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -448,9 +491,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

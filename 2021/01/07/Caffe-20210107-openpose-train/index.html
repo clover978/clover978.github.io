@@ -1,399 +1,399 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>openpose_train - clover978</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="https:&#x2F;&#x2F;github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openposehttps:&#x2F;&#x2F;github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openpose_train">
-<meta property="og:type" content="article">
-<meta property="og:title" content="openpose_train">
-<meta property="og:url" content="http://example.com/2021/01/07/Caffe-20210107-openpose-train/index.html">
-<meta property="og:site_name" content="clover978">
-<meta property="og:description" content="https:&#x2F;&#x2F;github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openposehttps:&#x2F;&#x2F;github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openpose_train">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-07T02:22:03.000Z">
-<meta property="article:modified_time" content="2021-01-07T02:23:33.837Z">
-<meta property="article:author" content="clover978">
-<meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="Pose Estimation">
-<meta property="article:tag" content="Caffe">
-<meta property="article:tag" content="OpenPose">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/01/07/Caffe-20210107-openpose-train/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>openpose_train | clover978</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">clover978</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Caffe-20210107-openpose-train/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="clover978">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="clover978">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          openpose_train
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="openpose_train">
               
+            </span>
 
-              <time title="Created: 2021-01-07 10:22:03 / Modified: 10:23:33" itemprop="dateCreated datePublished" datetime="2021-01-07T10:22:03+08:00">2021-01-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Caffe/" itemprop="url" rel="index"><span itemprop="name">Caffe</span></a>
-                </span>
-            </span>
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-07 10:22" pubdate>
+        January 7, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p><a target="_blank" rel="noopener" href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">https://github.com/CMU-Perceptual-Computing-Lab/openpose</a><br><a target="_blank" rel="noopener" href="https://github.com/CMU-Perceptual-Computing-Lab/openpose_train">https://github.com/CMU-Perceptual-Computing-Lab/openpose_train</a></p>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">openpose_train</h1>
+            
+            <div class="markdown-body">
+              <p><a target="_blank" rel="noopener" href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">https://github.com/CMU-Perceptual-Computing-Lab/openpose</a><br><a target="_blank" rel="noopener" href="https://github.com/CMU-Perceptual-Computing-Lab/openpose_train">https://github.com/CMU-Perceptual-Computing-Lab/openpose_train</a></p>
 <a id="more"></a>
 
 <hr>
-<h3 id="1-拉取代码"><a href="#1-拉取代码" class="headerlink" title="1. 拉取代码"></a>1. 拉取代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openpose_train.git</span><br></pre></td></tr></table></figure>
+<h3 id="1-拉取代码"><a href="#1-拉取代码" class="headerlink" title="1. 拉取代码"></a>1. 拉取代码</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/CMU-Perceptual-Computing-Lab/</span>openpose_train.git<br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="2-下载数据集"><a href="#2-下载数据集" class="headerlink" title="2. 下载数据集"></a>2. 下载数据集</h3><h4 id="2-1-cocoapi"><a href="#2-1-cocoapi" class="headerlink" title="2.1. cocoapi"></a>2.1. cocoapi</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p openpose_train&#x2F;dataset&#x2F;</span><br><span class="line">mkdir -p openpose_train&#x2F;dataset&#x2F;COCO&#x2F;</span><br><span class="line">cd openpose_train&#x2F;dataset&#x2F;COCO&#x2F;</span><br><span class="line">git clone --recurse https:&#x2F;&#x2F;github.com&#x2F;gineshidalgo99&#x2F;cocoapi.git</span><br><span class="line"></span><br><span class="line"># 安装 mingw, matlab PCT</span><br><span class="line"># 编译 gasonMex, maskApiMex</span><br><span class="line">cd cocoapi&#x2F;MatlabAPI&#x2F;</span><br><span class="line">mex(&#39;CXXFLAGS&#x3D;$CXXFLAGS -std&#x3D;c++11 -Wall&#39;,&#39;-largeArrayDims&#39;,&#39;private&#x2F;gasonMex.cpp&#39;,&#39;..&#x2F;common&#x2F;gason.cpp&#39;,&#39;-I..&#x2F;common&#x2F;&#39;,&#39;-outdir&#39;,&#39;private&#39;);</span><br><span class="line">mex(&#39;COMPFLAGS&#x3D;\$CFLAGS -Wall -std&#x3D;c++11&#39;,&#39;-largeArrayDims&#39;,&#39;private&#x2F;maskApiMex.c&#39;,&#39;..&#x2F;common&#x2F;maskApi.c&#39;,&#39;-I..&#x2F;common&#x2F;&#39;,&#39;-outdir&#39;,&#39;private&#39;);</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-coco数据集"><a href="#2-2-coco数据集" class="headerlink" title="2.2. coco数据集"></a>2.2. coco数据集</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># annotations_trainval2017, image_info_test2017 --&gt; dataset&#x2F;cocoapi&#x2F;annotations&#x2F;</span><br><span class="line"># train2017, val2017, test2017                  --&gt; dataset&#x2F;cocoapi&#x2F;images&#x2F;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;zips&#x2F;train2017.zip</span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;zips&#x2F;val2017.zip</span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;zips&#x2F;test2017.zip</span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;annotations&#x2F;annotations_trainval2017.zip</span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;annotations&#x2F;image_info_test2017.zip</span><br><span class="line">http:&#x2F;&#x2F;images.cocodataset.org&#x2F;annotations&#x2F;stuff_annotations_trainval2017.zip</span><br></pre></td></tr></table></figure>
-<h4 id="2-3-生成LMDB"><a href="#2-3-生成LMDB" class="headerlink" title="2.3. 生成LMDB"></a>2.3. 生成LMDB</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 生成 body keypoints LMDB</span><br><span class="line"># 依次执行 a1_coco_jsonToNegativesJson, a2_coco_jsonToMat, a3_coco_matToMasks, a4_coco_matToRefinedJson</span><br><span class="line">python c_generateLmdbs.py</span><br><span class="line"></span><br><span class="line"># 生成 foot keypoints LMDB</span><br><span class="line"># 依次执行 a2_coco_jsonToMat, a4_coco_matToRefinedJson</span><br><span class="line">python c_generateLmdbs.py</span><br></pre></td></tr></table></figure>
+<h3 id="2-下载数据集"><a href="#2-下载数据集" class="headerlink" title="2. 下载数据集"></a>2. 下载数据集</h3><h4 id="2-1-cocoapi"><a href="#2-1-cocoapi" class="headerlink" title="2.1. cocoapi"></a>2.1. cocoapi</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p openpose_train<span class="hljs-regexp">/dataset/</span><br>mkdir -p openpose_train<span class="hljs-regexp">/dataset/</span>COCO/<br>cd openpose_train<span class="hljs-regexp">/dataset/</span>COCO/<br>git clone --recurse https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/gineshidalgo99/</span>cocoapi.git<br><br><span class="hljs-comment"># 安装 mingw, matlab PCT</span><br><span class="hljs-comment"># 编译 gasonMex, maskApiMex</span><br>cd cocoapi<span class="hljs-regexp">/MatlabAPI/</span><br>mex(<span class="hljs-string">&#x27;CXXFLAGS=$CXXFLAGS -std=c++11 -Wall&#x27;</span>,<span class="hljs-string">&#x27;-largeArrayDims&#x27;</span>,<span class="hljs-string">&#x27;private/gasonMex.cpp&#x27;</span>,<span class="hljs-string">&#x27;../common/gason.cpp&#x27;</span>,<span class="hljs-string">&#x27;-I../common/&#x27;</span>,<span class="hljs-string">&#x27;-outdir&#x27;</span>,<span class="hljs-string">&#x27;private&#x27;</span>);<br>mex(<span class="hljs-string">&#x27;COMPFLAGS=\$CFLAGS -Wall -std=c++11&#x27;</span>,<span class="hljs-string">&#x27;-largeArrayDims&#x27;</span>,<span class="hljs-string">&#x27;private/maskApiMex.c&#x27;</span>,<span class="hljs-string">&#x27;../common/maskApi.c&#x27;</span>,<span class="hljs-string">&#x27;-I../common/&#x27;</span>,<span class="hljs-string">&#x27;-outdir&#x27;</span>,<span class="hljs-string">&#x27;private&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<h4 id="2-2-coco数据集"><a href="#2-2-coco数据集" class="headerlink" title="2.2. coco数据集"></a>2.2. coco数据集</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># annotations_trainval2017, image_info_test2017 --&gt; dataset/cocoapi/annotations/</span><br><span class="hljs-comment"># train2017, val2017, test2017                  --&gt; dataset/cocoapi/images/</span><br><br><br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/zips/</span>train2017.zip<br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/zips/</span>val2017.zip<br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/zips/</span>test2017.zip<br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/annotations/</span>annotations_trainval2017.zip<br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/annotations/im</span>age_info_test2017.zip<br>http:<span class="hljs-regexp">//im</span>ages.cocodataset.org<span class="hljs-regexp">/annotations/</span>stuff_annotations_trainval2017.zip<br></code></pre></td></tr></table></figure>
+<h4 id="2-3-生成LMDB"><a href="#2-3-生成LMDB" class="headerlink" title="2.3. 生成LMDB"></a>2.3. 生成LMDB</h4><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta"># 生成 body keypoints LMDB</span><br><span class="hljs-meta"># 依次执行 a1_coco_jsonToNegativesJson, a2_coco_jsonToMat, a3_coco_matToMasks, a4_coco_matToRefinedJson</span><br>python c_generateLmdbs.py<br><br><span class="hljs-meta"># 生成 foot keypoints LMDB</span><br><span class="hljs-meta"># 依次执行 a2_coco_jsonToMat, a4_coco_matToRefinedJson</span><br>python c_generateLmdbs.py<br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="3-模型训练"><a href="#3-模型训练" class="headerlink" title="3. 模型训练"></a>3. 模型训练</h3><h4 id="3-1-拉取-OpenPose-Caffe-和-预训练模型"><a href="#3-1-拉取-OpenPose-Caffe-和-预训练模型" class="headerlink" title="3.1. 拉取 OpenPose Caffe 和 预训练模型"></a>3.1. 拉取 OpenPose Caffe 和 预训练模型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;openpose_train&#x2F;</span><br><span class="line">git clone --recurse github.com&#x2F;CMU-Perceptual-Computing-Lab&#x2F;openpose_caffe_train.git</span><br><span class="line"></span><br><span class="line">cd &#x2F;openpose_train&#x2F;dataset&#x2F;</span><br><span class="line">mkdir vgg</span><br><span class="line">wget -c http:&#x2F;&#x2F;www.robots.ox.ac.uk&#x2F;~vgg&#x2F;software&#x2F;very_deep&#x2F;caffe&#x2F;VGG_ILSVRC_19_layers.caffemodel</span><br><span class="line">wget -c https:&#x2F;&#x2F;gist.githubusercontent.com&#x2F;ksimonyan&#x2F;3785162f95cd2d5fee77&#x2F;raw&#x2F;bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e&#x2F;VGG_ILSVRC_19_layers_deploy.prototxt</span><br></pre></td></tr></table></figure>
-<h4 id="3-2-生成-prototxt"><a href="#3-2-生成-prototxt" class="headerlink" title="3.2. 生成 prototxt"></a>3.2. 生成 prototxt</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;openpose_train&#x2F;training</span><br><span class="line">python d_setLayers.py</span><br></pre></td></tr></table></figure>
-<h4 id="3-3-训练"><a href="#3-3-训练" class="headerlink" title="3.3. 训练"></a>3.3. 训练</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;openpose_train&#x2F;training_result&#x2F;pose&#x2F;</span><br><span class="line">.&#x2F;train_pose.sh 0</span><br></pre></td></tr></table></figure>
+<h3 id="3-模型训练"><a href="#3-模型训练" class="headerlink" title="3. 模型训练"></a>3. 模型训练</h3><h4 id="3-1-拉取-OpenPose-Caffe-和-预训练模型"><a href="#3-1-拉取-OpenPose-Caffe-和-预训练模型" class="headerlink" title="3.1. 拉取 OpenPose Caffe 和 预训练模型"></a>3.1. 拉取 OpenPose Caffe 和 预训练模型</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/openpose_train/</span><br>git clone --recurse github.com<span class="hljs-regexp">/CMU-Perceptual-Computing-Lab/</span>openpose_caffe_train.git<br><br>cd <span class="hljs-regexp">/openpose_train/</span>dataset/<br>mkdir vgg<br>wget -c http:<span class="hljs-regexp">//</span>www.robots.ox.ac.uk<span class="hljs-regexp">/~vgg/</span>software<span class="hljs-regexp">/very_deep/</span>caffe/VGG_ILSVRC_19_layers.caffemodel<br>wget -c https:<span class="hljs-regexp">//gi</span>st.githubusercontent.com<span class="hljs-regexp">/ksimonyan/</span><span class="hljs-number">3785162</span>f95cd2d5fee77<span class="hljs-regexp">/raw/</span>bb2b4fe0a9bb0669211cf3d0bc949dfdda173e9e/VGG_ILSVRC_19_layers_deploy.prototxt<br></code></pre></td></tr></table></figure>
+<h4 id="3-2-生成-prototxt"><a href="#3-2-生成-prototxt" class="headerlink" title="3.2. 生成 prototxt"></a>3.2. 生成 prototxt</h4><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-keyword">cd</span> <span class="hljs-string">/openpose_train/training</span><br>python d_<span class="hljs-keyword">set</span>Layers.py<br></code></pre></td></tr></table></figure>
+<h4 id="3-3-训练"><a href="#3-3-训练" class="headerlink" title="3.3. 训练"></a>3.3. 训练</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/openpose_train/</span>training_result<span class="hljs-regexp">/pose/</span><br>./train_pose.sh <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><h4 id="4-1-速度测试"><a href="#4-1-速度测试" class="headerlink" title="4.1. 速度测试"></a>4.1. 速度测试</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Test using LMDB:</span><br><span class="line">&#x2F;openpose_train&#x2F;openpose_caffe_train&#x2F;build&#x2F;tools&#x2F;caffe time -gpu 0 -model pose_training.prototxt</span><br><span class="line"></span><br><span class="line"># Test using input layer:  368*368</span><br><span class="line">&#x2F;openpose_train&#x2F;openpose_caffe_train&#x2F;build&#x2F;tools&#x2F;caffe time -gpu 0 -model pose_deploy.prototxt -phase TEST</span><br></pre></td></tr></table></figure>
+<h3 id="4-测试"><a href="#4-测试" class="headerlink" title="4.测试"></a>4.测试</h3><h4 id="4-1-速度测试"><a href="#4-1-速度测试" class="headerlink" title="4.1. 速度测试"></a>4.1. 速度测试</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># Test using LMDB:</span><br><span class="hljs-regexp">/openpose_train/</span>openpose_caffe_train<span class="hljs-regexp">/build/</span>tools/caffe time -gpu <span class="hljs-number">0</span> -model pose_training.prototxt<br><br><span class="hljs-comment"># Test using input layer:  368*368</span><br><span class="hljs-regexp">/openpose_train/</span>openpose_caffe_train<span class="hljs-regexp">/build/</span>tools/caffe time -gpu <span class="hljs-number">0</span> -model pose_deploy.prototxt -phase TEST<br></code></pre></td></tr></table></figure>
 <pre><code>| batchsize | 1     | 8     |16     | **deploy**|
 |---        |---    |---    |---    |---        |
 |time(ms)   |19     |103    |199    |17.3       |</code></pre>
-<h4 id="4-2-Evaluate"><a href="#4-2-Evaluate" class="headerlink" title="4.2. Evaluate"></a>4.2. Evaluate</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;openpose</span><br><span class="line">.&#x2F;scripts&#x2F;tests&#x2F;pose_accuracy_coco_val.sh </span><br><span class="line"># https:&#x2F;&#x2F;github.com&#x2F;gineshidalgo99&#x2F;cocoapi&#x2F;blob&#x2F;master&#x2F;PythonAPI&#x2F;pycocoEvalDemo.ipynb  --&gt; evaluate.py</span><br><span class="line">python scripts&#x2F;tests&#x2F;evaluate.py</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Body25 baseline:</span><br><span class="line"> 5000samples&#x2F;119s &#x3D; 42FPS</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.523</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.763</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.568</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.466</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.604</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.576</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.790</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.613</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.483</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.709</span><br><span class="line"></span><br><span class="line">COCO baseline:</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.490</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.742</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.520</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.426</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.588</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.544</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.766</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.571</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.442</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.688</span><br><span class="line"></span><br><span class="line">body23:</span><br><span class="line"> 5000samples&#x2F;120s &#x3D; 41FPS</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.433</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.692</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.450</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.360</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.535</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.484</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.719</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.502</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.378</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.632</span><br><span class="line"> </span><br><span class="line"> 90 degree</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.324</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.602</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.304</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.259</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.416</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.376</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.633</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.366</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.283</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.505</span><br><span class="line"></span><br><span class="line"> 60 degree</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.345</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.630</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.327</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.290</span><br><span class="line"> Average Precision  (AP) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.425</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.399</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.662</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.75      | area&#x3D;   all | maxDets&#x3D; 20 ] &#x3D; 0.392</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D;medium | maxDets&#x3D; 20 ] &#x3D; 0.313</span><br><span class="line"> Average Recall     (AR) @[ IoU&#x3D;0.50:0.95 | area&#x3D; large | maxDets&#x3D; 20 ] &#x3D; 0.520</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-    </div>
+<h4 id="4-2-Evaluate"><a href="#4-2-Evaluate" class="headerlink" title="4.2. Evaluate"></a>4.2. Evaluate</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs nix">cd /openpose<br>./scripts/tests/pose_accuracy_coco_val.sh <br><span class="hljs-comment"># https://github.com/gineshidalgo99/cocoapi/blob/master/PythonAPI/pycocoEvalDemo.ipynb  --&gt; evaluate.py</span><br>python scripts/tests/evaluate.py<br><br><br>Body25 baseline:<br> <span class="hljs-number">5000</span>samples/<span class="hljs-number">119</span><span class="hljs-attr">s</span> = <span class="hljs-number">42</span>FPS<br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.523</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.763</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.568</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.466</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.604</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.576</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.790</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.613</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.483</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.709</span><br><br>COCO baseline:<br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.490</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.742</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.520</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.426</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.588</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.544</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.766</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.571</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.442</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.688</span><br><br>body23:<br> <span class="hljs-number">5000</span>samples/<span class="hljs-number">120</span><span class="hljs-attr">s</span> = <span class="hljs-number">41</span>FPS<br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.433</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.692</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.450</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.360</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.535</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.484</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.719</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.502</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.378</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.632</span><br> <br> <span class="hljs-number">90</span> degree<br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.324</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.602</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.304</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.259</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.416</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.376</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.633</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.366</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.283</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.505</span><br><br> <span class="hljs-number">60</span> degree<br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.345</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.630</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.327</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.290</span><br> Average Precision  (AP) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.425</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.399</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.662</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.75</span>      | <span class="hljs-attr">area=</span>   all | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.392</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=medium</span> | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.313</span><br> Average Recall     (AR) @[ <span class="hljs-attr">IoU=0.50:0.95</span> | <span class="hljs-attr">area=</span> large | <span class="hljs-attr">maxDets=</span> <span class="hljs-number">20</span> ] = <span class="hljs-number">0.520</span><br><br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Caffe/">Caffe</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Caffe/">Caffe</a>
+                    
+                      <a class="hover-with-bg" href="/tags/OpenPose/">OpenPose</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Pose-Estimation/">Pose Estimation</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-Py-faster-rcnn/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Py-faster-rcnn</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/">
+                        <span class="hidden-mobile">tensorflow object-detecct-api</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/Pose-Estimation/" rel="tag"># Pose Estimation</a>
-              <a href="/tags/Caffe/" rel="tag"># Caffe</a>
-              <a href="/tags/OpenPose/" rel="tag"># OpenPose</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/" rel="prev" title="tensorflow object-detecct-api">
-      <i class="fa fa-chevron-left"></i> tensorflow object-detecct-api
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-Py-faster-rcnn/" rel="next" title="Py-faster-rcnn">
-      Py-faster-rcnn <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">1. 拉取代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%B8%8B%E8%BD%BD%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">2. 下载数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-cocoapi"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. cocoapi</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-coco%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. coco数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-%E7%94%9F%E6%88%90LMDB"><span class="nav-number">2.3.</span> <span class="nav-text">2.3. 生成LMDB</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">3.</span> <span class="nav-text">3. 模型训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E6%8B%89%E5%8F%96-OpenPose-Caffe-%E5%92%8C-%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.1.</span> <span class="nav-text">3.1. 拉取 OpenPose Caffe 和 预训练模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E7%94%9F%E6%88%90-prototxt"><span class="nav-number">3.2.</span> <span class="nav-text">3.2. 生成 prototxt</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E8%AE%AD%E7%BB%83"><span class="nav-number">3.3.</span> <span class="nav-text">3.3. 训练</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">4.测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-%E9%80%9F%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="nav-number">4.1.</span> <span class="nav-text">4.1. 速度测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Evaluate"><span class="nav-number">4.2.</span> <span class="nav-text">4.2. Evaluate</span></a></li></ol></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">clover978</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">clover978</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -401,6 +401,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -413,9 +456,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>

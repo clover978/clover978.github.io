@@ -1,400 +1,400 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>tensorflow object-detecct-api - clover978</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="0. 安装1234567891011apt-get install protobuf-compilerpip install pillowpip install lxmlpip install jupyterpip install matplotlib# From tensorflow&#x2F;models&#x2F;research&#x2F;protoc object_detection&amp;#">
-<meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow object-detecct-api">
-<meta property="og:url" content="http://example.com/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/index.html">
-<meta property="og:site_name" content="clover978">
-<meta property="og:description" content="0. 安装1234567891011apt-get install protobuf-compilerpip install pillowpip install lxmlpip install jupyterpip install matplotlib# From tensorflow&#x2F;models&#x2F;research&#x2F;protoc object_detection&amp;#">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-07T02:19:14.000Z">
-<meta property="article:modified_time" content="2021-01-07T02:20:47.771Z">
-<meta property="article:author" content="clover978">
-<meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="TensorFlow">
-<meta property="article:tag" content="Object Detection">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://example.com/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/">
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>tensorflow object-detecct-api | clover978</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+<link  rel="stylesheet" href="/css/main.css" />
 
-</head>
+<!-- 自定义样式保持在最底部 -->
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">clover978</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-  </ul>
 </nav>
 
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/TensorFlow-20210107-tensorflow-object-detecct-api/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="clover978">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="clover978">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          tensorflow object-detecct-api
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="tensorflow object-detecct-api">
               
+            </span>
 
-              <time title="Created: 2021-01-07 10:19:14 / Modified: 10:20:47" itemprop="dateCreated datePublished" datetime="2021-01-07T10:19:14+08:00">2021-01-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
-                </span>
-            </span>
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-07 10:19" pubdate>
+        January 7, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      373 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
 
           
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <h2 id="0-安装"><a href="#0-安装" class="headerlink" title="0. 安装"></a>0. 安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">apt-get install protobuf-compiler</span><br><span class="line">pip install pillow</span><br><span class="line">pip install lxml</span><br><span class="line">pip install jupyter</span><br><span class="line">pip install matplotlib</span><br><span class="line"></span><br><span class="line"># From tensorflow&#x2F;models&#x2F;research&#x2F;</span><br><span class="line">protoc object_detection&#x2F;protos&#x2F;*.proto --python_out&#x3D;.</span><br><span class="line"></span><br><span class="line"># From tensorflow&#x2F;models&#x2F;research&#x2F;</span><br><span class="line">export PYTHONPATH&#x3D;$PYTHONPATH:&#96;pwd&#96;:&#96;pwd&#96;&#x2F;slim</span><br></pre></td></tr></table></figure>
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">tensorflow object-detecct-api</h1>
+            
+            <div class="markdown-body">
+              <h2 id="0-安装"><a href="#0-安装" class="headerlink" title="0. 安装"></a>0. 安装</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs elixir">apt-get install protobuf-compiler<br>pip install pillow<br>pip install lxml<br>pip install jupyter<br>pip install matplotlib<br><br><span class="hljs-comment"># From tensorflow/models/research/</span><br>protoc object_detection/protos/*.proto --python_out=.<br><br><span class="hljs-comment"># From tensorflow/models/research/</span><br>export PYTHONPATH=<span class="hljs-variable">$PYTHONPATH</span><span class="hljs-symbol">:`pwd`</span><span class="hljs-symbol">:`pwd`/slim</span><br></code></pre></td></tr></table></figure>
 <hr>
 <a id="more"></a>
 
 
 <h2 id="1-训练命令"><a href="#1-训练命令" class="headerlink" title="1. 训练命令"></a>1. 训练命令</h2><p><a target="_blank" rel="noopener" href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_locally.md">https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/running_locally.md</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> From the tensorflow/models/research/ directory</span></span><br><span class="line">python object_detection/train.py \</span><br><span class="line">    --logtostderr \</span><br><span class="line">    --pipeline_config_path=$&#123;PATH_TO_YOUR_PIPELINE_CONFIG&#125; \</span><br><span class="line">    --train_dir=$&#123;PATH_TO_TRAIN_DIR&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><figcaption><span>[pipeline_config.pbtxt]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#96;&#96;&#96;PATH_TO_TRAIN_DIR&#96;&#96;&#96;：训练模型保存位置</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">## 2. PIPELINE_CONFIG</span><br><span class="line">&lt;https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;models&#x2F;blob&#x2F;master&#x2F;research&#x2F;object_detection&#x2F;g3doc&#x2F;configuring_jobs.md&gt;</span><br><span class="line">&#96;&#96;&#96;proto</span><br><span class="line">model &#123;</span><br><span class="line">(... Add model config here...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">train_config : &#123;</span><br><span class="line">(... Add train_config here...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">train_input_reader: &#123;</span><br><span class="line">(... Add train_input configuration here...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_config: &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">eval_input_reader: &#123;</span><br><span class="line">(... Add eval_input configuration here...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> From the tensorflow/models/research/ directory</span><br>python object_detection/train.py \<br>    --logtostderr \<br>    --pipeline_config_path=$&#123;PATH_TO_YOUR_PIPELINE_CONFIG&#125; \<br>    --train_dir=$&#123;PATH_TO_TRAIN_DIR&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>[pipeline_config.pbtxt]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs PATH_TO_YOUR_PIPELINE_CONFIG```：网络设置文件">&#96;&#96;&#96;PATH_TO_TRAIN_DIR&#96;&#96;&#96;：训练模型保存位置<br><br>---<br>## 2. PIPELINE_CONFIG<br>&lt;https:&#x2F;&#x2F;github.com&#x2F;tensorflow&#x2F;models&#x2F;blob&#x2F;master&#x2F;research&#x2F;object_detection&#x2F;g3doc&#x2F;configuring_jobs.md&gt;<br>&#96;&#96;&#96;proto<br>model &#123;<br>(... Add model config here...)<br>&#125;<br><br>train_config : &#123;<br>(... Add train_config here...)<br>&#125;<br><br>train_input_reader: &#123;<br>(... Add train_input configuration here...)<br>&#125;<br><br>eval_config: &#123;<br>&#125;<br><br>eval_input_reader: &#123;<br>(... Add eval_input configuration here...)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>pipeline_config 文件分为以下五个部分</p>
 <ul>
 <li>model: <code>object_detection/samples/model_configs</code></li>
-<li>train_config:   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">batch_size: 1</span><br><span class="line">optimizer &#123;</span><br><span class="line">momentum_optimizer: &#123;</span><br><span class="line">learning_rate: &#123;</span><br><span class="line">  manual_step_learning_rate &#123;</span><br><span class="line">    initial_learning_rate: 0.0002</span><br><span class="line">    schedule &#123;</span><br><span class="line">      step: 0</span><br><span class="line">      learning_rate: .0002</span><br><span class="line">    &#125;</span><br><span class="line">    schedule &#123;</span><br><span class="line">      step: 900000</span><br><span class="line">      learning_rate: .00002</span><br><span class="line">    &#125;</span><br><span class="line">    schedule &#123;</span><br><span class="line">      step: 1200000</span><br><span class="line">      learning_rate: .000002</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">momentum_optimizer_value: 0.9</span><br><span class="line">&#125;</span><br><span class="line">use_moving_average: false</span><br><span class="line">&#125;</span><br><span class="line">fine_tune_checkpoint: &quot;&#x2F;usr&#x2F;home&#x2F;username&#x2F;tmp&#x2F;model.ckpt-#####&quot;</span><br><span class="line">from_detection_checkpoint: true</span><br><span class="line">gradient_clipping_by_norm: 10.0</span><br><span class="line">data_augmentation_options &#123;</span><br><span class="line">    random_horizontal_flip &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>train_input_reader:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tf_record_input_reader &#123;</span><br><span class="line">input_path&#123;</span><br><span class="line">    &quot;&#x2F;usr&#x2F;home&#x2F;username&#x2F;data&#x2F;train.record&quot;</span><br><span class="line">&#125;</span><br><span class="line">label_map_path: &quot;&#x2F;usr&#x2F;home&#x2F;username&#x2F;data&#x2F;label_map.pbtxt&quot;</span><br></pre></td></tr></table></figure>
+<li>train_config:   <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">batch_size:</span> <span class="hljs-number">1</span><br><span class="hljs-class">optimizer </span>&#123;<br><span class="hljs-symbol">momentum_optimizer:</span> &#123;<br><span class="hljs-symbol">learning_rate:</span> &#123;<br>  <span class="hljs-class">manual_step_learning_rate </span>&#123;<br><span class="hljs-symbol">    initial_learning_rate:</span> <span class="hljs-number">0.0002</span><br>    <span class="hljs-class">schedule </span>&#123;<br><span class="hljs-symbol">      step:</span> <span class="hljs-number">0</span><br><span class="hljs-symbol">      learning_rate:</span> <span class="hljs-number">.0002</span><br>    &#125;<br>    <span class="hljs-class">schedule </span>&#123;<br><span class="hljs-symbol">      step:</span> <span class="hljs-number">900000</span><br><span class="hljs-symbol">      learning_rate:</span> <span class="hljs-number">.00002</span><br>    &#125;<br>    <span class="hljs-class">schedule </span>&#123;<br><span class="hljs-symbol">      step:</span> <span class="hljs-number">1200000</span><br><span class="hljs-symbol">      learning_rate:</span> <span class="hljs-number">.000002</span><br>    &#125;<br>  &#125;<br>&#125;<br><span class="hljs-symbol">momentum_optimizer_value:</span> <span class="hljs-number">0.9</span><br>&#125;<br><span class="hljs-symbol">use_moving_average:</span> false<br>&#125;<br><span class="hljs-symbol">fine_tune_checkpoint:</span> <span class="hljs-string">&quot;/usr/home/username/tmp/model.ckpt-#####&quot;</span><br><span class="hljs-symbol">from_detection_checkpoint:</span> true<br><span class="hljs-symbol">gradient_clipping_by_norm:</span> <span class="hljs-number">10.0</span><br><span class="hljs-class">data_augmentation_options </span>&#123;<br>    <span class="hljs-class">random_horizontal_flip </span>&#123;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>train_input_reader:<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-class">tf_record_input_reader </span>&#123;<br>input_path&#123;<br>    <span class="hljs-string">&quot;/usr/home/username/data/train.record&quot;</span><br>&#125;<br><span class="hljs-symbol">label_map_path:</span> <span class="hljs-string">&quot;/usr/home/username/data/label_map.pbtxt&quot;</span><br></code></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <hr>
 <h2 id="3-TF-record"><a href="#3-TF-record" class="headerlink" title="3. TF-record"></a>3. TF-record</h2><p><a target="_blank" rel="noopener" href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/preparing_inputs.md">https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/preparing_inputs.md</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># From tensorflow&#x2F;models&#x2F;research&#x2F;</span><br><span class="line">wget http:&#x2F;&#x2F;host.robots.ox.ac.uk&#x2F;pascal&#x2F;VOC&#x2F;voc2012&#x2F;VOCtrainval_11-May-2012.tar</span><br><span class="line">tar -xvf VOCtrainval_11-May-2012.tar</span><br><span class="line">python object_detection&#x2F;create_pascal_tf_record.py \</span><br><span class="line">    --label_map_path&#x3D;object_detection&#x2F;data&#x2F;pascal_label_map.pbtxt \</span><br><span class="line">    --data_dir&#x3D;VOCdevkit --year&#x3D;VOC2012 --set&#x3D;train \</span><br><span class="line">    --output_path&#x3D;pascal_train.record</span><br><span class="line">python object_detection&#x2F;create_pascal_tf_record.py \</span><br><span class="line">    --label_map_path&#x3D;object_detection&#x2F;data&#x2F;pascal_label_map.pbtxt \</span><br><span class="line">    --data_dir&#x3D;VOCdevkit --year&#x3D;VOC2012 --set&#x3D;val \</span><br><span class="line">    --output_path&#x3D;pascal_val.record</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-comment"># From tensorflow/models/research/</span><br>wget http:<span class="hljs-string">//host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar</span><br>tar -xvf VOCtrainval_11-May-2012.tar<br>python object_detection/create_pascal_tf_record.py \<br>    <span class="hljs-params">--label_map_path=object_detection/data/pascal_label_map</span>.pbtxt \<br>    <span class="hljs-params">--data_dir=VOCdevkit</span> <span class="hljs-params">--year=VOC2012</span> <span class="hljs-params">--set=train</span> \<br>    <span class="hljs-params">--output_path=pascal_train</span>.record<br>python object_detection/create_pascal_tf_record.py \<br>    <span class="hljs-params">--label_map_path=object_detection/data/pascal_label_map</span>.pbtxt \<br>    <span class="hljs-params">--data_dir=VOCdevkit</span> <span class="hljs-params">--year=VOC2012</span> <span class="hljs-params">--set=val</span> \<br>    <span class="hljs-params">--output_path=pascal_val</span>.record<br></code></pre></td></tr></table></figure>
 <hr>
 <h2 id="4-export-trained-model"><a href="#4-export-trained-model" class="headerlink" title="4. export trained model"></a>4. export trained model</h2><p><a target="_blank" rel="noopener" href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md">https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/exporting_models.md</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># From tensorflow&#x2F;models&#x2F;research&#x2F;</span><br><span class="line">python object_detection&#x2F;export_inference_graph.py \</span><br><span class="line">    --input_type image_tensor \</span><br><span class="line">    --pipeline_config_path  object_detection&#x2F;dxx_models&#x2F;inception_resnet_v2&#x2F;pipeline_config.pbtxt \ #$&#123;PIPELINE_CONFIG_PATH&#125; i</span><br><span class="line">    --trained_checkpoint_prefix object_detection&#x2F;dxx_models&#x2F;inception_resnet_v2&#x2F;train&#x2F;model.ckpt-381545 \ #$&#123;MODEL_PATH&#125; </span><br><span class="line">    --output_directory object_detection&#x2F;dxx_models&#x2F;inception_resnet_v2&#x2F;train&#x2F;output_inference_graph.pb2</span><br></pre></td></tr></table></figure>
-    </div>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># From tensorflow/models/research/</span><br>python object_detection/export_inference_graph.py \<br>    --input_type image_tensor \<br>    --pipeline_config_path  object_detection<span class="hljs-regexp">/dxx_models/i</span>nception_resnet_v2/pipeline_config.pbtxt \ <span class="hljs-comment">#$&#123;PIPELINE_CONFIG_PATH&#125; i</span><br>    --trained_checkpoint_prefix object_detection<span class="hljs-regexp">/dxx_models/i</span>nception_resnet_v2<span class="hljs-regexp">/train/m</span>odel.ckpt-<span class="hljs-number">381545</span> \ <span class="hljs-comment">#$&#123;MODEL_PATH&#125; </span><br>    --output_directory object_detection<span class="hljs-regexp">/dxx_models/i</span>nception_resnet_v2<span class="hljs-regexp">/train/</span>output_inference_graph.pb2<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/TensorFlow/">TensorFlow</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/TensorFlow/">TensorFlow</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Object-Detection/">Object Detection</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe-20210107-openpose-train/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">openpose_train</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/07/Caffe2-20210107-Non-local-Neural-Network/">
+                        <span class="hidden-mobile">Non-local Neural Network</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
-              <a href="/tags/Object-Detection/" rel="tag"># Object Detection</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe2-20210107-Non-local-Neural-Network/" rel="prev" title="Non-local Neural Network">
-      <i class="fa fa-chevron-left"></i> Non-local Neural Network
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/01/07/Caffe-20210107-openpose-train/" rel="next" title="openpose_train">
-      openpose_train <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
+            
+          </article>
         </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">0. 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%AE%AD%E7%BB%83%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">1. 训练命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-TF-record"><span class="nav-number">3.</span> <span class="nav-text">3. TF-record</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-export-trained-model"><span class="nav-number">4.</span> <span class="nav-text">4. export trained model</span></a></li></ol></div>
       </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">clover978</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">37</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-        <span class="site-state-item-count">23</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">clover978</span>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
-  </div>
-
-        
-
-
-
-
-
-
-
 
       </div>
-    </footer>
+    
   </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+  
+</footer>
 
-<script src="/js/motion.js"></script>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
 
 
-<script src="/js/next-boot.js"></script>
-
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
@@ -402,6 +402,49 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
@@ -414,9 +457,13 @@
 
 
 
-  
 
-  
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
 
 </body>
 </html>
