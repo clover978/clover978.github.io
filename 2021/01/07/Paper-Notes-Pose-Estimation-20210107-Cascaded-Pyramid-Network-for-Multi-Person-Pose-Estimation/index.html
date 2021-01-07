@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Weakly Supervised Local Attention Network for Fine-Grained Visual Classification  arxiv (MSRA) 这篇文章提出一种 LAP(Local Attention Pooling) 的机制，利用 attention map 去提取更具区分性的特征图；文中还提出一种弱监督的方式去训练网络的方法，在训练过程中加入了 a">
+  <meta name="description" content="https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1711.07319 Introduction: 提出 cascaded pyramid network（CPN），包含 global pyramid network 和 pyramid refined network 探讨 多人目标检测中各种因素的影响 COCO 上 test-dev AP： 73.0; test-challenge AP：72.1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Weakly Supervised Local Attention Network for Fine-Grained Visual Classification">
-<meta property="og:url" content="http://example.com/2021/01/06/Paper-Notes-20210106-Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification/index.html">
+<meta property="og:title" content="Cascaded Pyramid Network for Multi-Person Pose Estimation">
+<meta property="og:url" content="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="Weakly Supervised Local Attention Network for Fine-Grained Visual Classification  arxiv (MSRA) 这篇文章提出一种 LAP(Local Attention Pooling) 的机制，利用 attention map 去提取更具区分性的特征图；文中还提出一种弱监督的方式去训练网络的方法，在训练过程中加入了 a">
+<meta property="og:description" content="https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1711.07319 Introduction: 提出 cascaded pyramid network（CPN），包含 global pyramid network 和 pyramid refined network 探讨 多人目标检测中各种因素的影响 COCO 上 test-dev AP： 73.0; test-challenge AP：72.1">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T05:53:32.000Z">
-<meta property="article:modified_time" content="2021-01-06T06:06:35.915Z">
+<meta property="article:published_time" content="2021-01-07T03:32:27.000Z">
+<meta property="article:modified_time" content="2021-01-07T03:38:45.242Z">
 <meta property="article:author" content="clover978">
 <meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="FGVC">
+<meta property="article:tag" content="Pose Estimation">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/Paper-Notes-20210106-Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification/">
+<link rel="canonical" href="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Weakly Supervised Local Attention Network for Fine-Grained Visual Classification | clover978</title>
+  <title>Cascaded Pyramid Network for Multi-Person Pose Estimation | clover978</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Paper-Notes-20210106-Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Weakly Supervised Local Attention Network for Fine-Grained Visual Classification
+          Cascaded Pyramid Network for Multi-Person Pose Estimation
         </h1>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 13:53:32 / Modified: 14:06:35" itemprop="dateCreated datePublished" datetime="2021-01-06T13:53:32+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-07 11:32:27 / Modified: 11:38:45" itemprop="dateCreated datePublished" datetime="2021-01-07T11:32:27+08:00">2021-01-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -184,11 +184,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper-notes/" itemprop="url" rel="index"><span itemprop="name">Paper notes</span></a>
+                  <a href="/categories/Paper-Notes/" itemprop="url" rel="index"><span itemprop="name">Paper Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper-notes/FGVC/" itemprop="url" rel="index"><span itemprop="name">FGVC</span></a>
+                  <a href="/categories/Paper-Notes/Pose-Estimation/" itemprop="url" rel="index"><span itemprop="name">Pose Estimation</span></a>
                 </span>
             </span>
 
@@ -203,40 +203,83 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification"><a href="#Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification" class="headerlink" title="Weakly Supervised Local Attention Network for Fine-Grained Visual Classification"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1808.02152.pdf">Weakly Supervised Local Attention Network for Fine-Grained Visual Classification</a></h2><blockquote>
-<ul>
-<li><strong>arxiv (MSRA)</strong></li>
-<li>这篇文章提出一种 LAP(Local Attention Pooling) 的机制，利用 attention map 去提取更具区分性的特征图；文中还提出一种弱监督的方式去训练网络的方法，在训练过程中加入了 attention dropout 和 attention center loss。</li>
-<li>文中提出的网络 WS-LAN(Weakly Supervised Local Attention Network)在 CUB 数据集上准确率达到了 87.9</li>
-</ul>
-</blockquote>
- <a id="more"></a>
+        <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.07319">https://arxiv.org/abs/1711.07319</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h1><ol>
+<li>提出 <code>cascaded pyramid network（CPN）</code>，包含 <code>global pyramid network</code> 和 <code>pyramid refined network</code></li>
+<li>探讨 多人目标检测中各种因素的影响</li>
+<li>COCO 上 <strong>test-dev AP： 73.0; test-challenge AP：72.1</strong></li>
+</ol>
+<a id="more"></a>
 
+<h1 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work:"></a>Related work:</h1><ol>
+<li><p>muti-pose:</p>
 <ul>
-<li>Local Attention Pooling:<br>这一部分通过文中的 <code>插图1</code> 很容易就能看懂。<br>作者首先通过 CNN 分别提取到图片的 特征图 和 注意力图，其中每一个注意力图用于聚焦目标的一个 part 上。然后将特征图与 k 个注意力图分别点乘，得到 k 个 part 的特征图。对 k 个特征图进行卷积核池化操作，得到每一个 part 的特征，将 k 个 part 特征合并到一起形成最终的特征。<br>这一部分实际上与 SE-Net 很相似。SE-Net 将特征经过卷积之后，再经过一个 SE 结构，等同于在卷积过程中对卷积核的不同 channel 赋予不同的权重，上一层的特征会分别与卷积核的不同 channel 进行卷积操作。假设将上一层特征看做 LAN 中的特征图，channel间 attention 最大的 topk 个卷积核看做 LAN 中的注意力图，那么两个网络的区别就是一个是进行 卷积操作，一个是进行 点乘操作。<br>所以这一部分实际上可以看做是一个稍加改动，更为复杂的 SE-Net。但是这种改动是必要的，因为下面的 WS-LAN 需要在这个网络结构上进行训练。</li>
-<li>WS-LAN：<br>这一部分，作者将两个传统网络训练中的 trick 迁移到了上面的 LAN 中，这应该是文章最大的两个提升点。<br>这部分的两个 trick 实际上想解决的问题只有一个，就是 提取到的 <strong><em>attention map 很容易只聚焦到目标的一两个最具区分度的区域</em></strong>。<ul>
-<li>attention dropout：<br>作者将 dropout 加入到 LAP 操作中。attention map 和 feature map 进行点乘的时候，attention map 以 概率(1-p) 被 drop 掉，以概率 p 被保留，并乘以 1/p，这个操作与传统的 dropout 如出一辙。</li>
-<li>attention center loss：<br>人脸识别文章中提出过一个 center loss，作者同样将其迁移到 WS-LAN 中。<br>attention map 与 feature map 点乘之后得到 k 个 part feature，作者为这 k 个 feature 维护 k 个 center，然后每次训练的时候，计算每个 feature 和 center 的距离，最小化同一个 part 的 feature distance，最大化不同 part 的 feature distance，作为 attention center loss 的约束条件。</li>
+<li>bottom-up: DeepCut, OpenPose  </li>
+<li>top-down: Mask-RCNN  </li>
 </ul>
 </li>
-<li>实验结果：  <table>
+<li><p>single pose:</p>
+<ul>
+<li>CPM</li>
+<li>hourglass</li>
+<li>…</li>
+</ul>
+</li>
+<li><p>detection:</p>
+<ul>
+<li>FPN</li>
+<li>mask-RCNN</li>
+</ul>
+</li>
+</ol>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><ul>
+<li><p>network structure:<br><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1711.07319.pdf">Fig-1</a></p>
+</li>
+<li><p>Detector:<br>这篇文章使用的 detetor 配置如下， FPN(res101) + ROIAlign + softNMS. AP = 0.411, AP(Person) = 0.533</p>
+</li>
+<li><p>GlobalNet<br>basemodel 提取不同 stage 的特征，底层的特征直接用插值的方法 upsample，然后通过 <code>1*1</code> 卷积将通道统一为 256，对特征做 <code>element-wise sum</code> 得到 feature pyramid，金字塔上每一层特征通过一个 1*1 conv + 3*3*17 conv 得到 globalnet 的输出（ heatmap * 17）</p>
+</li>
+<li><p>RefineNet<br>使用 bottleneck 结构对特征进行 upsample，特征图越小，通过的 bootleneck 越多，upsample 倍率越大，最后所有特征都具有相同的大小。将 4 个 stage 的特征在 channel wise concat 起来。</p>
+</li>
+<li><p>ohkm<br>根据 loss 判断出 hard keypoint，然后只对部分关键点的 loss 进行反向传播。</p>
+</li>
+</ul>
+<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><ul>
+<li>Cropping Strategy<br><code>bbox --(extend)--&gt; 256:192  --(crop)--&gt; block --(resize)--&gt; 256:192</code></li>
+<li>Data Augmentation<br>random flip<br>random rotation<br>random scale</li>
+<li>Test:<br><strong>Apply gussian filter to heatmap</strong><br><strong>Also test flipped image</strong><br><strong>最高的响应 R1，第二高的响应为 R2，最终结果 = R1+0.25*R2</strong><br><strong>Rescore: S(pose) = S(bbox) * avg(S(key-point))</strong></li>
+</ul>
+<h1 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h1><p><strong>Ablation experiment</strong><br>|| AP | FLOPs | Params |<br>|- |- | - | - |<br>| ResNet-50 + dilation(res4-5) | 66.5 | 17.71G | 92M |<br>| GlobalNet only | 66.6 | 3.90G | 94M |<br>| CPN w/o ohkm | 68.6 | 6.20G | 102M |<br>| CPN | 69.4 | 6.20G | 102M |<br>| GlobalNet + Concat | 68.5 | 5.87G | - |<br>| GlobalNet + 1 bottleneck +Concat | 69.2 | 6.92G | - |<br>| CPN (384 × 288) | 71.6 | 13.9G | - |</p>
+<p>在 <strong>refineNet</strong> 中使用不同的 layer</p>
+<table>
 <thead>
 <tr>
 <th></th>
-<th>acc</th>
+<th>AP</th>
+<th>FLOPs</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>LAN</td>
-<td>85.5</td>
+<td>C2</td>
+<td>68.3</td>
+<td>5.02G</td>
 </tr>
 <tr>
-<td>WS-LAN</td>
-<td>87.9</td>
+<td>C2-3</td>
+<td>68.4</td>
+<td>5.50G</td>
+</tr>
+<tr>
+<td>C2-4</td>
+<td>69.1</td>
+<td>5.88G</td>
+</tr>
+<tr>
+<td>C2-5</td>
+<td>69.4</td>
+<td>6.20G</td>
 </tr>
 </tbody></table>
-</li>
-</ul>
 
     </div>
 
@@ -247,7 +290,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/FGVC/" rel="tag"># FGVC</a>
+              <a href="/tags/Pose-Estimation/" rel="tag"># Pose Estimation</a>
           </div>
 
         
@@ -256,12 +299,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Embedding-label-structures-for-fine-grained-feature-representation/" rel="prev" title="Embedding label structures for fine-grained feature representation">
-      <i class="fa fa-chevron-left"></i> Embedding label structures for fine-grained feature representation
+    <a href="/2021/01/07/Python-20210107-Python-%E7%BC%96%E5%86%99-C-%E6%89%A9%E5%B1%95/" rel="prev" title="Python 编写 C 扩展">
+      <i class="fa fa-chevron-left"></i> Python 编写 C 扩展
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses/" rel="next" title="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses">
-      Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/07/Paper-Notes-Pose-Estimation-20210107-RMPE-Regional-Multi-Person-Pose-Estimation/" rel="next" title="RMPE  Regional Multi-Person Pose Estimation">
+      RMPE  Regional Multi-Person Pose Estimation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -321,7 +364,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Weakly-Supervised-Local-Attention-Network-for-Fine-Grained-Visual-Classification"><span class="nav-number">1.</span> <span class="nav-text">Weakly Supervised Local Attention Network for Fine-Grained Visual Classification</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-work"><span class="nav-number">2.</span> <span class="nav-text">Related work:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Method"><span class="nav-number">3.</span> <span class="nav-text">Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Experiment"><span class="nav-number">4.</span> <span class="nav-text">Experiment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Result"><span class="nav-number">5.</span> <span class="nav-text">Result</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -335,13 +378,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Fine-grained Image Classification by Visual-Semantic Embedding  IJCAI 2018 这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 text context，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 knowledge based cont">
+  <meta name="description" content="The unreasonable effectiveness of noisy data for fine-grained recognition  ECCV 2016 这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。   网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。   加入大量网络数据后，训练的效果得到了大幅度的提升，目前在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Fine-grained Image Classification by Visual-Semantic Embedding">
-<meta property="og:url" content="http://example.com/2021/01/06/Paper-Notes-20210106-Fine-grained-Image-Classification-by-Visual-Semantic-Embedding/index.html">
+<meta property="og:title" content="The unreasonable effectiveness of noisy data for fine-grained recognition">
+<meta property="og:url" content="http://example.com/2021/01/06/Paper-Notes-FGVC-20210106-The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="Fine-grained Image Classification by Visual-Semantic Embedding  IJCAI 2018 这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 text context，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 knowledge based cont">
+<meta property="og:description" content="The unreasonable effectiveness of noisy data for fine-grained recognition  ECCV 2016 这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。   网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。   加入大量网络数据后，训练的效果得到了大幅度的提升，目前在">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T05:53:57.000Z">
-<meta property="article:modified_time" content="2021-01-06T06:06:54.889Z">
+<meta property="article:published_time" content="2021-01-06T05:46:06.000Z">
+<meta property="article:modified_time" content="2021-01-06T06:06:30.316Z">
 <meta property="article:author" content="clover978">
 <meta property="article:tag" content="deep learning">
 <meta property="article:tag" content="FGVC">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/Paper-Notes-20210106-Fine-grained-Image-Classification-by-Visual-Semantic-Embedding/">
+<link rel="canonical" href="http://example.com/2021/01/06/Paper-Notes-FGVC-20210106-The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>Fine-grained Image Classification by Visual-Semantic Embedding | clover978</title>
+  <title>The unreasonable effectiveness of noisy data for fine-grained recognition | clover978</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Paper-Notes-20210106-Fine-grained-Image-Classification-by-Visual-Semantic-Embedding/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Paper-Notes-FGVC-20210106-The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Fine-grained Image Classification by Visual-Semantic Embedding
+          The unreasonable effectiveness of noisy data for fine-grained recognition
         </h1>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 13:53:57 / Modified: 14:06:54" itemprop="dateCreated datePublished" datetime="2021-01-06T13:53:57+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-06 13:46:06 / Modified: 14:06:30" itemprop="dateCreated datePublished" datetime="2021-01-06T13:46:06+08:00">2021-01-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -203,26 +203,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Fine-grained-Image-Classification-by-Visual-Semantic-Embedding"><a href="#Fine-grained-Image-Classification-by-Visual-Semantic-Embedding" class="headerlink" title="Fine-grained Image Classification by Visual-Semantic Embedding"></a><a target="_blank" rel="noopener" href="https://www.ijcai.org/proceedings/2018/0145.pdf">Fine-grained Image Classification by Visual-Semantic Embedding</a></h2><blockquote>
+        <h2 id="The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><a href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition" class="headerlink" title="The unreasonable effectiveness of noisy data for fine-grained recognition"></a><a target="_blank" rel="noopener" href="http://cn.arxiv.org/pdf/1511.06789.pdf">The unreasonable effectiveness of noisy data for fine-grained recognition</a></h2><blockquote>
 <ul>
-<li><strong>IJCAI 2018</strong></li>
-<li>这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 <strong>text context</strong>，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 <strong>knowledge based context</strong>，收集子类鸟的各种属性，建立知识库，有点属性学习的意思。</li>
-<li>这篇文章的想法很有创新，并且也有很好的效果，在 CUB 数据集上达到 86.2 的准确率。但是没有验证在其他数据集上是否同时有效。</li>
+<li><strong>ECCV 2016</strong></li>
+<li>这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。  </li>
+<li>网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。  </li>
+<li>加入大量网络数据后，训练的效果得到了大幅度的提升，目前在 CUB 数据集上准确率达到了 92.3  </li>
 </ul>
 </blockquote>
  <a id="more"></a>
 
 <ul>
-<li>Two leval CNN:<br>作者设计了一个双层的网络结构，F(a) 是定位网络，F(b) 是回归排序网络，网络结构图参考论文。<ul>
-<li>Localization Network：<br>这一部分是传统的目标检测网络模型。提取 定位网络的特征，与回归网络提取的特征点乘，起到 Attention 的作用。</li>
-<li>Regression Ranking Network：<br>这一部分通过 CNN 提取网络的特征，然后加入定位网络提取的特征作为 Attention，得到视觉特征，接下来通过 FC 层，将视觉特征映射到语义空间，网络的约束条件就是特征在语义空间中的距离，优化网络，减小学习到的语义特征与 gt 在语义空间中的特征距离。作者使用了两种语义空间，因此网络的视觉特征同时平行通过了两个 FC 层。<ul>
-<li><code>Knowledge Base Embedding</code>：<br>这里参考了 <a target="_blank" rel="noopener" href="https://www.aaai.org/ocs/index.php/AAAI/AAAI15/paper/view/9571/9523">Learning Entity and Relation Embeddings for Knowledge Graph Completion</a> 中提出的 <code>TransR</code> 方法。并在此基础上针对细粒度分类问题提出了 <code>Attribute Base Embedding</code>。这一部分属于 知识图谱 的领域，看得不是很明白。<br>首先，传统的 知识库嵌入 中，知识库由 三元组(h, r, t) 组成，其中 h，t 表示两个实体，h 是起点，t 是终点；r 表示是实体之间的关系。实体(h,t) 由 d 维数组表示，关系(r) 由 r 维数组表示，映射矩阵 M(r) 是一个 d*r 的矩阵，将实体空间映射到关系空间。知识图谱的约束条件定义为：f(h, t) = ||h(r) + r - t(r) ||。<br>基于 知识库嵌入 改进的 属性知识库嵌入，三元组(h, r, t)中 实体h 是样本标签y， 关系r 是 has_property_of， 实体t 是样本的属性。通过优化映射矩阵，将样本标签映射到 属性知识库空间。</li>
-<li><code>Text Embedding</code>：<br>文本嵌入部分通过 word2vec 实现。作者首先 finetune 了一个 word2vec 模型，然后利用模型将 类别名称 映射到 文本语义空间。  </li>
-</ul>
+<li><p>cross-domain noise:<br><code>cross-domain noise</code> 指的是不属于这一大类的图片，例如搜索某种鸟，出来的结果是昆虫的图片。通过人工标注量化了这种噪声，发现这种情况比较少，并且当图片数目增多的时候，噪声占的比例也会减少。<br>这种噪声对结果的影响也比较小。</p>
 </li>
-<li>实验结果：<br>作者在 CUB 数据集上做的实验，按照论文所述，训练的过程中既没有使用 bbox 信息，也没有使用 part annotation 信息，这一点不是很明白，和我理解的训练过程不太一样。  </li>
-</ul>
-<strong>CUB</strong> 准确率： <strong>0.862</strong></li>
+<li><p>cross-category noise:<br><code>cross-category noise</code> 指的是将其他子类的图片混入搜索结果的情况。这种噪声的比例难以量化，并且对结果的影响比较大，作者将搜索结果中重复的图片去除掉来减少这些噪声。</p>
+</li>
+<li><p>active learning：<br>作者还提出两种标注方法辅助去除噪声。1）使用预训练好的模型，挑选搜索结果中置信度高的结果；2）人工筛选搜索结果。</p>
+</li>
+<li><p>实验结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CUB</th>
+<th>web-raw</th>
+<th>web-filter</th>
+<th>L-bird</th>
+<th>L-bird(MC)</th>
+<th>L-bird+CUB</th>
+<th>L-bird+CUB(MC)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>acc</td>
+<td>84.4</td>
+<td>87.7</td>
+<td>89.0</td>
+<td>91.9</td>
+<td>92.3</td>
+<td>92.2</td>
+<td>92.8</td>
+</tr>
+</tbody></table>
+<pre><code>`CUB`：CUB 数据集  
+`web-raw`：web 爬取数据集  
+`web-filter`： 去除 `cross-category noise`  
+`L-Bird`: 爬取所有鸟类的图片，进行预训练，然后在 web-filter 上 finetune  
+`MC`：测试的时候使用 multi-crop</code></pre>
+</li>
 </ul>
 
     </div>
@@ -243,12 +271,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Fine-Grained-Image-Classification-Using-Modified-DCNNs-Trained-by-Cascaded-Softmax-and-Generalized-Large-Margin-Losses/" rel="prev" title="Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses">
-      <i class="fa fa-chevron-left"></i> Fine-Grained Image Classification Using Modified DCNNs Trained by Cascaded Softmax and Generalized Large-Margin Losses
+    <a href="/2021/01/06/hexo-20210106-hexo-installation/" rel="prev" title="hexo installation">
+      <i class="fa fa-chevron-left"></i> hexo installation
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition/" rel="next" title="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition">
-      Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/06/Paper-Notes-FGVC-20210106-Embedding-label-structures-for-fine-grained-feature-representation/" rel="next" title="Embedding label structures for fine-grained feature representation">
+      Embedding label structures for fine-grained feature representation <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -308,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fine-grained-Image-Classification-by-Visual-Semantic-Embedding"><span class="nav-number">1.</span> <span class="nav-text">Fine-grained Image Classification by Visual-Semantic Embedding</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><span class="nav-number">1.</span> <span class="nav-text">The unreasonable effectiveness of noisy data for fine-grained recognition</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -322,13 +350,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

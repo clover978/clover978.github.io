@@ -20,21 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification  CVPR 2015 这篇文章提出了一个大型的数据集 CompCars，里面包含了从网络上收集的 13.6w 张整车图片， 2.7w 张车辆局部图片，还有从监控场景下拍摄的 5k 张车辆正脸图片。   实验部分使用这个数据集分别用于 车辆细粒度分类、">
+  <meta name="description" content="https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1612.00137.pdf Introduction top-down 的 muti-person PE 方法有两个缺点：a 有的框(IOU&gt;0.5)实际上框的不准，b 有一些冗余框 提出 Regional Muti-person estimation 框架。 提出 symmetric spatial transformer network (S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification">
-<meta property="og:url" content="http://example.com/2021/01/06/Paper-Notes-20210106-A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification/index.html">
+<meta property="og:title" content="RMPE  Regional Multi-Person Pose Estimation">
+<meta property="og:url" content="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-RMPE-Regional-Multi-Person-Pose-Estimation/index.html">
 <meta property="og:site_name" content="clover978">
-<meta property="og:description" content="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification  CVPR 2015 这篇文章提出了一个大型的数据集 CompCars，里面包含了从网络上收集的 13.6w 张整车图片， 2.7w 张车辆局部图片，还有从监控场景下拍摄的 5k 张车辆正脸图片。   实验部分使用这个数据集分别用于 车辆细粒度分类、">
+<meta property="og:description" content="https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1612.00137.pdf Introduction top-down 的 muti-person PE 方法有两个缺点：a 有的框(IOU&gt;0.5)实际上框的不准，b 有一些冗余框 提出 Regional Muti-person estimation 框架。 提出 symmetric spatial transformer network (S">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-06T06:10:34.000Z">
-<meta property="article:modified_time" content="2021-01-06T12:28:28.374Z">
+<meta property="article:published_time" content="2021-01-07T03:34:28.000Z">
+<meta property="article:modified_time" content="2021-01-07T03:39:21.805Z">
 <meta property="article:author" content="clover978">
 <meta property="article:tag" content="deep learning">
-<meta property="article:tag" content="FGVC">
+<meta property="article:tag" content="Pose Estimation">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/01/06/Paper-Notes-20210106-A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification/">
+<link rel="canonical" href="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-RMPE-Regional-Multi-Person-Pose-Estimation/">
 
 
 <script id="page-configurations">
@@ -47,7 +47,7 @@
   };
 </script>
 
-  <title>A Large-Scale Car Dataset for Fine-grained Categotozation and Verification | clover978</title>
+  <title>RMPE  Regional Multi-Person Pose Estimation | clover978</title>
   
 
 
@@ -152,7 +152,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/Paper-Notes-20210106-A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Paper-Notes-Pose-Estimation-20210107-RMPE-Regional-Multi-Person-Pose-Estimation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +165,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          A Large-Scale Car Dataset for Fine-grained Categotozation and Verification
+          RMPE  Regional Multi-Person Pose Estimation
         </h1>
 
         <div class="post-meta">
@@ -176,7 +176,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2021-01-06 14:10:34 / Modified: 20:28:28" itemprop="dateCreated datePublished" datetime="2021-01-06T14:10:34+08:00">2021-01-06</time>
+              <time title="Created: 2021-01-07 11:34:28 / Modified: 11:39:21" itemprop="dateCreated datePublished" datetime="2021-01-07T11:34:28+08:00">2021-01-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -184,11 +184,11 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper-notes/" itemprop="url" rel="index"><span itemprop="name">Paper notes</span></a>
+                  <a href="/categories/Paper-Notes/" itemprop="url" rel="index"><span itemprop="name">Paper Notes</span></a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper-notes/FGVC/" itemprop="url" rel="index"><span itemprop="name">FGVC</span></a>
+                  <a href="/categories/Paper-Notes/Pose-Estimation/" itemprop="url" rel="index"><span itemprop="name">Pose Estimation</span></a>
                 </span>
             </span>
 
@@ -203,141 +203,54 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification"><a href="#A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification" class="headerlink" title="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification"></a><a target="_blank" rel="noopener" href="http://arxiv.org/abs/1506.08959">A Large-Scale Car Dataset for Fine-grained Categotozation and Verification</a></h2><blockquote>
-<ul>
-<li><strong>CVPR 2015</strong></li>
-<li>这篇文章提出了一个大型的数据集 CompCars，里面包含了从网络上收集的 13.6w 张整车图片， 2.7w 张车辆局部图片，还有从监控场景下拍摄的 5k 张车辆正脸图片。  </li>
-<li>实验部分使用这个数据集分别用于 <strong>车辆细粒度分类、车辆属性所识别、车辆验证</strong> 三个任务。</li>
-</ul>
-</blockquote>
+        <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1612.00137.pdf">https://arxiv.org/pdf/1612.00137.pdf</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ol>
+<li>top-down 的 muti-person PE 方法有两个缺点：a 有的框(IOU&gt;0.5)实际上框的不准，b 有一些冗余框</li>
+<li>提出 Regional Muti-person estimation 框架。</li>
+<li>提出 symmetric spatial transformer network (SSTN), 对 SPPE 方法进行改进，在不准确的 bbox 上仍然能够准确地预测姿态。</li>
+<li>提出 parametric pose NMS (PP-NMS), 解决冗余框的问题</li>
+<li>提出 pose-guided human proposal generator (PGPG), 对训练数据进行数据增强</li>
+</ol>
 <a id="more"></a>
 
+
+<h1 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h1><ul>
+<li>Single Person PE：<ul>
+<li>tree models</li>
+<li>random forrest models</li>
+<li>CNN based models</li>
+</ul>
+</li>
+<li>Muti person PE:<ul>
+<li>part based framework<ul>
+<li>一大堆没听过的算法</li>
+<li>缺点是只利用了局部区域的信息，part 的检测效果可能不好</li>
+</ul>
+</li>
+<li>two-step framework<ul>
+<li>又是一大堆没听过的算法</li>
+<li>本文的框架基于 two-step framework，解决人体 bbox 检测不准的问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Regional-Multi-person-Pose-Estimation"><a href="#Regional-Multi-person-Pose-Estimation" class="headerlink" title="Regional Multi-person Pose Estimation"></a>Regional Multi-person Pose Estimation</h1><p>fig3</p>
 <ul>
-<li><p>CompCars 数据集：</p>
-<ul>
-<li>品牌（Make）：163</li>
-<li>车型（Model）：1716</li>
-<li>年份（Year）：4455</li>
-<li>整车图片数：136,727<ul>
-<li>F ：18431</li>
-<li>R ：13513</li>
-<li>S ：23551</li>
-<li>FS：49301</li>
-<li>RS：31150</li>
-</ul>
+<li>STN &amp; SDTN （SSTN）：<br>作者认为，目标检测得到的框很有可能是不准确的，这是制约 top-down 方法效果的一个关键点。因此，作者将 detection 的结果输入 SPPE 模块之前，会先经过一个 STN 模块，得到 PE 结果后，再经过一个对称的 SDTN 模块。STN 的目标是从 detection 结果中 warp 出更精确的框，STDN 的目标则相反。STN 和 STDN 都包含 3 个参数，通过推到可以得到两者的关系（参考论文）。</li>
+<li>Parallel SPPE：<br>为了使 STN 更准确地定位到 detection proposal 的 domainate person，作者还加入了一个 Parallel SPPE，这个模块是一个固定参数的 SPPE 模块，输入由 STN 生成的 grid 之后，使用预训练好的 SPPE 对 grid 中的 person 进行预测，然后与 groundtruth 进行比较，这里的 groundtruth 是对原始 groundtruth 进行 center-located 操作之后得到的。  <blockquote>
+<p>我的理解是，假设图片中有 A,B 两个人，目标检测得到一个不太准的框 bbox(A)，Parallel SPPE 的 groundtruth 就是以 A 的 pose groundtruth 为中心的 图片（SPPE 的 gt 就是直接将 gt 坐标转化到 bbox(A) 里面图片），如果 STN 生成的 grid 离 A 很远，Parallel SPPE 的误差就会非常大。</p>
+</blockquote>
 </li>
-<li>局部图片数：27,618<ul>
-<li>outter part: <code>headlight, rearlight, fog light, air intake</code></li>
-<li>inter part: <code>console, steering wheel, dashboard, gear lever</code></li>
-</ul>
+<li>Parametric Pose NMS：<br>为了消除冗余，作者提出了对 Pose 进行 NMS 的方法，NMS 的 metric 是 两个 Pose 的距离，作者提出了两种度量 Pose distance 的方法，NMS 的时候会取两种距离的加权和。<ul>
+<li>H_sim<br>公式参照论文，这个距离很好理解，就是两个 pose 各个关键点的 L2 距离</li>
+<li>K_sim<br>公式参照论文，这个距离的含义是，如果两个 Pose 的某个关键点重合（重合的概念被定义为 一个关键点处于另一个关键点为中心的矩形区域中），就会计算两个关键点置信度的乘积，因此，重叠的关键点越多，并且置信度越高的情况下，计算的结果越大。<blockquote>
+<p>这个地方有个很奇怪的点。按照公式，越相似的 Pose 计算出来的 distance 会越大，但 NMS 公式里面却是距离小才会被抑制，不知道哪里看错了。</p>
+</blockquote>
 </li>
 </ul>
 </li>
-<li><p><strong>Fine-grained classification 数据集：</strong></p>
-<ul>
-<li><p>车型： 431  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Train</th>
-<th>Test</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>图片数（整车）</td>
-<td>16016</td>
-<td>14939</td>
-<td>30955</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p><strong>Baseline：</strong>  </p>
-<ul>
-<li><p>model: overfeat  </p>
-</li>
-<li><p>dataset: Fine-grained classification  </p>
-</li>
-<li><p>result:  </p>
-<table>
-<thead>
-<tr>
-<th>view</th>
-<th>F</th>
-<th>R</th>
-<th>S</th>
-<th>FS</th>
-<th>RS</th>
-<th>all</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>top1</td>
-<td>0.524</td>
-<td>0.431</td>
-<td>0.428</td>
-<td>0.563</td>
-<td>0.598</td>
-<td>0.767</td>
-</tr>
-<tr>
-<td>top5</td>
-<td>0.748</td>
-<td>0.647</td>
-<td>0.602</td>
-<td>0.769</td>
-<td>0.777</td>
-<td>0.917</td>
-</tr>
-<tr>
-<td>Make</td>
-<td>0.701</td>
-<td>0.521</td>
-<td>0.507</td>
-<td>0.680</td>
-<td>0.656</td>
-<td>0.829</td>
-</tr>
-<tr>
-<td>单视角识别车型： <code>RS</code> 效果最好；</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>单视角识别品牌： <code>F </code> 效果最好；</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>多视角 Baseline： <strong><code>model: 0.767,  make: 0.829</code></strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p>Supplementary experiment:<br>在整个 <code>CompCars</code> 数据集上补充一个实验，比较三种模型的效果</p>
-<pre><code>| model | AlexNet | Overfeat | GoogLeNet |
-|-      |-        |-         |-          |
-| top1  | 0.819   | 0.879    | 0.912     |
-| top5  | 0.949   | 0.969    | 0.981     |</code></pre>
-</li>
+<li>Poseguided Proposals Generator：<br>为了让 STN+SPPE 模块适应多样的 bbox proposal 输入，作者提出了一种数据增广的方案。作者会统计 detection 的 bbox 和 gt 的偏移量的分布。训练的时候，根据偏移量的分布，随机对 detection 的结果进行 shift。<br>由于不同的 Pose 对应的偏移量分布可能各不相同，作者定义了 4 个 原子姿态，首先对图片的 Pose 用 kmeans 进行聚类，每种原子姿态会对应不同的偏移量分布。</li>
 </ul>
 
     </div>
@@ -349,7 +262,7 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
-              <a href="/tags/FGVC/" rel="tag"># FGVC</a>
+              <a href="/tags/Pose-Estimation/" rel="tag"># Pose Estimation</a>
           </div>
 
         
@@ -358,12 +271,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Multi-Attention-Multi-Class-Constraint-for-Fine-grained-Image-Recognition/" rel="prev" title="Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition">
-      <i class="fa fa-chevron-left"></i> Multi-Attention Multi-Class Constraint for Fine-grained Image Recognition
+    <a href="/2021/01/07/Paper-Notes-Pose-Estimation-20210107-Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation/" rel="prev" title="Cascaded Pyramid Network for Multi-Person Pose Estimation">
+      <i class="fa fa-chevron-left"></i> Cascaded Pyramid Network for Multi-Person Pose Estimation
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/01/06/Paper-Notes-20210106-Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition/" rel="next" title="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition">
-      Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition <i class="fa fa-chevron-right"></i>
+    <a href="/2021/01/07/Paper-Notes-Pose-Estimation-20210107-Simple-Baselines-for-Human-Pose-Estimation-and-Tracking/" rel="next" title="Simple Baselines for Human Pose Estimation and Tracking">
+      Simple Baselines for Human Pose Estimation and Tracking <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -423,7 +336,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification"><span class="nav-number">1.</span> <span class="nav-text">A Large-Scale Car Dataset for Fine-grained Categotozation and Verification</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-Work"><span class="nav-number">2.</span> <span class="nav-text">Related Work</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Regional-Multi-person-Pose-Estimation"><span class="nav-number">3.</span> <span class="nav-text">Regional Multi-person Pose Estimation</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -437,13 +350,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
