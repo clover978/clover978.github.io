@@ -7,7 +7,7 @@ tags:
   - deep learning
   - FGVC
 categories:
-  - Paper notes
+  - Paper Notes
   - FGVC
 ---
 

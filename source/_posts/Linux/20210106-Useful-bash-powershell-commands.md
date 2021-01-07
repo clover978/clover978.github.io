@@ -140,6 +140,17 @@ disown -h <job-id>
 disown -ah  # 将所有任务移出作业列表
 ```
 
+```bash
+# 批量删除进程
+ps -ef | grep firefox | awk '{print $2}' | xargs kill -9
+```
+
+```bash
+# github content DNS 污染
+199.232.68.133 raw.githubusercontent.com
+199.232.68.133 userimage.githubusercontent.com
+```
+
 ## 3. 图像处理
 
 ```bash
