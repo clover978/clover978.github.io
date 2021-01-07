@@ -24,3 +24,25 @@ libXext.so.6                apt install libxext6
 pycocotools                 pip install "git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&subdirectory=PythonAPI"
 skbuild                     pip install scikit-build
 ```
+
+## Caffe
+```
+apt install -y \
+    protobuf-compiler \
+    libprotobuf-dev \
+    libboost-all-dev \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    libatlas-base-dev \
+    libopencv-dev \
+    libhdf5-dev \
+    libleveldb-dev \
+    liblmdb-dev \
+    libsnappy-dev \
+    python-numpy \
+    python-setuptools \
+    python-opencv \
+    ipython \
+
+pip install scikit-image protobuf
+```
