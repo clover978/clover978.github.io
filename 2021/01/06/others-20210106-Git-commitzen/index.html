@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Git0. IntroGit 是一种非常常见的 分布式版本管理工具，学习使用 git应该算是程序员的一项基本功了，毕竟稍微有一些体量的公司，都会有自己的版本管理系统。Git 的子命令相当之多，比较复杂的那些，有相关需求的时候上网查就可以了，这篇笔记只记录最简单常用的命令。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git commitzen">
+<meta property="og:url" content="http://example.com/2021/01/06/others-20210106-Git-commitzen/index.html">
+<meta property="og:site_name" content="clover978">
+<meta property="og:description" content="Git0. IntroGit 是一种非常常见的 分布式版本管理工具，学习使用 git应该算是程序员的一项基本功了，毕竟稍微有一些体量的公司，都会有自己的版本管理系统。Git 的子命令相当之多，比较复杂的那些，有相关需求的时候上网查就可以了，这篇笔记只记录最简单常用的命令。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-06T12:36:23.000Z">
+<meta property="article:modified_time" content="2021-01-06T12:38:36.300Z">
+<meta property="article:author" content="clover978">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/06/others-20210106-Git-commitzen/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Git commitzen | clover978</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">clover978</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/others-20210106-Git-commitzen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="clover978">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="clover978">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git commitzen
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-06 20:36:23 / Modified: 20:38:36" itemprop="dateCreated datePublished" datetime="2021-01-06T20:36:23+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index"><span itemprop="name">others</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="0-Intro"><a href="#0-Intro" class="headerlink" title="0. Intro"></a>0. Intro</h2><p><code>Git</code> 是一种非常常见的 <strong>分布式版本管理工具</strong>，学习使用 <code>git</code>应该算是程序员的一项基本功了，毕竟稍微有一些体量的公司，都会有自己的版本管理系统。<br><code>Git</code> 的子命令相当之多，比较复杂的那些，有相关需求的时候上网查就可以了，这篇笔记只记录最简单常用的命令。  </p>
+<a id="more"></a>
+
+
+<h2 id="1-Why-Git"><a href="#1-Why-Git" class="headerlink" title="1. Why Git"></a>1. Why Git</h2><p><strong><em>以下内容纯属个人理解，没有参考网上资料，不一定正确</em></strong><br>Git 中引入了几个重要的概念：</p>
+<ul>
+<li>分支：<br>一个<strong>代码仓库</strong>（repo）至少拥有一个 <strong>master</strong> 分支，还可以拥有多个其他分支，在分支上的开发各自分开，然后合并（merge）到主分支中。</li>
+<li>暂存区：<br>在 <code>git</code> 中，磁盘上的代码可以叫做<strong>本地代码</strong>，被加入到 <code>git</code>仓库的代码处于<strong>工作区</strong>，工作区的代码的改动不会直接进入<strong>分支</strong>，而是被放在<strong>暂存区</strong>中。使用 <code>git diff</code> 命令，可以轻松查看开发迭代在上版本代码上的所有改动。<br>在实际使用过程中会对这些概念有更清晰的认识。</li>
+<li>origin/master：<br><code>git</code> 的代码管理是分布式的，同样一份代码，可以存储在各个不同的地方。这需要依赖一个 git 服务器和一个 <strong>origin</strong> 分支。因此 <code>git</code>仓库 中的代码总共存在于 5 个地方：本地磁盘、工作区、暂存区、本地分支、云端分支。前四个在本地存储，最后一个在服务器存储，没有 git 服务器同样可以使用 <code>git</code> 做版本管理，只是不支持分布式，本地删掉之后代码就没有了。<br>其中 origin 就是远程仓库的名字，master 是远程分支的名字，当仓库只有一个分支的时候，origin/master 即代表了远端仓库的代码。</li>
+</ul>
+<h2 id="2-Git-in-action"><a href="#2-Git-in-action" class="headerlink" title="2. Git in action"></a>2. Git in action</h2><p>使用 <code>git</code>，首先需要配置一下开发者用户名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;yourname&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your.email@gmail.com&quot;</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+<p>下面用几个命令，简单介绍 <code>git</code> 的最常见用法  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个 git 仓库</span></span><br><span class="line">git init    <span class="comment"># 一般这个命令会在空文件夹下执行，此时工作区为空</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个新文件</span></span><br><span class="line">touch readme.txt    <span class="comment"># 此时磁盘代码发生了变动，工作区依然为空</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看分支状态, 将代码加入 git 仓库</span></span><br><span class="line">    <span class="comment">## --&gt; 如果文件是 new file，使用 git add &lt;file&gt; 将其加入仓库，这样文件同时进入了工作区和暂存区  </span></span><br><span class="line">    git status</span><br><span class="line">    git add readme.txt</span><br><span class="line">    <span class="comment">## --&gt; 如果文件是 modified，代表文件本来处于工作区，但是进行了改动，使用 git add &lt;file&gt; 将其加入暂存区，或者使用 git checkout -- &lt;file&gt; 撤销工作区改动。git diff &lt;file&gt; 可以查看文件的改动  </span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;new changes&quot;</span> &gt; readme.txt     <span class="comment"># 现在工作区和暂存区中的文件是一致的。对文件进行改动</span></span><br><span class="line">    git status</span><br><span class="line">    git diff</span><br><span class="line">    git add readme.txt  |  git checkout -- readme.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交改动</span></span><br><span class="line"><span class="comment"># 使用 git commit 将 暂存区 的修改提交到 git 分支上，每一次 commit 对应 git 分支上的 一个节点。</span></span><br><span class="line">git commit -m <span class="string">&quot;&lt;massage&gt;&quot;</span></span><br><span class="line">or</span><br><span class="line">git commit  <span class="comment"># edit commit massage in vim</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 log</span></span><br><span class="line">git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交到远端仓库</span></span><br><span class="line">    <span class="comment">## --&gt; 如果本地是一个新仓库，则需要配置远端仓库地址，如果本地仓库是从远端 clone/pull 下来的，则不需要配置</span></span><br><span class="line">    git remote add origin &lt;url&gt;  <span class="comment"># url 示例 https://github.com/clover978/tsn-pytorch</span></span><br><span class="line">git push origin master  <span class="comment"># 将本地分支 push 到远端的 master 分支 （origin 代表远端仓库的地址）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从远程仓库拉取。代码提交到远端之后，就可以在别的地方拉取代码了</span></span><br><span class="line">    <span class="comment">## --&gt; 如果没有从远端拉取过代码，则使用 git clone 克隆一个新的代码仓库</span></span><br><span class="line">    git <span class="built_in">clone</span> &lt;url&gt;</span><br><span class="line">    or </span><br><span class="line">    git remote add origin &lt;url&gt;  <span class="comment"># 配置远端仓库地址，然后拉取</span></span><br><span class="line">git pull origin master  <span class="comment"># 拉取远端的 master 分支到本地</span></span><br></pre></td></tr></table></figure>
+<h1 id="Git-commitzen"><a href="#Git-commitzen" class="headerlink" title="Git commitzen"></a>Git commitzen</h1><h2 id="0-Intro-1"><a href="#0-Intro-1" class="headerlink" title="0.. Intro"></a>0.. Intro</h2><p><a target="_blank" rel="noopener" href="https://github.com/pigcan/blog/issues/15">用工具思路规范化 git commit massage</a><br><strong><code>Git commitzen</code></strong> 是一个 规范 commit massage 的工具。<br>掌握了 <code>git</code> 之后，自然也就知道 commit massage 是什么东西了。commit massage 需不需要规范化属于个人喜好问题，这篇笔记推荐一种目前流行的 commit massage 规范以及配置方法。</p>
+<h2 id="1-Angular-Git-Commit-Guidelines"><a href="#1-Angular-Git-Commit-Guidelines" class="headerlink" title="1.. Angular Git Commit Guidelines"></a>1.. Angular Git Commit Guidelines</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">&lt;BLANK LINE&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;BLANK LINE&gt;</span><br><span class="line">&lt;footer&gt;</span><br><span class="line"></span><br><span class="line">type: 本次 commit 的类型，诸如 bugfix docs style 等</span><br><span class="line">scope: 本次 commit 波及的范围</span><br><span class="line">subject: 简明扼要的阐述下本次 commit 的主旨，在原文中特意强调了几点 1. 使用祈使句 2. 首字母不要大写 3. 结尾无需添加标点</span><br><span class="line">body: 同样使用祈使句，在主体内容中我们需要把本次 commit 详细的描述一下，比如此次变更的动机，如需换行，则使用 |</span><br><span class="line">footer: 描述下与之关联的 issue 或 break change</span><br></pre></td></tr></table></figure>
+<h2 id="2-commitizen"><a href="#2-commitizen" class="headerlink" title="2. commitizen"></a>2. commitizen</h2><p>看完上面规范之后会不会感觉很麻烦，每次都要回忆该怎么写 commit massage。<a target="_blank" rel="noopener" href="https://github.com/commitizen/cz-cli">commitzen</a> 就是一个帮助规范化 commit massage 的工具。可以在 github 上欣赏一下该项目的 commits，或者 clone 到本地用 git log 看一下。<br>下面介绍怎么使用 commitzen</p>
+<ul>
+<li><p>命令行安装<br>安装 commitzen-cli 需要先安装 npm</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># windows</span></span><br><span class="line">下载安装 node.js. https://nodejs.org/en/</span><br><span class="line"><span class="comment"># linux</span></span><br><span class="line">apt install npm</span><br></pre></td></tr></table></figure>
+
+<p>安装 commitzen-cli 及 conventional change log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g commitizen</span><br><span class="line">npm install -g cz-conventional-changelog</span><br><span class="line">echo &#39;&#123; &quot;path&quot;: &quot;cz-conventional-changelog&quot; &#125;&#39; &gt; ~&#x2F;.czrc</span><br></pre></td></tr></table></figure>
+<p>使用 <code>git cz</code> 代替 <code>git commit</code> 提交代码</p>
+</li>
+</ul>
+<ul>
+<li><strong><em>VSCode（推荐</em></strong><br>如果使用 vscode 的话，可以直接安装 <code>Visual Studio Code Commitizen Support</code> 插件</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/others-20210106-Tesseract-OCR/" rel="prev" title="Tesseract-OCR">
+      <i class="fa fa-chevron-left"></i> Tesseract-OCR
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/07/Pytorch-20210107-Deep-high-resolution-net-pytorch/" rel="next" title="Deep-high-resolution-net.pytorch">
+      Deep-high-resolution-net.pytorch <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git"><span class="nav-number">1.</span> <span class="nav-text">Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Intro"><span class="nav-number">1.1.</span> <span class="nav-text">0. Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Why-Git"><span class="nav-number">1.2.</span> <span class="nav-text">1. Why Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Git-in-action"><span class="nav-number">1.3.</span> <span class="nav-text">2. Git in action</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-commitzen"><span class="nav-number">2.</span> <span class="nav-text">Git commitzen</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Intro-1"><span class="nav-number">2.1.</span> <span class="nav-text">0.. Intro</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Angular-Git-Commit-Guidelines"><span class="nav-number">2.2.</span> <span class="nav-text">1.. Angular Git Commit Guidelines</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-commitizen"><span class="nav-number">2.3.</span> <span class="nav-text">2. commitizen</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">clover978</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">clover978</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Tesseract 是 Github 上一个 OCR 的开源项目，目前最新版已经更新到 v4.0.x，最近小小尝试了一下怎么使用这个开源库，记一下笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tesseract-OCR">
+<meta property="og:url" content="http://example.com/2021/01/06/others-20210106-Tesseract-OCR/index.html">
+<meta property="og:site_name" content="clover978">
+<meta property="og:description" content="Tesseract 是 Github 上一个 OCR 的开源项目，目前最新版已经更新到 v4.0.x，最近小小尝试了一下怎么使用这个开源库，记一下笔记。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-06T12:34:38.000Z">
+<meta property="article:modified_time" content="2021-01-06T12:38:45.152Z">
+<meta property="article:author" content="clover978">
+<meta property="article:tag" content="deep learning">
+<meta property="article:tag" content="OCR">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/06/others-20210106-Tesseract-OCR/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Tesseract-OCR | clover978</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">clover978</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/06/others-20210106-Tesseract-OCR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="clover978">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="clover978">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tesseract-OCR
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-06 20:34:38 / Modified: 20:38:45" itemprop="dateCreated datePublished" datetime="2021-01-06T20:34:38+08:00">2021-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/others/" itemprop="url" rel="index"><span itemprop="name">others</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract">Tesseract </a>是 Github 上一个 OCR 的开源项目，目前最新版已经更新到 v4.0.x，最近小小尝试了一下怎么使用这个开源库，记一下笔记。</p>
+<a id="more"></a>
+
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>环境： Ubuntu16.04</code><br>Tesseract 可以使用 apt 安装，但是在 Ubuntu18.04 之前的版本，官方库里面的最新版本只有 3.x.x，作为 Ubuntu16.04 用户，需要先添加 PPA，其他系统版本的 PPA 可以在<a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki#linux">这里</a>找到。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install python-software-properties software-properties-common</span><br><span class="line">add-apt-repository ppa:alex-p&#x2F;tesseract-ocr</span><br><span class="line">apt-get update</span><br></pre></td></tr></table></figure>
+<p>添加完 PPA 之后就可以直接 apt 安装了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install tesseract-ocr libtesseract-dev</span><br></pre></td></tr></table></figure>
+<p>除了 apt 安装外，也可以直接从 github clone<br>代码，然后编译安装， 不再详述。</p>
+<h2 id="Language-support"><a href="#Language-support" class="headerlink" title="Language support"></a>Language support</h2><p>Tesseract 的模型文件放在 <code>$TESSDATA_PREFIX</code> 指定的位置，当找不到这个环境变量是，默认路径是 <code>/usr/share/tesseract-ocr/4.00/tessdata</code></p>
+<p>Teseeract 支持的语言及对应的模型文件可以在 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/Data-Files#updated-data-files-for-version-400-september-15-2017">这里</a> 找到</p>
+<p>Tesseract 的中文支持有两种方式：</p>
+<ul>
+<li><p>直接 apt 安装<br><code>apt install tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert</code></p>
+</li>
+<li><p>简体中文语言包模型  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;tesseract-ocr&#x2F;tessdata&#x2F;raw&#x2F;4.00&#x2F;chi_sim.traineddata</span><br><span class="line">mv chi_sim.traineddata &#x2F;usr&#x2F;share&#x2F;tesseract-ocr&#x2F;4.00&#x2F;tessdata&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><code>tesseract --list-langs</code> 查看目前支持的语言</p>
+</li>
+</ul>
+<h2 id="Command-Line-Usage"><a href="#Command-Line-Usage" class="headerlink" title="Command Line Usage"></a>Command Line Usage</h2><p><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage">https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage</a></p>
+<p>Tesseract 的命令行使用可以参考上面的链接<br>这里列举一个最简答的用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tesseract input.png output -l eng --oem 3 --psm 3</span><br><span class="line"># input.png： 输入的图片</span><br><span class="line"># output： 输出文件名（指定 stdout 输出到标准输出）</span><br><span class="line"># -l：指定语言，eng（英语，默认），chi_sim（简体中文）</span><br><span class="line"># --oem[0,1,2,3]： OCR Engine Mode，4.x.x 版本默认为 3, 就是使用 available 的模型，即 LSTM 模型</span><br><span class="line"># --psm[0-13]： Page Segement Mode，默认为 3，自动分页</span><br><span class="line"># Tesseract 还有许多许多其他的参数可以设置，具体可以参照上方的链接</span><br></pre></td></tr></table></figure>
+<h2 id="Python-API"><a href="#Python-API" class="headerlink" title="Python API"></a>Python API</h2><p><a target="_blank" rel="noopener" href="https://github.com/sirfz/tesserocr">https://github.com/sirfz/tesserocr</a><br>Tesseract 官方给出了一个使用 Python API 的 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/APIExample#c-api-in-python">脚本</a>，脚本的原理是使用 ctypes + .so/.dll文件，用 Python 调用 C 的接口，这种方法还需要写 platform specified 的代码，所以比较麻烦。我在网上找到有人写了一个 Python Wrapper， 在 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/AddOns#tesseract-wrappers">官方 repo</a> 下还可以找到更多 Wrapper 的链接，下面介绍利用这个方法使用 Python 接口。</p>
+<ul>
+<li>安装  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt-get install tesseract-ocr libtesseract-dev libleptonica-dev</span><br><span class="line"># 前两个在装 Tesseract 的时候已经安装过了，一定记得要装第三个东西</span><br><span class="line">CPPFLAGS&#x3D;-I&#x2F;usr&#x2F;local&#x2F;include pip3 install tesserocr</span><br></pre></td></tr></table></figure></li>
+<li>Usage<br>官方 repo 里面给出了很多 接口示例，这里摘抄一个最基本的用法，tesserocr 支持输入 PIL Image 对象或者 图片文件。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from tesserocr import PyTessBaseAPI</span><br><span class="line"></span><br><span class="line">images &#x3D; [&#39;sample.jpg&#39;, &#39;sample2.jpg&#39;, &#39;sample3.jpg&#39;]</span><br><span class="line"></span><br><span class="line">with PyTessBaseAPI() as api:</span><br><span class="line">    for img in images:</span><br><span class="line">        api.SetImageFile(img)</span><br><span class="line">        print api.GetUTF8Text()</span><br><span class="line">        print api.AllWordConfidences()</span><br><span class="line"># api is automatically finalized when used in a with-statement (context manager).</span><br><span class="line"># otherwise api.End() should be explicitly called when it&#39;s no longer needed.</span><br></pre></td></tr></table></figure></li>
+<li><strong>ERROR</strong><br>按照上面的步骤，确实可以安装成功 tesserocr， 然后执行 <code>python3 -c &#39;import tesserocr; print(tesserocr.tesseract_version())&#39;</code>，发现版本号竟然是 3.4.0. 于是开始了漫长的升级之旅<ul>
+<li>卸载 Tesseract3.4.0， tesserocr<br>首先将已经安装的版本卸载掉</li>
+<li>重新安装 tesserocr<br>安装之后又出错了， import 的时候找不着 tesseract.so.3。<br>这个就很烦了，无奈之下我只能从源码开始安装 Tesseract， 再从 源码安装 tesserocr， 最后终于成功了。</li>
+<li>从源码安装 Tesseract<br><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/Compiling">https://github.com/tesseract-ocr/tesseract/wiki/Compiling</a></li>
+<li>从源码安装 tesserocr  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;sirfz&#x2F;tesserocr</span><br><span class="line">export LD_LIBRARY_PATH&#x3D;$LD_LIBRARY_PATH:&#x2F;usr&#x2F;lib&#x2F;:&#x2F;usr&#x2F;local&#x2F;lib&#x2F;</span><br><span class="line">pip3 install .</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>最后问题是终于解决了，具体这两个东西到底哪个是必须要源码编译，哪个可以用 apt/pip 安装，我也不知道，反正两个全部都编译安装的话是可以成功的。注意安装 tesserocr 的时候，确保电脑上只有最新版的 Tesseract</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
+              <a href="/tags/OCR/" rel="tag"># OCR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/06/Linux-20210106-Useful-bash-powershell-commands/" rel="prev" title="Useful bash/powershell commands">
+      <i class="fa fa-chevron-left"></i> Useful bash/powershell commands
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/others-20210106-Git-commitzen/" rel="next" title="Git commitzen">
+      Git commitzen <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Language-support"><span class="nav-number">2.</span> <span class="nav-text">Language support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-Line-Usage"><span class="nav-number">3.</span> <span class="nav-text">Command Line Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-API"><span class="nav-number">4.</span> <span class="nav-text">Python API</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">clover978</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">clover978</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

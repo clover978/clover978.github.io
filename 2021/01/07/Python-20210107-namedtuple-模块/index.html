@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Namedtuple: A useful data structure for explicit codingnamedtuple 是 collections 包中的一个数据结构，可以很方便的存储从 csv, 数据库 中读取到的数据，这种数据的特点是，数据分为多条记录，每一条记录包含若干字段。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="namedtuple 模块">
+<meta property="og:url" content="http://example.com/2021/01/07/Python-20210107-namedtuple-%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="clover978">
+<meta property="og:description" content="Namedtuple: A useful data structure for explicit codingnamedtuple 是 collections 包中的一个数据结构，可以很方便的存储从 csv, 数据库 中读取到的数据，这种数据的特点是，数据分为多条记录，每一条记录包含若干字段。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-07T02:57:47.000Z">
+<meta property="article:modified_time" content="2021-01-07T02:58:26.516Z">
+<meta property="article:author" content="clover978">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/01/07/Python-20210107-namedtuple-%E6%A8%A1%E5%9D%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>namedtuple 模块 | clover978</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">clover978</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/07/Python-20210107-namedtuple-%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="clover978">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="clover978">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          namedtuple 模块
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-01-07 10:57:47 / Modified: 10:58:26" itemprop="dateCreated datePublished" datetime="2021-01-07T10:57:47+08:00">2021-01-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Namedtuple-A-useful-data-structure-for-explicit-coding"><a href="#Namedtuple-A-useful-data-structure-for-explicit-coding" class="headerlink" title="Namedtuple: A useful data structure for explicit coding"></a>Namedtuple: A useful data structure for explicit coding</h2><p>namedtuple 是 collections 包中的一个数据结构，可以很方便的存储从 csv, 数据库 中读取到的数据，<strong>这种数据的特点是，数据分为多条记录，每一条记录包含若干字段。</strong></p>
+<a id="more"></a>
+
+<p>下面以一个班级学生的成绩表为例讲解一下，成绩表中包含 学号，姓名，成绩 三个字段</p>
+<h3 id="list-dict-存储"><a href="#list-dict-存储" class="headerlink" title="list/dict 存储"></a>list/dict 存储</h3><p>如果对 Python 的各种数据类型接触不多，很容易会选择使用 list 或者 dict 去存储。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">raw_data = [</span><br><span class="line">    [ 01, <span class="string">&#x27;jack&#x27;</span>, <span class="string">&#x27;80&#x27;</span>],</span><br><span class="line">    [ 02, <span class="string">&#x27;mike&#x27;</span>, <span class="string">&#x27;82&#x27;</span>],</span><br><span class="line">    [ 03, <span class="string">&#x27;mary&#x27;</span>, <span class="string">&#x27;96&#x27;</span>],</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">list_sheet = []</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> raw_data:</span><br><span class="line">    list_sheet.append(record)</span><br><span class="line"><span class="comment"># 这种方法的缺点是，每一条记录的各个字段具有什么含义并不清晰</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表嵌字典</span></span><br><span class="line">dict_sheet = []</span><br><span class="line">dict_record = &#123;</span><br><span class="line">    <span class="string">&#x27;stu_id&#x27;</span>: <span class="literal">None</span>,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: <span class="literal">None</span>,</span><br><span class="line">    <span class="string">&#x27;score&#x27;</span>: <span class="literal">None</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> raw_data:</span><br><span class="line">    _id, _name, _score = record</span><br><span class="line">    dict_record[<span class="string">&#x27;stu_id&#x27;</span>] = _id</span><br><span class="line">    dict_record[<span class="string">&#x27;name&#x27;</span>] = _name</span><br><span class="line">    dict_record[<span class="string">&#x27;score&#x27;</span>] = _score</span><br><span class="line">    dict_sheet.append(dict_record)</span><br><span class="line">   </span><br><span class="line"><span class="comment"># 字典嵌列表 </span></span><br><span class="line">dict_sheet2 = &#123;</span><br><span class="line">    <span class="string">&#x27;stu_id&#x27;</span>: [],</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: [],</span><br><span class="line">    <span class="string">&#x27;score&#x27;</span>: [],</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> raw_data:</span><br><span class="line">    _id, _name, _score = record</span><br><span class="line">    dict_sheet2[<span class="string">&#x27;stu_id&#x27;</span>].append(_id)</span><br><span class="line">    dict_sheet2[<span class="string">&#x27;name&#x27;</span>].append(_name)</span><br><span class="line">    dict_sheet2[<span class="string">&#x27;score&#x27;</span>].append(_score)</span><br><span class="line"><span class="comment"># 这两种方法代码写起来比较麻烦，而且如果字典的 value 是 tuple/list 类型理解起来会有一些困难</span></span><br></pre></td></tr></table></figure>
+<h3 id="class-方法"><a href="#class-方法" class="headerlink" title="class 方法"></a>class 方法</h3><p>熟练使用 C/C++ 的人，比较容易想到用 class 来存储数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Record</span>():</span></span><br><span class="line">    stu_id = <span class="literal">None</span></span><br><span class="line">    name = <span class="literal">None</span></span><br><span class="line">    score = <span class="literal">None</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, _id, _name, _score</span>):</span></span><br><span class="line">        self.stu_id = _id</span><br><span class="line">        self.name = _name</span><br><span class="line">        self.score = _score</span><br><span class="line">    </span><br><span class="line">sheet = []</span><br><span class="line"><span class="keyword">for</span> record <span class="keyword">in</span> raw_data:</span><br><span class="line">    sheet.append(Record(**record))</span><br><span class="line"><span class="comment"># 这种方法需要定义出来一个 class，代码同样显得比较麻烦</span></span><br></pre></td></tr></table></figure>
+<h3 id="namedtuple"><a href="#namedtuple" class="headerlink" title="namedtuple"></a>namedtuple</h3><p>实际上，这种场景最合适的数据结构就是 namedtuple，namedtuple 可以理解为用最简单的代码去定义一个 Record <code>Class</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from collections import namedtuple</span><br><span class="line"></span><br><span class="line">Record &#x3D; namedtuple(&#39;Record&#39;, [&#39;stu_id&#39;, &#39;name&#39;, &#39;score&#39;])</span><br><span class="line"></span><br><span class="line">sheet &#x3D; []</span><br><span class="line">for record in raw_data:</span><br><span class="line">    sheet.append(Record._make(record))</span><br><span class="line">    </span><br><span class="line">for r in sheet:</span><br><span class="line">    print(r.stu_id, r.name, r.score)</span><br><span class="line"># 相比之下，这种方法显得非常 explicit，习惯使用这种数据结构，处理 csv 数据的时候可以大大提高代码可读性。</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/07/Python-20210107-Python-%E4%B8%AD%E7%9A%84-import-%E6%9C%BA%E5%88%B6/" rel="prev" title="Python 中的 import 机制">
+      <i class="fa fa-chevron-left"></i> Python 中的 import 机制
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/07/Python-20210107-Python-%E4%B8%AD%E7%9A%84-configure-%E8%AE%BE%E8%AE%A1/" rel="next" title="Python 中的 configure 设计">
+      Python 中的 configure 设计 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Namedtuple-A-useful-data-structure-for-explicit-coding"><span class="nav-number">1.</span> <span class="nav-text">Namedtuple: A useful data structure for explicit coding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#list-dict-%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">list&#x2F;dict 存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">class 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#namedtuple"><span class="nav-number">1.3.</span> <span class="nav-text">namedtuple</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">clover978</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">clover978</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
