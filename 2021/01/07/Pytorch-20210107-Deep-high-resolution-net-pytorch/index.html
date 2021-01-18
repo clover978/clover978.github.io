@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -229,7 +229,6 @@
             <div class="markdown-body">
               <p><a target="_blank" rel="noopener" href="https://github.com/leoxiaobin/deep-high-resolution-net.pytorch">https://github.com/leoxiaobin/deep-high-resolution-net.pytorch</a></p>
 <a id="more"></a>
-
 <h2 id="1-配置-HRNET-环境"><a href="#1-配置-HRNET-环境" class="headerlink" title="1. 配置 HRNET 环境"></a>1. 配置 HRNET 环境</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> nvidia/cuda:<span class="hljs-number">11.1</span>-cudnn8-devel-ubuntu18.<span class="hljs-number">04</span><br><br><span class="hljs-keyword">LABEL</span><span class="bash"> auther=clover978</span><br><br><span class="hljs-comment"># Basic toolchain</span><br><span class="hljs-keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y --no-install-recommends \</span><br><span class="bash">        build-essential \</span><br><span class="bash">        git \</span><br><span class="bash">        ffmpeg \</span><br><span class="bash">        python3-pip \</span><br><span class="bash">        python3-dev \</span><br><span class="bash">        libsm6 \</span><br><span class="bash">        libxext6 \</span><br><span class="bash">    &amp;&amp; <span class="hljs-built_in">cd</span> /usr/bin \</span><br><span class="bash">    &amp;&amp; ln -s /usr/bin/python3 python \</span><br><span class="bash">    &amp;&amp; pip3 install --upgrade pip \</span><br><span class="bash">    &amp;&amp; apt-get autoremove -y \</span><br><span class="bash">    &amp;&amp; rm -rf /var/lib/apt/lists/* </span><br><br><span class="hljs-comment"># clone deep-high-resolution-net</span><br><span class="hljs-keyword">ARG</span> POSE_ROOT=/workspace/deep-high-resolution-net<br><span class="hljs-keyword">RUN</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://gitee.com/clover978/deep-high-resolution-net.pytorch.git <span class="hljs-variable">$POSE_ROOT</span></span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> <span class="hljs-variable">$POSE_ROOT</span></span><br><br><span class="hljs-keyword">RUN</span><span class="bash"> pip3 install --no-cache-dir -r requirements.txt &amp;&amp; \</span><br><span class="bash">    pip3 install --no-cache-dir pycocotools numpy opencv-python tqdm tensorboard tensorboardX pyyaml webcolors \</span><br><span class="bash">    pip3 install --no-cache-dir torch==1.7.0+cu110 torchvision==0.8.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html </span><br><br><span class="hljs-comment"># build deep-high-resolution-net lib</span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> <span class="hljs-variable">$POSE_ROOT</span>/lib</span><br><span class="hljs-keyword">RUN</span><span class="bash"> make</span><br><br><span class="hljs-comment"># install COCO API</span><br><span class="hljs-keyword">ARG</span> COCOAPI=/cocoapi<br><span class="hljs-keyword">RUN</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://gitee.com/clover978/cocoapi <span class="hljs-variable">$COCOAPI</span></span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> <span class="hljs-variable">$COCOAPI</span>/PythonAPI</span><br><span class="hljs-keyword">RUN</span><span class="bash"> make install</span><br><br><span class="hljs-comment"># clone </span><br><span class="hljs-keyword">ARG</span> DET_ROOT=/workspace/Yet-Another-EfficientDet-Pytorch<br><span class="hljs-keyword">RUN</span><span class="bash"> git <span class="hljs-built_in">clone</span> https://gitee.com/clover978/Yet-Another-EfficientDet-Pytorch <span class="hljs-variable">$DET_ROOT</span></span><br><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> <span class="hljs-variable">$POSE_ROOT</span></span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>clover fork 的 HRNET(<a target="_blank" rel="noopener" href="https://gitee.com/clover978/deep-high-resolution-net.pytorch.git">https://gitee.com/clover978/deep-high-resolution-net.pytorch.git</a>) 进行了一些改动：</p>
@@ -238,8 +237,6 @@
 <li>添加代码保存中间模型，每 10 个 epoch 保存一次；</li>
 <li>添加 inference 代码，可以对图片文件夹进行遍历，并将结果生成视频。</li>
 </ul>
-</blockquote>
-<blockquote>
 <p>clover fork 的 cocoapi(<a target="_blank" rel="noopener" href="https://gitee.com/clover978/cocoapi">https://gitee.com/clover978/cocoapi</a>) 进行了一个改动：</p>
 <ul>
 <li>更改 PythonAPI/pycocotools/cocoeval.py:523，以适应 QDTM 数据集的 18 个关键点。 </li>
@@ -462,5 +459,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

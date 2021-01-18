@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -229,7 +229,6 @@
             <div class="markdown-body">
               <p><a target="_blank" rel="noopener" href="http://www.jellythink.com/archives/111">http://www.jellythink.com/archives/111</a><br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/fangyukuan/archive/2010/06/20/1761464.html">http://www.cnblogs.com/fangyukuan/archive/2010/06/20/1761464.html</a></p>
 <a id="more"></a>
-
 <hr>
 <h1 id="dll生成"><a href="#dll生成" class="headerlink" title="dll生成"></a>dll生成</h1><ul>
 <li>使用关键字声明导出函数<ul>
@@ -250,7 +249,7 @@
 </ul>
 <hr>
 <h1 id="dll使用"><a href="#dll使用" class="headerlink" title="dll使用"></a>dll使用</h1><ul>
-<li><p>隐式链接<br>隐式链接在**<em>项目配置**</em>中指定导入函数（即 .dll 文件中的导出函数），代码中只需要声明导入函数就可以调用</p>
+<li><p>隐式链接<br>隐式链接在<strong><em>项目配置</em></strong>中指定导入函数（即 .dll 文件中的导出函数），代码中只需要声明导入函数就可以调用</p>
 <ul>
 <li>建立 win32控制台项目</li>
 <li>声明并调用导入函数<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">extern <span class="hljs-string">&quot;C&quot;</span> <span class="hljs-constructor">__declspec(<span class="hljs-params">dllimport</span>)</span> void <span class="hljs-constructor">SayHello(<span class="hljs-params">void</span>)</span>;<br><span class="hljs-built_in">int</span> <span class="hljs-constructor">_tmain(<span class="hljs-params">int</span> <span class="hljs-params">argc</span>, <span class="hljs-params">_TCHAR</span><span class="hljs-operator">*</span> <span class="hljs-params">argv</span>[])</span><br>&#123;<br>  <span class="hljs-constructor">SayHello()</span>;<br>  return <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
@@ -258,9 +257,8 @@
 <li>编译运行</li>
 </ul>
 </li>
-<li><p>显式链接<br>显式链接在**<em>代码**</em>中加载.dll文件<br><strong>显示链接的时候不需要提供 .lib文件；但是，如果 .dll中存在依赖项，并且依赖项没有被导入，.dll会加载失败</strong></p>
+<li><p>显式链接<br>显式链接在<strong><em>代码</em></strong>中加载.dll文件<br><strong>显示链接的时候不需要提供 .lib文件；但是，如果 .dll中存在依赖项，并且依赖项没有被导入，.dll会加载失败</strong></p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">typedef void (*SayHello)<span class="hljs-literal">()</span>;<br><span class="hljs-built_in">int</span> <span class="hljs-constructor">_tmain(<span class="hljs-params">int</span> <span class="hljs-params">argc</span>, <span class="hljs-params">_TCHAR</span><span class="hljs-operator">*</span> <span class="hljs-params">argv</span>[])</span><br>&#123;<br>  HMODULE hDll = <span class="hljs-constructor">LoadLibrary(<span class="hljs-string">&quot;dllDemo.dll&quot;</span>)</span>;<br>  <span class="hljs-keyword">if</span> (hDll != NULL)<br>  &#123;<br>      SayHello  sayhello_proc = (SayHello)<span class="hljs-constructor">GetProcAddress(<span class="hljs-params">hDll</span>, <span class="hljs-string">&quot;SayHello&quot;</span>)</span>;<br>          <span class="hljs-keyword">if</span> (sayhello_proc != NULL)<br>          &#123;<br>              sayhello<span class="hljs-constructor">_proc()</span>;    <br>          &#125;<br>          <span class="hljs-constructor">FreeLibrary(<span class="hljs-params">hDll</span>)</span>;<br>    &#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h1 id="查看-dll-导出函数："><a href="#查看-dll-导出函数：" class="headerlink" title="查看 dll 导出函数："></a>查看 dll 导出函数：</h1><p><code>dumpbin -exports &lt;*.dll&gt;</code></p>
@@ -479,5 +477,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

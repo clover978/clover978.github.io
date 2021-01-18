@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      407 字
+      413 字
     </span>
   
 
@@ -227,15 +227,13 @@
             <h1 style="display: none">Cascaded Pyramid Network for Multi-Person Pose Estimation</h1>
             
             <div class="markdown-body">
-              <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.07319">https://arxiv.org/abs/1711.07319</a></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction:"></a>Introduction:</h1><ol>
+              <h1 id="Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation"><a href="#Cascaded-Pyramid-Network-for-Multi-Person-Pose-Estimation" class="headerlink" title="Cascaded Pyramid Network for Multi-Person Pose Estimation"></a><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.07319">Cascaded Pyramid Network for Multi-Person Pose Estimation</a></h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction:"></a>1. Introduction:</h2><ol>
 <li>提出 <code>cascaded pyramid network（CPN）</code>，包含 <code>global pyramid network</code> 和 <code>pyramid refined network</code></li>
 <li>探讨 多人目标检测中各种因素的影响</li>
-<li>COCO 上 <strong>test-dev AP： 73.0; test-challenge AP：72.1</strong></li>
+<li>COCO 上 <strong>test-dev AP： 73.0; test-challenge AP：72.1</strong><a id="more"></a>
+</li>
 </ol>
-<a id="more"></a>
-
-<h1 id="Related-work"><a href="#Related-work" class="headerlink" title="Related work:"></a>Related work:</h1><ol>
+<h2 id="2-Related-work"><a href="#2-Related-work" class="headerlink" title="2. Related work:"></a>2. Related work:</h2><ol>
 <li><p>muti-pose:</p>
 <ul>
 <li>bottom-up: DeepCut, OpenPose  </li>
@@ -256,7 +254,7 @@
 </ul>
 </li>
 </ol>
-<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><ul>
+<h2 id="3-Method"><a href="#3-Method" class="headerlink" title="3. Method"></a>3. Method</h2><ul>
 <li><p>network structure:<br><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1711.07319.pdf">Fig-1</a></p>
 </li>
 <li><p>Detector:<br>这篇文章使用的 detetor 配置如下， FPN(res101) + ROIAlign + softNMS. AP = 0.411, AP(Person) = 0.533</p>
@@ -268,13 +266,70 @@
 <li><p>ohkm<br>根据 loss 判断出 hard keypoint，然后只对部分关键点的 loss 进行反向传播。</p>
 </li>
 </ul>
-<h1 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h1><ul>
+<h2 id="4-Experiment"><a href="#4-Experiment" class="headerlink" title="4. Experiment"></a>4. Experiment</h2><ul>
 <li>Cropping Strategy<br><code>bbox --(extend)--&gt; 256:192  --(crop)--&gt; block --(resize)--&gt; 256:192</code></li>
 <li>Data Augmentation<br>random flip<br>random rotation<br>random scale</li>
 <li>Test:<br><strong>Apply gussian filter to heatmap</strong><br><strong>Also test flipped image</strong><br><strong>最高的响应 R1，第二高的响应为 R2，最终结果 = R1+0.25*R2</strong><br><strong>Rescore: S(pose) = S(bbox) * avg(S(key-point))</strong></li>
 </ul>
-<h1 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h1><p><strong>Ablation experiment</strong><br>|| AP | FLOPs | Params |<br>|- |- | - | - |<br>| ResNet-50 + dilation(res4-5) | 66.5 | 17.71G | 92M |<br>| GlobalNet only | 66.6 | 3.90G | 94M |<br>| CPN w/o ohkm | 68.6 | 6.20G | 102M |<br>| CPN | 69.4 | 6.20G | 102M |<br>| GlobalNet + Concat | 68.5 | 5.87G | - |<br>| GlobalNet + 1 bottleneck +Concat | 69.2 | 6.92G | - |<br>| CPN (384 × 288) | 71.6 | 13.9G | - |</p>
+<h1 id="5-Result"><a href="#5-Result" class="headerlink" title="5. Result"></a>5. Result</h1><p><strong>Ablation experiment</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>AP</th>
+<th>FLOPs</th>
+<th>Params</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ResNet-50 + dilation(res4-5)</td>
+<td>66.5</td>
+<td>17.71G</td>
+<td>92M</td>
+</tr>
+<tr>
+<td>GlobalNet only</td>
+<td>66.6</td>
+<td>3.90G</td>
+<td>94M</td>
+</tr>
+<tr>
+<td>CPN w/o ohkm</td>
+<td>68.6</td>
+<td>6.20G</td>
+<td>102M</td>
+</tr>
+<tr>
+<td>CPN</td>
+<td>69.4</td>
+<td>6.20G</td>
+<td>102M</td>
+</tr>
+<tr>
+<td>GlobalNet + Concat</td>
+<td>68.5</td>
+<td>5.87G</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GlobalNet + 1 bottleneck + Concat</td>
+<td>69.2</td>
+<td>6.92G</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CPN (384 × 288)</td>
+<td>71.6</td>
+<td>13.9G</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>在 <strong>refineNet</strong> 中使用不同的 layer</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -283,7 +338,8 @@
 <th>FLOPs</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>C2</td>
 <td>68.3</td>
 <td>5.02G</td>
@@ -303,7 +359,9 @@
 <td>69.4</td>
 <td>6.20G</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 
             </div>
             <hr>
@@ -326,6 +384,8 @@
                       <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
                     
                       <a class="hover-with-bg" href="/tags/Pose-Estimation/">Pose Estimation</a>
+                    
+                      <a class="hover-with-bg" href="/tags/topdown/">topdown</a>
                     
                   </div>
                 
@@ -521,5 +581,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

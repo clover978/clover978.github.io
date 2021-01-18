@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -227,17 +227,14 @@
             <h1 style="display: none">Python 中的 configure 设计</h1>
             
             <div class="markdown-body">
-              <h1 id="Build-configure-file-for-you-project"><a href="#Build-configure-file-for-you-project" class="headerlink" title="Build configure file for you project"></a>Build configure file for you project</h1><p>作为程序员，配置文件的作用和必要性无需赘言，很多优秀的开源项目也会配备一个 config 文件，下面介绍一些常见的 config 方法</p>
-<a id="more"></a>
-
+              <h1 id="Build-configure-file-for-you-project"><a href="#Build-configure-file-for-you-project" class="headerlink" title="Build configure file for you project"></a>Build configure file for you project</h1><p>作为程序员，配置文件的作用和必要性无需赘言，很多优秀的开源项目也会配备一个 config 文件，下面介绍一些常见的 config 方法<br><a id="more"></a></p>
 <hr>
-<h2 id="Python-脚本"><a href="#Python-脚本" class="headerlink" title="Python 脚本"></a>Python 脚本</h2><p>Python 脚本是一种简单的配置方法。这种方法适用于一些自己写的小工程，一来它安全性不高，二来违背了配置与代码解耦的原则。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#  databaseconfig.py</span><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-keyword">import</span> preprocessing<br>mysql = &#123;<span class="hljs-string">&#x27;host&#x27;</span>: <span class="hljs-string">&#x27;localhost&#x27;</span>,<br>         <span class="hljs-string">&#x27;user&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>         <span class="hljs-string">&#x27;passwd&#x27;</span>: <span class="hljs-string">&#x27;my secret password&#x27;</span>,<br>         <span class="hljs-string">&#x27;db&#x27;</span>: <span class="hljs-string">&#x27;write-math&#x27;</span>&#125;<br>preprocessing_queue = [preprocessing.scale_and_center,<br>                       preprocessing.dot_reduction,<br>                       preprocessing.connect_lines]<br>use_anonymous = <span class="hljs-literal">True</span><br><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#  main.py</span><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-keyword">import</span> databaseconfig <span class="hljs-keyword">as</span> cfg<br>connect(cfg.mysql[<span class="hljs-string">&#x27;host&#x27;</span>], cfg.mysql[<span class="hljs-string">&#x27;user&#x27;</span>], cfg.mysql[<span class="hljs-string">&#x27;password&#x27;</span>])<br><br></code></pre></td></tr></table></figure>
-<hr>
+<h2 id="Python-脚本"><a href="#Python-脚本" class="headerlink" title="Python 脚本"></a>Python 脚本</h2><p>Python 脚本是一种简单的配置方法。这种方法适用于一些自己写的小工程，一来它安全性不高，二来违背了配置与代码解耦的原则。  </p>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#  databaseconfig.py</span><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-keyword">import</span> preprocessing<br>mysql = &#123;<span class="hljs-string">&#x27;host&#x27;</span>: <span class="hljs-string">&#x27;localhost&#x27;</span>,<br>        <span class="hljs-string">&#x27;user&#x27;</span>: <span class="hljs-string">&#x27;root&#x27;</span>,<br>        <span class="hljs-string">&#x27;passwd&#x27;</span>: <span class="hljs-string">&#x27;my secret password&#x27;</span>,<br>        <span class="hljs-string">&#x27;db&#x27;</span>: <span class="hljs-string">&#x27;write-math&#x27;</span>&#125;<br>preprocessing_queue = [preprocessing.scale_and_center,<br>                    preprocessing.dot_reduction,<br>                    preprocessing.connect_lines]<br>use_anonymous = <span class="hljs-literal">True</span><br><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#  main.py</span><br><span class="hljs-comment">############################################</span><br><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-keyword">import</span> databaseconfig <span class="hljs-keyword">as</span> cfg<br>connect(cfg.mysql[<span class="hljs-string">&#x27;host&#x27;</span>], cfg.mysql[<span class="hljs-string">&#x27;user&#x27;</span>], cfg.mysql[<span class="hljs-string">&#x27;password&#x27;</span>])<br></code></pre></td></tr></table></figure>
+</code></pre><hr>
 <h2 id="YAML-文件"><a href="#YAML-文件" class="headerlink" title="YAML 文件"></a>YAML 文件</h2><ul>
 <li>yaml 文件也是一种很流行的配置方法，相比于使用 Python 脚本，部署的时候， yaml 文件可以做到与代码解耦，因此更友好。相比于 json 文件，yaml 文件更易于阅读修改，除非有特殊需求，一般情况使用 yaml 文件配置工程是很好的选择。  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">######################</span><br><span class="hljs-comment">#  databaseconfig.yml</span><br><span class="hljs-comment">######################</span><br>mysql:<br>    host: localhost<br>    user: root<br>    passwd: my secret password<br>    db: write-math<br>other:<br>    preprocessing_queue:<br>        - preprocessing.scale_and_center<br>        - preprocessing.dot_reduction<br>        - preprocessing.connect_lines<br>    use_anonymous: yes<br><br><br><span class="hljs-comment">######################</span><br><span class="hljs-comment">#  main.py</span><br><span class="hljs-comment">######################</span><br><span class="hljs-keyword">import</span> yaml<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;config.yml&quot;</span>, <span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> ymlfile:<br>    cfg = yaml.load(ymlfile)<br><br><span class="hljs-keyword">for</span> section <span class="hljs-keyword">in</span> cfg:<br>    print(section)<br>print(cfg[<span class="hljs-string">&#x27;mysql&#x27;</span>])<br>print(cfg[<span class="hljs-string">&#x27;other&#x27;</span>])<br><br></code></pre></td></tr></table></figure></li>
 <li>yaml 文件里面还可以指定 item 的数据类型<br><a target="_blank" rel="noopener" href="http://huangro.iteye.com/blog/372976">数据类型对应表</a>  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">video_size:</span> <span class="hljs-type">!!python/tuple</span> [<span class="hljs-number">1280</span>, <span class="hljs-number">720</span>]  <span class="hljs-comment"># 注意后面是中括号</span><br><span class="hljs-attr">stride:</span> <span class="hljs-number">300</span><br><span class="hljs-attr">history:</span> <span class="hljs-number">10</span><br><span class="hljs-attr">mask_n:</span> <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <hr>
@@ -455,5 +452,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

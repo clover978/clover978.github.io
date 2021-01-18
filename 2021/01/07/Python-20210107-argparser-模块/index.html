@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -227,9 +227,7 @@
             <h1 style="display: none">argparser 模块</h1>
             
             <div class="markdown-body">
-              <h1 id="Command-line-parse"><a href="#Command-line-parse" class="headerlink" title="Command line parse"></a>Command line parse</h1><p>argpaser 是 Python 官方推荐的 命令行参数解析器，习惯使用它可以极大地方便 Python程序的交互。</p>
-<a id="more"></a>
-
+              <h1 id="Command-line-parse"><a href="#Command-line-parse" class="headerlink" title="Command line parse"></a>Command line parse</h1><p>argpaser 是 Python 官方推荐的 命令行参数解析器，习惯使用它可以极大地方便 Python程序的交互。<br><a id="more"></a></p>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">import argparse<br><br>args = argparse.<span class="hljs-constructor">ArgumentParser(<span class="hljs-params">descroption</span>=&#x27;Argpase <span class="hljs-params">example</span>&#x27;)</span><br>args.add<span class="hljs-constructor">_argument(&#x27;<span class="hljs-params">first</span>&#x27;, <span class="hljs-params">type</span>=<span class="hljs-params">str</span>, <span class="hljs-params">help</span>=&#x27;<span class="hljs-params">first</span> <span class="hljs-params">argument</span>&#x27;)</span><br><br>args = args.parse<span class="hljs-constructor">_args()</span><br>print(args.fisrt)<br></code></pre></td></tr></table></figure>
 <h2 id="必选参数"><a href="#必选参数" class="headerlink" title="必选参数"></a>必选参数</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">args.add<span class="hljs-constructor">_argument(&#x27;<span class="hljs-params">first</span>&#x27;, <span class="hljs-params">type</span>=<span class="hljs-params">str</span>, <span class="hljs-params">help</span>=&#x27;<span class="hljs-params">first</span> <span class="hljs-params">argument</span>&#x27;)</span><br></code></pre></td></tr></table></figure>
 <h2 id="可选参数"><a href="#可选参数" class="headerlink" title="可选参数"></a>可选参数</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">args.add<span class="hljs-constructor">_argument(&#x27;--<span class="hljs-params">optional</span>&#x27;, <span class="hljs-params">type</span>=<span class="hljs-params">str</span>, <span class="hljs-params">help</span>=&#x27;<span class="hljs-params">first</span> <span class="hljs-params">argument</span>&#x27;)</span><br></code></pre></td></tr></table></figure>
@@ -448,5 +446,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

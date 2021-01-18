@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -229,9 +229,7 @@
             <div class="markdown-body">
               <p>收集一些常用的 Windows Powershell 和 Linux bash 命令</p>
 <a id="more"></a>
-
 <h2 id="1-Powershell"><a href="#1-Powershell" class="headerlink" title="1. Powershell"></a>1. Powershell</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建软连接</span><br>New-Item -Path images -ItemType SymbolicLink -Value E:\coco\images\<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># windows 命令行配置: 设置codepage为 936，GUI的设置经常不能生效</span><br>Windows Registry Editor Version 5.00<br><br>[HKEY_CURRENT_USER\Console\%SystemRoot%_system32_cmd.exe]<br><span class="hljs-string">&quot;CodePage&quot;</span>=dword:0000fde9<br><span class="hljs-string">&quot;FontFamily&quot;</span>=dword:00000036<br><span class="hljs-string">&quot;FontWeight&quot;</span>=dword:00000190<br><span class="hljs-string">&quot;FaceName&quot;</span>=<span class="hljs-string">&quot;Consolas&quot;</span><br><span class="hljs-string">&quot;ScreenBufferSize&quot;</span>=dword:232900d2<br><span class="hljs-string">&quot;WindowSize&quot;</span>=dword:002b00d2<br></code></pre></td></tr></table></figure>
 <h2 id="2-Bash"><a href="#2-Bash" class="headerlink" title="2. Bash"></a>2. Bash</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 同时在 命令行 和 文件中输出</span><br>&lt;cmd&gt; | tee &lt;log-file&gt;<br><span class="hljs-comment"># echo &quot;hello&quot; 2&gt;&amp;1 | tee output.txt</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看终端大小</span><br>stty size<br></code></pre></td></tr></table></figure>
@@ -242,7 +240,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># vnc</span><br>start: vncserver -geometry 1920x1080 <br><span class="hljs-built_in">exec</span>:  ip:&lt;port&gt;<br>stop: vncserver -<span class="hljs-built_in">kill</span> :&lt;port&gt;<br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 批量重命名文件</span><br>rename .jpeg .jpg ./*<br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># nohup 后台运行程序</span><br>nohup ./run.sh &gt; log.txt &amp;<br><br><span class="hljs-comment"># 其中 &amp; 表示将命令放到后台执行; nohup 表示让进程忽略 HUP 信号。这样，关闭当前窗口后，程序仍然会执行，如果想停止程序，只能通过 ps 找到进程号，然后 kill 掉</span><br></code></pre></td></tr></table></figure>
-
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># `screen` 命令提供了一种更强大的后台执行命令方法</span><br><br><span class="hljs-comment"># 新建一个 会话窗口（Session）</span><br>screen -S &lt;会话名称&gt;<br><br><span class="hljs-comment"># 列出所有会话</span><br>screen -ls<br><br><span class="hljs-comment"># 进入一个会话</span><br>screen -r &lt;会话名称&gt;<br><br><span class="hljs-comment"># 进入会话窗口后，就可以执行需要执行的命令了，在执行过程中退出会话不会中断程序</span><br><br><span class="hljs-comment"># 在会话窗口中退出会话</span><br>Ctrl + a + d<br><span class="hljs-comment"># 在会话窗口外退出会话</span><br>screen -d &lt;会话名称&gt;<br><br><br><span class="hljs-comment"># 可以看到 `screen` 将任务放到后台后，支持随时随地查看任务状态，或者与任务进行交互。不需要像 `nohup` 那样必须重定向出 log 文件（当然实际情况下重定向更为方便）。</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将已经执行的前台任务放到后台</span><br><br><span class="hljs-comment"># 执行命令</span><br>./run.sh<br><br><span class="hljs-comment"># 将任务放到后台，此时任务状态是 Stopped</span><br>Ctrl + z<br><br><span class="hljs-comment"># 使用 `jobs` 可以查看任务</span><br><span class="hljs-built_in">jobs</span><br><br><span class="hljs-comment"># 将任务放到后台执行</span><br><span class="hljs-built_in">bg</span> &lt;job-id&gt;<br><span class="hljs-comment"># 将任务放到前台执行</span><br><span class="hljs-built_in">fg</span> &lt;job-id&gt;<br><br><br><span class="hljs-comment"># 任务放到后台之后，一旦关闭当前窗口，这个窗口下的所有任务都会收到 HUP 信号，从而中断运行，因此还需要另外一个命令。  </span><br><span class="hljs-comment"># 使用 disown 命令，让任务不再附属于当前窗口，这样，使用 jobs 命令会发现任务不见了，关闭当前窗口也不会中断任务。</span><br><span class="hljs-built_in">disown</span> -h &lt;job-id&gt;<br><span class="hljs-built_in">disown</span> -ah  <span class="hljs-comment"># 将所有任务移出作业列表</span><br></code></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 批量删除进程</span><br>ps -ef | grep firefox | awk <span class="hljs-string">&#x27;&#123;print $2&#125;&#x27;</span> | xargs <span class="hljs-built_in">kill</span> -9<br></code></pre></td></tr></table></figure>
@@ -466,5 +463,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -1,0 +1,851 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="clover978">
+  <meta name="keywords" content="">
+  <title>Deep High-Resolution Representation Learning for Human Pose Estimation - clover978</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Deep High-Resolution Representation Learning for Human Pose Estimation">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-12 13:55" pubdate>
+        January 12, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      837 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Deep High-Resolution Representation Learning for Human Pose Estimation</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Deep-High-Resolution-Representation-Learning-for-Human-Pose-Estimation"><a href="#Deep-High-Resolution-Representation-Learning-for-Human-Pose-Estimation" class="headerlink" title="Deep High-Resolution Representation Learning for Human Pose Estimation"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1902.09212.pdf">Deep High-Resolution Representation Learning for Human Pose Estimation</a></h1><blockquote>
+<ol>
+<li>本文提出一种新型的网络结构 HRNet，与以往的网络结构不同，HRNet 中 high-to-low resolution subnetworks 是平行排列的，不同分辨率的特征通过 downsample 和 upsample 的形式相互融合。</li>
+<li>HRNet 在 COCO test-dev 数据集上取得 75.5% 的准确率，在加入额外训练数据后准确率为 77.0%</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
+<li>Sequential multi-resolution subnetworks<br>现有网络的 backbone 大多为 Sequential 结构，每个 subnetwork 被称为一个 stage，相邻的 stage 通过 downsample 连接，网络的分辨率逐层减半。  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode"><span class="hljs-symbol">N11</span> → <span class="hljs-symbol">N22</span> → <span class="hljs-symbol">N33</span> → <span class="hljs-symbol">N44</span><br></code></pre></td></tr></table></figure></li>
+<li>Parallel multi-resolution subnetworks<br>HRNet 第一个 stage 为 high-resolution subnetwork，然后以并行的方法，逐渐添加 high-to-low resolution subnetworks。因此，后续添加的 stage 既包含之前 stage 的 high resolution 信息，又包含 low resolution 信息。  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gcode"><span class="hljs-symbol">N11</span> → <span class="hljs-symbol">N21</span> → <span class="hljs-symbol">N31</span> → <span class="hljs-symbol">N41</span><br>      <span class="hljs-symbol">N22</span> → <span class="hljs-symbol">N32</span> → <span class="hljs-symbol">N42</span><br>            <span class="hljs-symbol">N33</span> → <span class="hljs-symbol">N43</span><br>                  <span class="hljs-symbol">N44</span><br></code></pre></td></tr></table></figure></li>
+<li>Repeated multi-scale fusion<br>HRNet 中加入 <em>exchange units</em> 来交换不同 subnetworks 的信息。<br>downsample 过程通过 3x3 的卷积实现，卷积的 stride 为 2，图像分辨率下降一半；<br>upsample 过程分为两步，第一步是 nearest neighbor sampling，第二步是 1x1 卷积，用于改变通道数。</li>
+<li>Heatmap estimation<br>作者在最后一层 <em>exchange unit</em> 输出的 特征图上，预测最终的 heatmap。  </li>
+</ul>
+<h2 id="2-Result"><a href="#2-Result" class="headerlink" title="2. Result"></a>2. Result</h2><ul>
+<li><code>COCO val</code>  </li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Backbone</th>
+<th>Pretrain</th>
+<th>Input size</th>
+<th>#Params</th>
+<th>GFLOPs</th>
+<th>AP</th>
+<th>AP50</th>
+<th>AP75</th>
+<th>APM</th>
+<th>APL</th>
+<th>AR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8-stage Hourglass [40]</td>
+<td>8-stage Hourglass</td>
+<td>N</td>
+<td>256 × 192</td>
+<td>25.1M</td>
+<td>14.3</td>
+<td>66.9</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+</tr>
+<tr>
+<td>CPN [11]</td>
+<td>ResNet-50</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>27.0M</td>
+<td>6.20</td>
+<td>68.6</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+</tr>
+<tr>
+<td>CPN + OHKM [11]</td>
+<td>ResNet-50</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>27.0M</td>
+<td>6.20</td>
+<td>69.4</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+<td>−</td>
+</tr>
+<tr>
+<td>SimpleBaseline [72]</td>
+<td>ResNet-50</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>34.0M</td>
+<td>8.90</td>
+<td>70.4</td>
+<td>88.6</td>
+<td>78.3</td>
+<td>67.1</td>
+<td>77.2</td>
+<td>76.3</td>
+</tr>
+<tr>
+<td>SimpleBaseline [72]</td>
+<td>ResNet-101</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>53.0M</td>
+<td>12.4</td>
+<td>71.4</td>
+<td>89.3</td>
+<td>79.3</td>
+<td>68.1</td>
+<td>78.1</td>
+<td>77.1</td>
+</tr>
+<tr>
+<td>SimpleBaseline [72]</td>
+<td>ResNet-152</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>68.6M</td>
+<td>15.7</td>
+<td>72.0</td>
+<td>89.3</td>
+<td>79.8</td>
+<td>68.7</td>
+<td>78.9</td>
+<td>77.8</td>
+</tr>
+<tr>
+<td>HRNet-W32</td>
+<td>HRNet-W32</td>
+<td>N</td>
+<td>256 × 192</td>
+<td>28.5M</td>
+<td>7.10</td>
+<td>73.4</td>
+<td>89.5</td>
+<td>80.7</td>
+<td>70.2</td>
+<td>80.1</td>
+<td>78.9</td>
+</tr>
+<tr>
+<td>HRNet-W32</td>
+<td>HRNet-W32</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>28.5M</td>
+<td>7.10</td>
+<td>74.4</td>
+<td>90.5</td>
+<td>81.9</td>
+<td>70.8</td>
+<td>81.0</td>
+<td>79.8</td>
+</tr>
+<tr>
+<td>HRNet-W48</td>
+<td>HRNet-W48</td>
+<td>Y</td>
+<td>256 × 192</td>
+<td>63.6M</td>
+<td>14.6</td>
+<td>75.1</td>
+<td>90.6</td>
+<td>82.2</td>
+<td>71.5</td>
+<td>81.8</td>
+<td>80.4</td>
+</tr>
+<tr>
+<td>SimpleBaseline [72]</td>
+<td>ResNet-152</td>
+<td>Y</td>
+<td>384 × 288</td>
+<td>68.6M</td>
+<td>35.6</td>
+<td>74.3</td>
+<td>89.6</td>
+<td>81.1</td>
+<td>70.5</td>
+<td>79.7</td>
+<td>79.7</td>
+</tr>
+<tr>
+<td>HRNet-W32</td>
+<td>HRNet-W32</td>
+<td>Y</td>
+<td>384 × 288</td>
+<td>28.5M</td>
+<td>16.0</td>
+<td>75.8</td>
+<td>90.6</td>
+<td>82.7</td>
+<td>71.9</td>
+<td>82.8</td>
+<td>81.0</td>
+</tr>
+<tr>
+<td><strong>HRNet-W48</strong></td>
+<td>HRNet-W48</td>
+<td>Y</td>
+<td>384 × 288</td>
+<td>63.6M</td>
+<td>32.9</td>
+<td>76.3</td>
+<td>90.8</td>
+<td>82.9</td>
+<td>72.3</td>
+<td>83.4</td>
+<td>81.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><code>COCO test-dev</code>  </li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Backbone</th>
+<th>Input size</th>
+<th>#Params</th>
+<th>GFLOPs</th>
+<th>AP</th>
+<th>AP50</th>
+<th>AP75</th>
+<th>APM</th>
+<th>APL</th>
+<th>AR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mask-RCNN [21]</td>
+<td>ResNet-50-FPN</td>
+<td></td>
+<td></td>
+<td></td>
+<td>63.1</td>
+<td>87.3</td>
+<td>68.7</td>
+<td>57.8</td>
+<td>71.4</td>
+<td></td>
+</tr>
+<tr>
+<td>G-RMI [47]</td>
+<td>ResNet-101</td>
+<td>353 × 257</td>
+<td>42.6M</td>
+<td>57.0</td>
+<td>64.9</td>
+<td>85.5</td>
+<td>71.3</td>
+<td>62.3</td>
+<td>70.0</td>
+<td>69.7</td>
+</tr>
+<tr>
+<td>Integral Pose Regression [60]</td>
+<td>ResNet-101</td>
+<td>256 × 256</td>
+<td>45.0M</td>
+<td>11.0</td>
+<td>67.8</td>
+<td>88.2</td>
+<td>74.8</td>
+<td>63.9</td>
+<td>74.0</td>
+<td></td>
+</tr>
+<tr>
+<td>G-RMI + extra data [47]</td>
+<td>ResNet-101</td>
+<td>353 × 257</td>
+<td>42.6M</td>
+<td>57.0</td>
+<td>68.5</td>
+<td>87.1</td>
+<td>75.5</td>
+<td>65.8</td>
+<td>73.3</td>
+<td>73.3</td>
+</tr>
+<tr>
+<td>CPN [11]</td>
+<td>ResNet-Inception</td>
+<td>384 × 288</td>
+<td></td>
+<td></td>
+<td>72.1</td>
+<td>91.4</td>
+<td>80.0</td>
+<td>68.7</td>
+<td>77.2</td>
+<td>78.5</td>
+</tr>
+<tr>
+<td>RMPE [17]</td>
+<td>PyraNet [77]</td>
+<td>320 × 256</td>
+<td>28.1M</td>
+<td>26.7</td>
+<td>72.3</td>
+<td>89.2</td>
+<td>79.1</td>
+<td>68.0</td>
+<td>78.6</td>
+<td></td>
+</tr>
+<tr>
+<td>CFN [25]</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>72.6</td>
+<td>86.1</td>
+<td>69.7</td>
+<td>78.3</td>
+<td>64.1</td>
+<td></td>
+</tr>
+<tr>
+<td>CPN (ensemble) [11]</td>
+<td>ResNet-Inception</td>
+<td>384 × 288</td>
+<td></td>
+<td></td>
+<td>73.0</td>
+<td>91.7</td>
+<td>80.9</td>
+<td>69.5</td>
+<td>78.1</td>
+<td>79.0</td>
+</tr>
+<tr>
+<td>SimpleBaseline [72]</td>
+<td>ResNet-152</td>
+<td>384 × 288</td>
+<td>68.6M</td>
+<td>35.6</td>
+<td>73.7</td>
+<td>91.9</td>
+<td>81.1</td>
+<td>70.3</td>
+<td>80.0</td>
+<td>79.0</td>
+</tr>
+<tr>
+<td>HRNet-W32</td>
+<td>HRNet-W32</td>
+<td>384 × 288</td>
+<td>28.5M</td>
+<td>16.0</td>
+<td>74.9</td>
+<td>92.5</td>
+<td>82.8</td>
+<td>71.3</td>
+<td>80.9</td>
+<td>80.1</td>
+</tr>
+<tr>
+<td>HRNet-W48</td>
+<td>HRNet-W48</td>
+<td>384 × 288</td>
+<td>63.6M</td>
+<td>32.9</td>
+<td>75.5</td>
+<td>92.5</td>
+<td>83.3</td>
+<td>71.9</td>
+<td>81.5</td>
+<td>80.5</td>
+</tr>
+<tr>
+<td><strong>HRNet-W48 + extra data</strong></td>
+<td>HRNet-W48</td>
+<td>384 × 288</td>
+<td>63.6M</td>
+<td>32.9</td>
+<td>77.0</td>
+<td>92.7</td>
+<td>84.5</td>
+<td>73.4</td>
+<td>83.1</td>
+<td>82.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Paper-Notes/">Paper Notes</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Paper-Notes/Pose-Estimation/">Pose Estimation</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Pose-Estimation/">Pose Estimation</a>
+                    
+                      <a class="hover-with-bg" href="/tags/topdown/">topdown</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/12/Paper-Notes-Pose-Estimation-20210112-EvoPose2D-Pushing-the-Boundaries-of-2D-Human-Pose-Estimation-using-Neuroevolution/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">EvoPose2D-Pushing the Boundaries of 2D Human Pose Estimation using Neuroevolution</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/12/Paper-Notes-Pose-Estimation-20210112-Scale-Aware-Representation-Learning-for-Bottom-Up-Human-Pose-Estimation/">
+                        <span class="hidden-mobile">Scale-Aware Representation Learning for Bottom-Up Human Pose Estimation</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

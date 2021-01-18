@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      190 字
+      189 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -238,18 +238,17 @@
 <li>新建 hexo 博客  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">git</span> <span class="hljs-selector-tag">clone</span> <span class="hljs-selector-tag">clover978</span><span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span><br><span class="hljs-selector-tag">hexo</span> <span class="hljs-selector-tag">init</span> <span class="hljs-selector-tag">clover978</span><span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span><br><span class="hljs-selector-tag">npm</span> <span class="hljs-selector-tag">install</span> <span class="hljs-selector-tag">hexo-deployer-git</span> <span class="hljs-selector-tag">--save</span><br></code></pre></td></tr></table></figure>
 在 <code>clover978.github.io/_config.yml</code> 里设置如下字段：    <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs groovy"><span class="hljs-attr">deploy:</span><br><span class="hljs-attr">type:</span> <span class="hljs-string">&#x27;git&#x27;</span><br><span class="hljs-attr">repo:</span> <span class="hljs-attr">https:</span><span class="hljs-comment">//github.com/clover978/clover978.github.io</span><br><span class="hljs-attr">branch:</span> master<br></code></pre></td></tr></table></figure>
 <a id="more"></a>
-
-
-
 </li>
 </ul>
 <hr>
 <h2 id="3-安装-theme"><a href="#3-安装-theme" class="headerlink" title="3. 安装 theme"></a>3. 安装 theme</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/theme-next/</span>hexo-theme-<span class="hljs-keyword">next</span> themes/<span class="hljs-keyword">next</span><br></code></pre></td></tr></table></figure>
-
 <h2 id="4-其他设置"><a href="#4-其他设置" class="headerlink" title="4. 其他设置"></a>4. 其他设置</h2><p>  参考 <code>_config.yml</code> 和 <code>themes/next/_config.yml</code> 里的各种字段，设置页面布局。</p>
 <h2 id="5-发布-blog"><a href="#5-发布-blog" class="headerlink" title="5. 发布 blog"></a>5. 发布 blog</h2><ul>
-<li>编写 blog<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gauss">hexo <span class="hljs-keyword">new</span> &lt;<span class="hljs-built_in">title</span>&gt;<br><span class="hljs-meta"># 编辑 _post 里面生成 md 文件</span><br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure></li>
-<li>同步 hexo  <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">git <span class="hljs-keyword">add</span> .<br>git commit -m <span class="hljs-string">&quot;add new blog&quot;</span><br>git <span class="hljs-keyword">push</span><br></code></pre></td></tr></table></figure></li>
+<li>编写 blog<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gauss">hexo <span class="hljs-keyword">new</span> &lt;<span class="hljs-built_in">title</span>&gt;<br><span class="hljs-meta"># 编辑 _post 里面生成 md 文件</span><br>hexo g<br>hexo d<br></code></pre></td></tr></table></figure>
+<ul>
+<li>同步 hexo<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">git <span class="hljs-keyword">add</span> .<br>git commit -m <span class="hljs-string">&quot;add new blog&quot;</span><br>git <span class="hljs-keyword">push</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ul>
 
             </div>
@@ -458,5 +457,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      910 字
+      911 字
     </span>
   
 
@@ -227,18 +227,15 @@
             <h1 style="display: none">RMPE  Regional Multi-Person Pose Estimation</h1>
             
             <div class="markdown-body">
-              <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1612.00137.pdf">https://arxiv.org/pdf/1612.00137.pdf</a></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ol>
+              <h1 id="RMPE-Regional-Multi-Person-Pose-Estimation"><a href="#RMPE-Regional-Multi-Person-Pose-Estimation" class="headerlink" title="RMPE  Regional Multi-Person Pose Estimation"></a><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1612.00137.pdf">RMPE  Regional Multi-Person Pose Estimation</a></h1><h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ol>
 <li>top-down 的 muti-person PE 方法有两个缺点：a 有的框(IOU&gt;0.5)实际上框的不准，b 有一些冗余框</li>
 <li>提出 Regional Muti-person estimation 框架。</li>
 <li>提出 symmetric spatial transformer network (SSTN), 对 SPPE 方法进行改进，在不准确的 bbox 上仍然能够准确地预测姿态。</li>
 <li>提出 parametric pose NMS (PP-NMS), 解决冗余框的问题</li>
-<li>提出 pose-guided human proposal generator (PGPG), 对训练数据进行数据增强</li>
+<li>提出 pose-guided human proposal generator (PGPG), 对训练数据进行数据增强<a id="more"></a>
+</li>
 </ol>
-<a id="more"></a>
-
-
-<h1 id="Related-Work"><a href="#Related-Work" class="headerlink" title="Related Work"></a>Related Work</h1><ul>
+<h2 id="2-Related-Work"><a href="#2-Related-Work" class="headerlink" title="2. Related Work"></a>2. Related Work</h2><ul>
 <li>Single Person PE：<ul>
 <li>tree models</li>
 <li>random forrest models</li>
@@ -259,7 +256,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="Regional-Multi-person-Pose-Estimation"><a href="#Regional-Multi-person-Pose-Estimation" class="headerlink" title="Regional Multi-person Pose Estimation"></a>Regional Multi-person Pose Estimation</h1><p>fig3</p>
+<h2 id="3-Regional-Multi-person-Pose-Estimation"><a href="#3-Regional-Multi-person-Pose-Estimation" class="headerlink" title="3. Regional Multi-person Pose Estimation"></a>3. Regional Multi-person Pose Estimation</h2><p>fig3</p>
 <ul>
 <li>STN &amp; SDTN （SSTN）：<br>作者认为，目标检测得到的框很有可能是不准确的，这是制约 top-down 方法效果的一个关键点。因此，作者将 detection 的结果输入 SPPE 模块之前，会先经过一个 STN 模块，得到 PE 结果后，再经过一个对称的 SDTN 模块。STN 的目标是从 detection 结果中 warp 出更精确的框，STDN 的目标则相反。STN 和 STDN 都包含 3 个参数，通过推到可以得到两者的关系（参考论文）。</li>
 <li>Parallel SPPE：<br>为了使 STN 更准确地定位到 detection proposal 的 domainate person，作者还加入了一个 Parallel SPPE，这个模块是一个固定参数的 SPPE 模块，输入由 STN 生成的 grid 之后，使用预训练好的 SPPE 对 grid 中的 person 进行预测，然后与 groundtruth 进行比较，这里的 groundtruth 是对原始 groundtruth 进行 center-located 操作之后得到的。  <blockquote>
@@ -298,6 +295,8 @@
                       <a class="hover-with-bg" href="/tags/deep-learning/">deep learning</a>
                     
                       <a class="hover-with-bg" href="/tags/Pose-Estimation/">Pose Estimation</a>
+                    
+                      <a class="hover-with-bg" href="/tags/topdown/">topdown</a>
                     
                   </div>
                 
@@ -493,5 +492,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

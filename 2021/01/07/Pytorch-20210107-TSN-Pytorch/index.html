@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -231,14 +231,12 @@
 <hr>
 <h3 id="0-Intro"><a href="#0-Intro" class="headerlink" title="0. Intro"></a>0. Intro</h3><p>TSN 是动作识别领域里面一个很老工作，也是一个很重要的工作。作者开源了代码，是用 Caffe 实现的，但是由于 Pytorch 在学界的流行，作者又重新实现了一个 Pytorch 版本的。代码写的很优雅，基本是可以直接用的，这个简单记录一下使用步骤。<br><strong>TSN 的训练模式有 3 种, (1) RGB, (2) Flow, (3) RGB+Flow, 这里只介绍第一种</strong><br><strong>下文需要用到的代码片段都已经上传到 fork 的 repo 中 <a target="_blank" rel="noopener" href="https://github.com/clover978/tsn-pytorch">https://github.com/clover978/tsn-pytorch</a></strong></p>
 <a id="more"></a>
-
 <hr>
 <h3 id="1-Data-Prepare"><a href="#1-Data-Prepare" class="headerlink" title="1. Data-Prepare"></a>1. Data-Prepare</h3><ul>
 <li>抽帧：<br>首先生成视频文件列表：  <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">cd <span class="hljs-regexp">/home/</span>dxx<span class="hljs-regexp">/UCF101/U</span>CF101/<br><span class="hljs-keyword">find</span> . -type f &gt; trainvallist.txt<br></code></pre></td></tr></table></figure>
 然后抽帧：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">cd</span> <span class="hljs-symbol">&lt;tsn-path&gt;</span><br><span class="hljs-keyword">python</span> tools/extract_frames.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure></li>
 <li>生成 lst 文件：<br><code>tsn-pytorch</code> 用文本文件的形式作为输入，读取数据集。文本文件的格式如下：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs text"># 视频帧路径  视频总帧数  视频标签<br>&lt;image_dir_path&gt; &lt;frames_cnt&gt; &lt;label_index&gt;<br></code></pre></td></tr></table></figure>
 准备 <code>classInd.txt</code> 文件，用下面的脚本生成训练需要的文本文件：<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> gen_tsn_list.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <hr>
@@ -464,5 +462,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      434 字
+      437 字
     </span>
   
 
@@ -227,24 +227,21 @@
             <h1 style="display: none">The unreasonable effectiveness of noisy data for fine-grained recognition</h1>
             
             <div class="markdown-body">
-              <h2 id="The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><a href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition" class="headerlink" title="The unreasonable effectiveness of noisy data for fine-grained recognition"></a><a target="_blank" rel="noopener" href="http://cn.arxiv.org/pdf/1511.06789.pdf">The unreasonable effectiveness of noisy data for fine-grained recognition</a></h2><blockquote>
-<ul>
+              <h1 id="The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition"><a href="#The-unreasonable-effectiveness-of-noisy-data-for-fine-grained-recognition" class="headerlink" title="The unreasonable effectiveness of noisy data for fine-grained recognition"></a><a target="_blank" rel="noopener" href="http://cn.arxiv.org/pdf/1511.06789.pdf">The unreasonable effectiveness of noisy data for fine-grained recognition</a></h1><blockquote>
+<ol>
 <li><strong>ECCV 2016</strong></li>
 <li>这篇文章提出使用网络爬取的数据进行细粒度分类任务。与其说是提出一种新的方法，不如说是新建了一个数据集。  </li>
 <li>网络爬取的图片并不完全准确，因此讨论了对这些噪声的处理方法。  </li>
-<li>加入大量网络数据后，训练的效果得到了大幅度的提升，目前在 CUB 数据集上准确率达到了 92.3  </li>
-</ul>
+<li>加入大量网络数据后，训练的效果得到了大幅度的提升，目前在 CUB 数据集上准确率达到了 92.3  <a id="more"></a>
+</li>
+</ol>
 </blockquote>
- <a id="more"></a>
-
-<ul>
-<li><p>cross-domain noise:<br><code>cross-domain noise</code> 指的是不属于这一大类的图片，例如搜索某种鸟，出来的结果是昆虫的图片。通过人工标注量化了这种噪声，发现这种情况比较少，并且当图片数目增多的时候，噪声占的比例也会减少。<br>这种噪声对结果的影响也比较小。</p>
-</li>
-<li><p>cross-category noise:<br><code>cross-category noise</code> 指的是将其他子类的图片混入搜索结果的情况。这种噪声的比例难以量化，并且对结果的影响比较大，作者将搜索结果中重复的图片去除掉来减少这些噪声。</p>
-</li>
-<li><p>active learning：<br>作者还提出两种标注方法辅助去除噪声。1）使用预训练好的模型，挑选搜索结果中置信度高的结果；2）人工筛选搜索结果。</p>
-</li>
-<li><p>实验结果：</p>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
+<li>cross-domain noise:<br><code>cross-domain noise</code> 指的是不属于这一大类的图片，例如搜索某种鸟，出来的结果是昆虫的图片。通过人工标注量化了这种噪声，发现这种情况比较少，并且当图片数目增多的时候，噪声占的比例也会减少。<br>这种噪声对结果的影响也比较小。</li>
+<li>cross-category noise:<br><code>cross-category noise</code> 指的是将其他子类的图片混入搜索结果的情况。这种噪声的比例难以量化，并且对结果的影响比较大，作者将搜索结果中重复的图片去除掉来减少这些噪声。</li>
+<li>active learning：<br>作者还提出两种标注方法辅助去除噪声。1）使用预训练好的模型，挑选搜索结果中置信度高的结果；2）人工筛选搜索结果。</li>
+</ul>
+<h2 id="2-实验结果："><a href="#2-实验结果：" class="headerlink" title="2. 实验结果："></a>2. 实验结果：</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -258,7 +255,8 @@
 <th>L-bird+CUB(MC)</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>acc</td>
 <td>84.4</td>
 <td>87.7</td>
@@ -268,15 +266,15 @@
 <td>92.2</td>
 <td>92.8</td>
 </tr>
-</tbody></table>
-<pre><code>`CUB`：CUB 数据集  
-`web-raw`：web 爬取数据集  
-`web-filter`： 去除 `cross-category noise`  
-`L-Bird`: 爬取所有鸟类的图片，进行预训练，然后在 web-filter 上 finetune  
-`MC`：测试的时候使用 multi-crop</code></pre>
-</li>
-</ul>
-
+</tbody>
+</table>
+</div>
+<pre><code>  `CUB`：CUB 数据集  
+  `web-raw`：web 爬取数据集  
+  `web-filter`： 去除 `cross-category noise`  
+  `L-Bird`: 爬取所有鸟类的图片，进行预训练，然后在 web-filter 上 finetune  
+  `MC`：测试的时候使用 multi-crop
+</code></pre>
             </div>
             <hr>
             <div>
@@ -493,5 +491,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

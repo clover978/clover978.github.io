@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -235,11 +235,8 @@
 <li>joblib</li>
 </ul>
 <a id="more"></a>
-
 <p>多线程是一个看起来很复杂，但是实际学习使用很简单的一个东西，所以当你有并发运算的需求的时候，一定要勤于动手，使用多线程/多进程去实现，这样会节省很多时间。<br>关于多线程与多进程的选择，一般的原则是 <strong><em>IO 密集型任务使用多线程， CPU密集型任务使用多进程</em></strong>，Python3 中好像还有 <strong>协程</strong> 的概念，属于比线程更加细粒度的并发，暂时没有研究过。<br>这篇文章主要记录 <strong><em>concurrent</em></strong> 库的简单使用。 Python2 中需要安装 future 库，Python3 的官方库中已经包含。</p>
-<h3 id="concurrent"><a href="#concurrent" class="headerlink" title="concurrent"></a>concurrent</h3><p>concurrent 的接口非常简单：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_job</span>(<span class="hljs-params">obj</span>):</span><br>    print(obj)<br>    <span class="hljs-keyword">return</span> obj<br>    <br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor, ProcessPoolExecutor, Executor<br><span class="hljs-keyword">import</span> time<br><span class="hljs-comment"># 多线程</span><br>s = time.time()<br><span class="hljs-keyword">with</span> ThreadPoolExecutor(max_workers=<span class="hljs-number">8</span>) <span class="hljs-keyword">as</span> pool:<br>    results = <span class="hljs-built_in">list</span>( pool.<span class="hljs-built_in">map</span>(print_job, <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>)) )<br>t1 = (time.time()-s)<br><br><span class="hljs-comment"># 多进程</span><br>s = time.time()<br><span class="hljs-keyword">with</span> ProcessPoolExecutor(max_workers=<span class="hljs-number">8</span>) <span class="hljs-keyword">as</span> pool:<br>    results = <span class="hljs-built_in">list</span>( pool.<span class="hljs-built_in">map</span>(print_job, <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>)) )<br>t2 = (time.time()-s)<br><br><span class="hljs-comment"># 循环</span><br>s = time.time()<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>):<br>    print_job(i)<br>t3 = (time.time()-s)<br><br>print(t1, t2, t3)<br><span class="hljs-number">8.88823914527893</span><br><span class="hljs-number">7.626605272293091</span><br><span class="hljs-number">2.69059157371521</span><br></code></pre></td></tr></table></figure>
-<p>由于举了一个 非IO密集型，非 CPU 密集型 的例子，所以结果非常尴尬。总之，Python 的并发编程接口就是这样的。</p>
+<h3 id="concurrent"><a href="#concurrent" class="headerlink" title="concurrent"></a>concurrent</h3><p>concurrent 的接口非常简单：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_job</span>(<span class="hljs-params">obj</span>):</span><br>    print(obj)<br>    <span class="hljs-keyword">return</span> obj<br>    <br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor, ProcessPoolExecutor, Executor<br><span class="hljs-keyword">import</span> time<br><span class="hljs-comment"># 多线程</span><br>s = time.time()<br><span class="hljs-keyword">with</span> ThreadPoolExecutor(max_workers=<span class="hljs-number">8</span>) <span class="hljs-keyword">as</span> pool:<br>    results = <span class="hljs-built_in">list</span>( pool.<span class="hljs-built_in">map</span>(print_job, <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>)) )<br>t1 = (time.time()-s)<br><br><span class="hljs-comment"># 多进程</span><br>s = time.time()<br><span class="hljs-keyword">with</span> ProcessPoolExecutor(max_workers=<span class="hljs-number">8</span>) <span class="hljs-keyword">as</span> pool:<br>    results = <span class="hljs-built_in">list</span>( pool.<span class="hljs-built_in">map</span>(print_job, <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>)) )<br>t2 = (time.time()-s)<br><br><span class="hljs-comment"># 循环</span><br>s = time.time()<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>):<br>    print_job(i)<br>t3 = (time.time()-s)<br><br>print(t1, t2, t3)<br><span class="hljs-number">8.88823914527893</span><br><span class="hljs-number">7.626605272293091</span><br><span class="hljs-number">2.69059157371521</span><br></code></pre></td></tr></table></figure><br>由于举了一个 非IO密集型，非 CPU 密集型 的例子，所以结果非常尴尬。总之，Python 的并发编程接口就是这样的。</p>
 
             </div>
             <hr>
@@ -455,5 +452,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

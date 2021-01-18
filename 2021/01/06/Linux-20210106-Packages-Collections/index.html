@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -229,7 +229,6 @@
             <div class="markdown-body">
               <p>收集一些比较冷门的 lib, packages 安装命令</p>
 <a id="more"></a>
-
 <h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu:"></a>Ubuntu:</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">libgthread</span>-<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.so.<span class="hljs-number">0</span>         apt install libglib<span class="hljs-number">2</span>.<span class="hljs-number">0</span>-<span class="hljs-number">0</span><br><span class="hljs-attribute">libSM</span>.so.<span class="hljs-number">6</span>                  apt install libsm<span class="hljs-number">6</span><br><span class="hljs-attribute">libXrender</span>.so.<span class="hljs-number">1</span>             apt install libxrender<span class="hljs-number">1</span><br><span class="hljs-attribute">libXext</span>.so.<span class="hljs-number">6</span>                apt install libxext<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
 <h2 id="Python3"><a href="#Python3" class="headerlink" title="Python3"></a>Python3</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pycocotools                 pip <span class="hljs-keyword">install</span> <span class="hljs-string">&quot;git+https://github.com/philferriere/cocoapi.git#egg=pycocotools&amp;subdirectory=PythonAPI&quot;</span><br>skbuild                     pip <span class="hljs-keyword">install</span> scikit-build<br></code></pre></td></tr></table></figure>
 <h2 id="Caffe"><a href="#Caffe" class="headerlink" title="Caffe"></a>Caffe</h2><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs livescript">apt install -y <span class="hljs-string">\</span><br>    protobuf-compiler <span class="hljs-string">\</span><br>    libprotobuf-dev <span class="hljs-string">\</span><br>    libboost-all-dev <span class="hljs-string">\</span><br>    libgflags-dev <span class="hljs-string">\</span><br>    libgoogle-glog-dev <span class="hljs-string">\</span><br>    libatlas-base-dev <span class="hljs-string">\</span><br>    libopencv-dev <span class="hljs-string">\</span><br>    libhdf5-dev <span class="hljs-string">\</span><br>    libleveldb-dev <span class="hljs-string">\</span><br>    liblmdb-dev <span class="hljs-string">\</span><br>    libsnappy-dev <span class="hljs-string">\</span><br>    python-numpy <span class="hljs-string">\</span><br>    python-setuptools <span class="hljs-string">\</span><br>    python-opencv <span class="hljs-string">\</span><br>    ipython <span class="hljs-string">\</span><br><br>pip install scikit-image protobuf<br></code></pre></td></tr></table></figure>
@@ -445,5 +444,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

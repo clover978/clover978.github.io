@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      320 字
+      322 字
     </span>
   
 
@@ -228,17 +228,15 @@
             
             <div class="markdown-body">
               <h2 id="A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification"><a href="#A-Large-Scale-Car-Dataset-for-Fine-grained-Categotozation-and-Verification" class="headerlink" title="A Large-Scale Car Dataset for Fine-grained Categotozation and Verification"></a><a target="_blank" rel="noopener" href="http://arxiv.org/abs/1506.08959">A Large-Scale Car Dataset for Fine-grained Categotozation and Verification</a></h2><blockquote>
-<ul>
+<ol>
 <li><strong>CVPR 2015</strong></li>
 <li>这篇文章提出了一个大型的数据集 CompCars，里面包含了从网络上收集的 13.6w 张整车图片， 2.7w 张车辆局部图片，还有从监控场景下拍摄的 5k 张车辆正脸图片。  </li>
-<li>实验部分使用这个数据集分别用于 <strong>车辆细粒度分类、车辆属性所识别、车辆验证</strong> 三个任务。</li>
-</ul>
+<li>实验部分使用这个数据集分别用于 <strong>车辆细粒度分类、车辆属性所识别、车辆验证</strong> 三个任务。<a id="more"></a>
+</li>
+</ol>
 </blockquote>
-<a id="more"></a>
-
-<ul>
-<li><p>CompCars 数据集：</p>
-<ul>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
+<li>CompCars 数据集：<ul>
 <li>品牌（Make）：163</li>
 <li>车型（Model）：1716</li>
 <li>年份（Year）：4455</li>
@@ -260,107 +258,21 @@
 <li><p><strong>Fine-grained classification 数据集：</strong></p>
 <ul>
 <li><p>车型： 431  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Train</th>
-<th>Test</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>图片数（整车）</td>
-<td>16016</td>
-<td>14939</td>
-<td>30955</td>
-</tr>
-</tbody></table>
+<p>  |               | Train | Test | Total |<br>  |-              |-      |-     |-      |<br>  | 图片数（整车）| 16016 | 14939| 30955 |</p>
 </li>
 </ul>
 </li>
 <li><p><strong>Baseline：</strong>  </p>
 <ul>
-<li><p>model: overfeat  </p>
-</li>
-<li><p>dataset: Fine-grained classification  </p>
-</li>
+<li>model: overfeat  </li>
+<li>dataset: Fine-grained classification  </li>
 <li><p>result:  </p>
-<table>
-<thead>
-<tr>
-<th>view</th>
-<th>F</th>
-<th>R</th>
-<th>S</th>
-<th>FS</th>
-<th>RS</th>
-<th>all</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>top1</td>
-<td>0.524</td>
-<td>0.431</td>
-<td>0.428</td>
-<td>0.563</td>
-<td>0.598</td>
-<td>0.767</td>
-</tr>
-<tr>
-<td>top5</td>
-<td>0.748</td>
-<td>0.647</td>
-<td>0.602</td>
-<td>0.769</td>
-<td>0.777</td>
-<td>0.917</td>
-</tr>
-<tr>
-<td>Make</td>
-<td>0.701</td>
-<td>0.521</td>
-<td>0.507</td>
-<td>0.680</td>
-<td>0.656</td>
-<td>0.829</td>
-</tr>
-<tr>
-<td>单视角识别车型： <code>RS</code> 效果最好；</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>单视角识别品牌： <code>F </code> 效果最好；</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>多视角 Baseline： <strong><code>model: 0.767,  make: 0.829</code></strong></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+<p>  | view | F     | R     | S     | FS    | RS    | all   |<br>  |-     |-      |-      |-      |-      |-      |-      |<br>  | top1 | 0.524 | 0.431 | 0.428 | 0.563 | 0.598 | 0.767 |<br>  | top5 | 0.748 | 0.647 | 0.602 | 0.769 | 0.777 | 0.917 |<br>  | Make | 0.701 | 0.521 | 0.507 | 0.680 | 0.656 | 0.829 |<br>单视角识别车型： <code>RS</code> 效果最好；<br>单视角识别品牌： <code>F</code> 效果最好；<br>多视角 Baseline： <strong><code>model: 0.767,  make: 0.829</code></strong></p>
 </li>
 </ul>
 </li>
-<li><p>Supplementary experiment:<br>在整个 <code>CompCars</code> 数据集上补充一个实验，比较三种模型的效果</p>
-<pre><code>| model | AlexNet | Overfeat | GoogLeNet |
-|-      |-        |-         |-          |
-| top1  | 0.819   | 0.879    | 0.912     |
-| top5  | 0.949   | 0.969    | 0.981     |</code></pre>
+<li><p>Supplementary experiment:<br>在整个 <code>CompCars</code> 数据集上补充一个实验，比较三种模型的效果  </p>
+<p>  | model | AlexNet | Overfeat | GoogLeNet |<br>  |-      |-        |-         |-          |<br>  | top1  | 0.819   | 0.879    | 0.912     |<br>  | top5  | 0.949   | 0.969    | 0.981     |</p>
 </li>
 </ul>
 
@@ -580,5 +492,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

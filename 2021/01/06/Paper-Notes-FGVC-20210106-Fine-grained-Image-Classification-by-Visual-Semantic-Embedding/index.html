@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      752 字
+      755 字
     </span>
   
 
@@ -227,16 +227,15 @@
             <h1 style="display: none">Fine-grained Image Classification by Visual-Semantic Embedding</h1>
             
             <div class="markdown-body">
-              <h2 id="Fine-grained-Image-Classification-by-Visual-Semantic-Embedding"><a href="#Fine-grained-Image-Classification-by-Visual-Semantic-Embedding" class="headerlink" title="Fine-grained Image Classification by Visual-Semantic Embedding"></a><a target="_blank" rel="noopener" href="https://www.ijcai.org/proceedings/2018/0145.pdf">Fine-grained Image Classification by Visual-Semantic Embedding</a></h2><blockquote>
-<ul>
+              <h1 id="Fine-grained-Image-Classification-by-Visual-Semantic-Embedding"><a href="#Fine-grained-Image-Classification-by-Visual-Semantic-Embedding" class="headerlink" title="Fine-grained Image Classification by Visual-Semantic Embedding"></a><a target="_blank" rel="noopener" href="https://www.ijcai.org/proceedings/2018/0145.pdf">Fine-grained Image Classification by Visual-Semantic Embedding</a></h1><blockquote>
+<ol>
 <li><strong>IJCAI 2018</strong></li>
 <li>这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 <strong>text context</strong>，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 <strong>knowledge based context</strong>，收集子类鸟的各种属性，建立知识库，有点属性学习的意思。</li>
-<li>这篇文章的想法很有创新，并且也有很好的效果，在 CUB 数据集上达到 86.2 的准确率。但是没有验证在其他数据集上是否同时有效。</li>
-</ul>
+<li>这篇文章的想法很有创新，并且也有很好的效果，在 CUB 数据集上达到 86.2 的准确率。但是没有验证在其他数据集上是否同时有效。<a id="more"></a>
+</li>
+</ol>
 </blockquote>
- <a id="more"></a>
-
-<ul>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
 <li>Two leval CNN:<br>作者设计了一个双层的网络结构，F(a) 是定位网络，F(b) 是回归排序网络，网络结构图参考论文。<ul>
 <li>Localization Network：<br>这一部分是传统的目标检测网络模型。提取 定位网络的特征，与回归网络提取的特征点乘，起到 Attention 的作用。</li>
 <li>Regression Ranking Network：<br>这一部分通过 CNN 提取网络的特征，然后加入定位网络提取的特征作为 Attention，得到视觉特征，接下来通过 FC 层，将视觉特征映射到语义空间，网络的约束条件就是特征在语义空间中的距离，优化网络，减小学习到的语义特征与 gt 在语义空间中的特征距离。作者使用了两种语义空间，因此网络的视觉特征同时平行通过了两个 FC 层。<ul>
@@ -244,10 +243,10 @@
 <li><code>Text Embedding</code>：<br>文本嵌入部分通过 word2vec 实现。作者首先 finetune 了一个 word2vec 模型，然后利用模型将 类别名称 映射到 文本语义空间。  </li>
 </ul>
 </li>
-<li>实验结果：<br>作者在 CUB 数据集上做的实验，按照论文所述，训练的过程中既没有使用 bbox 信息，也没有使用 part annotation 信息，这一点不是很明白，和我理解的训练过程不太一样。  </li>
 </ul>
-<strong>CUB</strong> 准确率： <strong>0.862</strong></li>
+</li>
 </ul>
+<h2 id="2-实验结果："><a href="#2-实验结果：" class="headerlink" title="2. 实验结果："></a>2. 实验结果：</h2><p>  作者在 CUB 数据集上做的实验，按照论文所述，训练的过程中既没有使用 bbox 信息，也没有使用 part annotation 信息，这一点不是很明白，和我理解的训练过程不太一样。<br>  <strong>CUB</strong> 准确率： <strong>0.862</strong></p>
 
             </div>
             <hr>
@@ -465,5 +464,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

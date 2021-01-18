@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      285 字
+      288 字
     </span>
   
 
@@ -227,19 +227,18 @@
             <h1 style="display: none">Embedding label structures for fine-grained feature representation</h1>
             
             <div class="markdown-body">
-              <h2 id="Embedding-label-structures-for-fine-grained-feature-representation"><a href="#Embedding-label-structures-for-fine-grained-feature-representation" class="headerlink" title="Embedding label structures for fine-grained feature representation"></a><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Embedding_Label_Structures_CVPR_2016_paper.pdf">Embedding label structures for fine-grained feature representation</a></h2><blockquote>
-<ul>
+              <h1 id="Embedding-label-structures-for-fine-grained-feature-representation"><a href="#Embedding-label-structures-for-fine-grained-feature-representation" class="headerlink" title="Embedding label structures for fine-grained feature representation"></a><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Embedding_Label_Structures_CVPR_2016_paper.pdf">Embedding label structures for fine-grained feature representation</a></h1><blockquote>
+<ol>
 <li><strong>CVPR 2016</strong></li>
-<li>这篇文章提出两个创新点，一个是使用 “structured label” 改进 <code>triple loss</code>；另一个是同时使用 triple loss 和 softmax loss 进行训练。</li>
-</ul>
+<li>这篇文章提出两个创新点，一个是使用 “structured label” 改进 <code>triple loss</code>；另一个是同时使用 triple loss 和 softmax loss 进行训练。<a id="more"></a>
+</li>
+</ol>
 </blockquote>
- <a id="more"></a>
-
-<ul>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
 <li>同时使用 softmax loss 和 triple loss 约束训练：<br>这个没什么好说的，一个很简单的想法。使用三路的网络，提取特征，然后分为两支，一支过 fc+softmax 然后分类，一支对比 anchor, positive, negative 的特征距离，然后用 triple loss 进行约束。网络结果参照论文链接。</li>
 <li>结构化目标嵌入（embed label structures）:<br>这一部分是对 triple loss 的一个改进，在细粒度分类问题中，目标的分类可以看做层级的，以车辆分类为例，目标结构由粗到细可以是 品牌-模型-年份，因此做模型分类的时候，可以使用四元组进行训练：<code>r(reference), p+(same model), p-(same make, diffrent model), n(diffrent make)</code>，四元组的 loss 等价于 <code>L(r, p+, p-) + L(r, p-, n)</code>。</li>
-<li>实验结果：<br>作者在 <code>standFord Cars</code> 上面进行实验，实验结果略（笔记只记录 CUB 数据集的结果）</li>
 </ul>
+<h2 id="2-实验结果："><a href="#2-实验结果：" class="headerlink" title="2. 实验结果："></a>2. 实验结果：</h2><p>  作者在 <code>standFord Cars</code> 上面进行实验，实验结果略（笔记只记录 CUB 数据集的结果）</p>
 
             </div>
             <hr>
@@ -457,5 +456,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

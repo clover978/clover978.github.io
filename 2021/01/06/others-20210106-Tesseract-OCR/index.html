@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -229,27 +229,19 @@
             <div class="markdown-body">
               <p><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract">Tesseract </a>是 Github 上一个 OCR 的开源项目，目前最新版已经更新到 v4.0.x，最近小小尝试了一下怎么使用这个开源库，记一下笔记。</p>
 <a id="more"></a>
-
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>环境： Ubuntu16.04</code><br>Tesseract 可以使用 apt 安装，但是在 Ubuntu18.04 之前的版本，官方库里面的最新版本只有 3.x.x，作为 Ubuntu16.04 用户，需要先添加 PPA，其他系统版本的 PPA 可以在<a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki#linux">这里</a>找到。  </p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs smali">apt-get install python-software-properties software-properties-common<br>add-apt-repository ppa:alex-p/tesseract-ocr<br>apt-get update<br></code></pre></td></tr></table></figure>
-<p>添加完 PPA 之后就可以直接 apt 安装了</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">apt-<span class="hljs-built_in">get</span> install tesseract-ocr libtesseract-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure>
-<p>除了 apt 安装外，也可以直接从 github clone<br>代码，然后编译安装， 不再详述。</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p><code>环境： Ubuntu16.04</code><br>Tesseract 可以使用 apt 安装，但是在 Ubuntu18.04 之前的版本，官方库里面的最新版本只有 3.x.x，作为 Ubuntu16.04 用户，需要先添加 PPA，其他系统版本的 PPA 可以在<a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki#linux">这里</a>找到。<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs smali">apt-get install python-software-properties software-properties-common<br>add-apt-repository ppa:alex-p/tesseract-ocr<br>apt-get update<br></code></pre></td></tr></table></figure><br>添加完 PPA 之后就可以直接 apt 安装了<br><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">apt-<span class="hljs-built_in">get</span> install tesseract-ocr libtesseract-<span class="hljs-built_in">dev</span><br></code></pre></td></tr></table></figure><br>除了 apt 安装外，也可以直接从 github clone<br>代码，然后编译安装， 不再详述。</p>
 <h2 id="Language-support"><a href="#Language-support" class="headerlink" title="Language support"></a>Language support</h2><p>Tesseract 的模型文件放在 <code>$TESSDATA_PREFIX</code> 指定的位置，当找不到这个环境变量是，默认路径是 <code>/usr/share/tesseract-ocr/4.00/tessdata</code></p>
 <p>Teseeract 支持的语言及对应的模型文件可以在 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/Data-Files#updated-data-files-for-version-400-september-15-2017">这里</a> 找到</p>
 <p>Tesseract 的中文支持有两种方式：</p>
 <ul>
-<li><p>直接 apt 安装<br><code>apt install tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert</code></p>
-</li>
+<li>直接 apt 安装<br><code>apt install tesseract-ocr-chi-sim tesseract-ocr-chi-sim-vert</code></li>
 <li><p>简体中文语言包模型  </p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">wget https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/tesseract-ocr/</span>tessdata<span class="hljs-regexp">/raw/</span><span class="hljs-number">4.00</span>/chi_sim.traineddata<br>mv chi_sim.traineddata <span class="hljs-regexp">/usr/</span>share<span class="hljs-regexp">/tesseract-ocr/</span><span class="hljs-number">4.00</span><span class="hljs-regexp">/tessdata/</span><br></code></pre></td></tr></table></figure>
-
 <p><code>tesseract --list-langs</code> 查看目前支持的语言</p>
 </li>
 </ul>
 <h2 id="Command-Line-Usage"><a href="#Command-Line-Usage" class="headerlink" title="Command Line Usage"></a>Command Line Usage</h2><p><a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage">https://github.com/tesseract-ocr/tesseract/wiki/Command-Line-Usage</a></p>
-<p>Tesseract 的命令行使用可以参考上面的链接<br>这里列举一个最简答的用法</p>
-<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vala">tesseract input.png output -l eng --oem <span class="hljs-number">3</span> --psm <span class="hljs-number">3</span><br><span class="hljs-meta"># input.png： 输入的图片</span><br><span class="hljs-meta"># output： 输出文件名（指定 stdout 输出到标准输出）</span><br><span class="hljs-meta"># -l：指定语言，eng（英语，默认），chi_sim（简体中文）</span><br><span class="hljs-meta"># --oem[0,1,2,3]： OCR Engine Mode，4.x.x 版本默认为 3, 就是使用 available 的模型，即 LSTM 模型</span><br><span class="hljs-meta"># --psm[0-13]： Page Segement Mode，默认为 3，自动分页</span><br><span class="hljs-meta"># Tesseract 还有许多许多其他的参数可以设置，具体可以参照上方的链接</span><br></code></pre></td></tr></table></figure>
+<p>Tesseract 的命令行使用可以参考上面的链接<br>这里列举一个最简答的用法<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vala">tesseract input.png output -l eng --oem <span class="hljs-number">3</span> --psm <span class="hljs-number">3</span><br><span class="hljs-meta"># input.png： 输入的图片</span><br><span class="hljs-meta"># output： 输出文件名（指定 stdout 输出到标准输出）</span><br><span class="hljs-meta"># -l：指定语言，eng（英语，默认），chi_sim（简体中文）</span><br><span class="hljs-meta"># --oem[0,1,2,3]： OCR Engine Mode，4.x.x 版本默认为 3, 就是使用 available 的模型，即 LSTM 模型</span><br><span class="hljs-meta"># --psm[0-13]： Page Segement Mode，默认为 3，自动分页</span><br><span class="hljs-meta"># Tesseract 还有许多许多其他的参数可以设置，具体可以参照上方的链接</span><br></code></pre></td></tr></table></figure></p>
 <h2 id="Python-API"><a href="#Python-API" class="headerlink" title="Python API"></a>Python API</h2><p><a target="_blank" rel="noopener" href="https://github.com/sirfz/tesserocr">https://github.com/sirfz/tesserocr</a><br>Tesseract 官方给出了一个使用 Python API 的 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/APIExample#c-api-in-python">脚本</a>，脚本的原理是使用 ctypes + .so/.dll文件，用 Python 调用 C 的接口，这种方法还需要写 platform specified 的代码，所以比较麻烦。我在网上找到有人写了一个 Python Wrapper， 在 <a target="_blank" rel="noopener" href="https://github.com/tesseract-ocr/tesseract/wiki/AddOns#tesseract-wrappers">官方 repo</a> 下还可以找到更多 Wrapper 的链接，下面介绍利用这个方法使用 Python 接口。</p>
 <ul>
 <li>安装  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install tesseract-ocr libtesseract-dev libleptonica-dev<br><span class="hljs-comment"># 前两个在装 Tesseract 的时候已经安装过了，一定记得要装第三个东西</span><br><span class="hljs-attribute">CPPFLAGS</span>=-I/usr/local/include pip3 install tesserocr<br></code></pre></td></tr></table></figure></li>
@@ -481,5 +473,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

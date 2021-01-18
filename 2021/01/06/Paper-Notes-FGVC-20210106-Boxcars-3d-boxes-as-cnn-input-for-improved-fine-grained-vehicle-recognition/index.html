@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      585 字
+      588 字
     </span>
   
 
@@ -227,28 +227,23 @@
             <h1 style="display: none">Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition</h1>
             
             <div class="markdown-body">
-              <h2 id="Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition"><a href="#Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition" class="headerlink" title="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition"></a><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Sochor_BoxCars_3D_Boxes_CVPR_2016_paper.pdf">Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition</a></h2><blockquote>
-<ul>
+              <h1 id="Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition"><a href="#Boxcars-3d-boxes-as-cnn-input-for-improved-fine-grained-vehicle-recognition" class="headerlink" title="Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition"></a><a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Sochor_BoxCars_3D_Boxes_CVPR_2016_paper.pdf">Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition</a></h1><blockquote>
+<ol>
 <li><strong>CVPR 2016</strong></li>
-<li>这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 <code>BoxCars</code></li>
-</ul>
+<li>这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 <code>BoxCars</code><a id="more"></a>
+</li>
+</ol>
 </blockquote>
-<a id="more"></a>
-
-<ul>
-<li><p>3D 包围框：<br>文中没有介绍获得车辆的 3D 包围框 的方法。这是作者之前的一个工作。<a target="_blank" rel="noopener" href="http://www.bmva.org/bmvc/2014/files/paper013.pdf">Automatic camera  calibration for traffic understanding</a></p>
-</li>
-<li><p>车辆图片平展：<br>获得 3D 包围框后，将其展开成 2D 图像，具体方法类似于将立体的纸盒子在平面上铺开。很简单的一个思路。</p>
-</li>
-<li><p>车辆的视角信息：<br>作者用三个向量来对车辆的视角信息进行编码。分别是 <code>车尾-车头向量、车内-车外向量，车底-车顶向量</code>。通过这三个向量，可以完整表示出车辆的视角。</p>
-</li>
-<li><p>栅格化包围框：<br>作者同时提出另外一种方法描述车辆的视角。将车辆的矩形包围框中用四种颜色进行表示。其中 车顶用黄色，车侧用红色，车头/车尾同蓝色，其他位置用白色。这样一幅新的栅格化图像同样可以确定出车辆的视角。  </p>
-</li>
-<li><p>平铺图 + 视角辅助信息 训练：<br>平铺图直接进入 CNN 进行卷积操作；<br>视角编码通过 6x6 的矩阵表示，使用三向量表示的情况下，矩阵的第一行表示 3 个二维向量，其他行用 0 填充；使用栅格化包围框表示的情况下，直接将 bbox rescale 成 6x6 的矩阵。<br>文中只说 view encoding 是加在卷积操作之后，但是具体怎么加没有说明。</p>
-</li>
-<li><p>Bbox Cars 数据集：<br>作者同时还公布了一个新的数据集，数据集中的图片是从道路车辆监控视频中获取的，主要特点就是包含了车辆的 3D box 信息。</p>
-</li>
-<li><p>实验结果：<br>作者提出的方法需要数据集标注了车辆的 3D box 信息，具体怎么在 CompCars 数据集上做的实验阐述的不太清楚，下面是实验结果：</p>
+<h2 id="1-Method"><a href="#1-Method" class="headerlink" title="1. Method"></a>1. Method</h2><ul>
+<li>3D 包围框：<br>文中没有介绍获得车辆的 3D 包围框 的方法。这是作者之前的一个工作。<a target="_blank" rel="noopener" href="http://www.bmva.org/bmvc/2014/files/paper013.pdf">Automatic camera  calibration for traffic understanding</a></li>
+<li>车辆图片平展：<br>获得 3D 包围框后，将其展开成 2D 图像，具体方法类似于将立体的纸盒子在平面上铺开。很简单的一个思路。</li>
+<li>车辆的视角信息：<br>作者用三个向量来对车辆的视角信息进行编码。分别是 <code>车尾-车头向量、车内-车外向量，车底-车顶向量</code>。通过这三个向量，可以完整表示出车辆的视角。</li>
+<li>栅格化包围框：<br>作者同时提出另外一种方法描述车辆的视角。将车辆的矩形包围框中用四种颜色进行表示。其中 车顶用黄色，车侧用红色，车头/车尾同蓝色，其他位置用白色。这样一幅新的栅格化图像同样可以确定出车辆的视角。  </li>
+<li>平铺图 + 视角辅助信息 训练：<br>平铺图直接进入 CNN 进行卷积操作；<br>视角编码通过 6x6 的矩阵表示，使用三向量表示的情况下，矩阵的第一行表示 3 个二维向量，其他行用 0 填充；使用栅格化包围框表示的情况下，直接将 bbox rescale 成 6x6 的矩阵。<br>文中只说 view encoding 是加在卷积操作之后，但是具体怎么加没有说明。</li>
+<li>Bbox Cars 数据集：<br>作者同时还公布了一个新的数据集，数据集中的图片是从道路车辆监控视频中获取的，主要特点就是包含了车辆的 3D box 信息。</li>
+</ul>
+<h2 id="2-实验结果："><a href="#2-实验结果：" class="headerlink" title="2. 实验结果："></a>2. 实验结果：</h2><p>  作者提出的方法需要数据集标注了车辆的 3D box 信息，具体怎么在 CompCars 数据集上做的实验阐述的不太清楚，下面是实验结果：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -257,7 +252,8 @@
 <th>top5</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>baseline</td>
 <td>0.767</td>
 <td>0.917</td>
@@ -267,9 +263,9 @@
 <td>0.848</td>
 <td>0.954</td>
 </tr>
-</tbody></table>
-</li>
-</ul>
+</tbody>
+</table>
+</div>
 
             </div>
             <hr>
@@ -487,5 +483,20 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
