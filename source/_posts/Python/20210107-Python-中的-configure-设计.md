@@ -13,30 +13,29 @@ categories:
 
 ---
 ## Python 脚本
-Python 脚本是一种简单的配置方法。这种方法适用于一些自己写的小工程，一来它安全性不高，二来违背了配置与代码解耦的原则。
-```python
-############################################
-#  databaseconfig.py
-############################################
-#!/usr/bin/env python
-import preprocessing
-mysql = {'host': 'localhost',
-         'user': 'root',
-         'passwd': 'my secret password',
-         'db': 'write-math'}
-preprocessing_queue = [preprocessing.scale_and_center,
-                       preprocessing.dot_reduction,
-                       preprocessing.connect_lines]
-use_anonymous = True
+Python 脚本是一种简单的配置方法。这种方法适用于一些自己写的小工程，一来它安全性不高，二来违背了配置与代码解耦的原则。  
+    ```python
+    ############################################
+    #  databaseconfig.py
+    ############################################
+    #!/usr/bin/env python
+    import preprocessing
+    mysql = {'host': 'localhost',
+            'user': 'root',
+            'passwd': 'my secret password',
+            'db': 'write-math'}
+    preprocessing_queue = [preprocessing.scale_and_center,
+                        preprocessing.dot_reduction,
+                        preprocessing.connect_lines]
+    use_anonymous = True
 
-############################################
-#  main.py
-############################################
-#!/usr/bin/env python
-import databaseconfig as cfg
-connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'])
-
-```
+    ############################################
+    #  main.py
+    ############################################
+    #!/usr/bin/env python
+    import databaseconfig as cfg
+    connect(cfg.mysql['host'], cfg.mysql['user'], cfg.mysql['password'])
+    ```
 
 ---
 ## YAML 文件

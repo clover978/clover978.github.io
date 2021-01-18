@@ -152,3 +152,5 @@ color:
   # Color of global secondary text (excerpt, introduction, etc.)
   sec_text_color: "#718096"
 
+  mathjax: true
+

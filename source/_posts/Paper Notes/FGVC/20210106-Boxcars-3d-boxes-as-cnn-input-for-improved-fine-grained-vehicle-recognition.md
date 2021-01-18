@@ -9,12 +9,14 @@ categories:
   - FGVC
 ---
 
-## [Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Sochor_BoxCars_3D_Boxes_CVPR_2016_paper.pdf)
->- **CVPR 2016**
->- 这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 `BoxCars`
+# [Boxcars: 3d boxes as cnn input for improved fine-grained vehicle recognition](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Sochor_BoxCars_3D_Boxes_CVPR_2016_paper.pdf)
 
+> 1. **CVPR 2016**
+> 2. 这篇文章提出了一种使用车辆 3D box 作为网络输入，来识别车型的方法。首先检测出车辆的 3D包围框，然后展开成 2D 图形，最后加入视角信息作为额外输入进行训练。同时还发布了一个新的数据集 `BoxCars`
 <!-- more -->
 
+
+## 1. Method
   - 3D 包围框：  
   文中没有介绍获得车辆的 3D 包围框 的方法。这是作者之前的一个工作。[Automatic camera  calibration for traffic understanding](http://www.bmva.org/bmvc/2014/files/paper013.pdf)
   - 车辆图片平展：  
@@ -29,10 +31,12 @@ categories:
   文中只说 view encoding 是加在卷积操作之后，但是具体怎么加没有说明。
   - Bbox Cars 数据集：  
   作者同时还公布了一个新的数据集，数据集中的图片是从道路车辆监控视频中获取的，主要特点就是包含了车辆的 3D box 信息。
-  - 实验结果：  
+
+
+## 2. 实验结果：  
   作者提出的方法需要数据集标注了车辆的 3D box 信息，具体怎么在 CompCars 数据集上做的实验阐述的不太清楚，下面是实验结果：
   
-      |          | top1  | top5  |
-      |-         |-      |-      |
-      | baseline | 0.767 | 0.917 |
-      | ours     | 0.848 | 0.954 |
+  |          | top1  | top5  |
+  |-         |-      |-      |
+  | baseline | 0.767 | 0.917 |
+  | ours     | 0.848 | 0.954 |

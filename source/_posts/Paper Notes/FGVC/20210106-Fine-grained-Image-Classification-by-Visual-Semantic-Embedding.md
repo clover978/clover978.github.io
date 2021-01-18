@@ -9,13 +9,15 @@ categories:
   - FGVC
 ---
 
-## [Fine-grained Image Classification by Visual-Semantic Embedding](https://www.ijcai.org/proceedings/2018/0145.pdf)
->- **IJCAI 2018**
->- 这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 **text context**，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 **knowledge based context**，收集子类鸟的各种属性，建立知识库，有点属性学习的意思。
->- 这篇文章的想法很有创新，并且也有很好的效果，在 CUB 数据集上达到 86.2 的准确率。但是没有验证在其他数据集上是否同时有效。
+# [Fine-grained Image Classification by Visual-Semantic Embedding](https://www.ijcai.org/proceedings/2018/0145.pdf)
 
+> 1. **IJCAI 2018**
+> 2. 这篇文章的创新点是利用到了细粒度分类中子类别的语义信息。文中提到了两种语义信息，一种是 **text context**，以 CUB 数据集为例，wiki 上对某一子类鸟的描述就是 text context；另一种是 **knowledge based context**，收集子类鸟的各种属性，建立知识库，有点属性学习的意思。
+> 3. 这篇文章的想法很有创新，并且也有很好的效果，在 CUB 数据集上达到 86.2 的准确率。但是没有验证在其他数据集上是否同时有效。
  <!-- more -->
 
+
+## 1. Method
   - Two leval CNN:  
   作者设计了一个双层的网络结构，F(a) 是定位网络，F(b) 是回归排序网络，网络结构图参考论文。
     + Localization Network：  
@@ -28,6 +30,8 @@ categories:
       基于 知识库嵌入 改进的 属性知识库嵌入，三元组(h, r, t)中 实体h 是样本标签y， 关系r 是 has_property_of， 实体t 是样本的属性。通过优化映射矩阵，将样本标签映射到 属性知识库空间。
       - `Text Embedding`：  
       文本嵌入部分通过 word2vec 实现。作者首先 finetune 了一个 word2vec 模型，然后利用模型将 类别名称 映射到 文本语义空间。  
-    + 实验结果：  
-    作者在 CUB 数据集上做的实验，按照论文所述，训练的过程中既没有使用 bbox 信息，也没有使用 part annotation 信息，这一点不是很明白，和我理解的训练过程不太一样。  
-    **CUB** 准确率： **0.862**
+
+
+## 2. 实验结果：  
+  作者在 CUB 数据集上做的实验，按照论文所述，训练的过程中既没有使用 bbox 信息，也没有使用 part annotation 信息，这一点不是很明白，和我理解的训练过程不太一样。  
+  **CUB** 准确率： **0.862**

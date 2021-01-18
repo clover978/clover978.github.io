@@ -11,13 +11,15 @@ categories:
   - FGVC
 ---
 
-## [Weakly Supervised Local Attention Network for Fine-Grained Visual Classification](https://arxiv.org/pdf/1808.02152.pdf)
->- **arxiv (MSRA)**
->- 这篇文章提出一种 LAP(Local Attention Pooling) 的机制，利用 attention map 去提取更具区分性的特征图；文中还提出一种弱监督的方式去训练网络的方法，在训练过程中加入了 attention dropout 和 attention center loss。
->- 文中提出的网络 WS-LAN(Weakly Supervised Local Attention Network)在 CUB 数据集上准确率达到了 87.9
+# [Weakly Supervised Local Attention Network for Fine-Grained Visual Classification](https://arxiv.org/pdf/1808.02152.pdf)
 
+> 1. **arxiv (MSRA)**  
+> 2. 这篇文章提出一种 LAP(Local Attention Pooling) 的机制，利用 attention map 去提取更具区分性的特征图；文中还提出一种弱监督的方式去训练网络的方法，在训练过程中加入了 attention dropout 和 attention center loss。  
+> 3. 文中提出的网络 WS-LAN(Weakly Supervised Local Attention Network)在 CUB 数据集上准确率达到了 87.9  
  <!-- more -->
 
+
+## 1. Method  
   - Local Attention Pooling:  
   这一部分通过文中的 `插图1` 很容易就能看懂。  
   作者首先通过 CNN 分别提取到图片的 特征图 和 注意力图，其中每一个注意力图用于聚焦目标的一个 part 上。然后将特征图与 k 个注意力图分别点乘，得到 k 个 part 的特征图。对 k 个特征图进行卷积核池化操作，得到每一个 part 的特征，将 k 个 part 特征合并到一起形成最终的特征。  
@@ -31,8 +33,11 @@ categories:
     + attention center loss：  
     人脸识别文章中提出过一个 center loss，作者同样将其迁移到 WS-LAN 中。  
     attention map 与 feature map 点乘之后得到 k 个 part feature，作者为这 k 个 feature 维护 k 个 center，然后每次训练的时候，计算每个 feature 和 center 的距离，最小化同一个 part 的 feature distance，最大化不同 part 的 feature distance，作为 attention center loss 的约束条件。
-  - 实验结果：  
-    |        | acc  |
-    |-       |-     |
-    | LAN    | 85.5 |
-    | WS-LAN | 87.9 |
+
+
+# 2. 实验结果：  
+
+  |        | acc  |
+  |-       |-     |
+  | LAN    | 85.5 |
+  | WS-LAN | 87.9 |

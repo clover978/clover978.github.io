@@ -4,22 +4,23 @@ date: 2021-01-07 11:32:27
 tags:
   - deep learning
   - Pose Estimation
+  - topdown
 categories:
   - Paper Notes
   - Pose Estimation
 ---
 
 
-https://arxiv.org/abs/1711.07319
+# [Cascaded Pyramid Network for Multi-Person Pose Estimation](https://arxiv.org/abs/1711.07319)
 
-# Introduction:
+## 1. Introduction:
 1. 提出 `cascaded pyramid network（CPN）`，包含 `global pyramid network` 和 `pyramid refined network`
 2. 探讨 多人目标检测中各种因素的影响
 3. COCO 上 **test-dev AP： 73.0; test-challenge AP：72.1**
-
 <!-- more -->
 
-# Related work:
+
+## 2. Related work:
 1. muti-pose:
     - bottom-up: DeepCut, OpenPose  
     - top-down: Mask-RCNN  
@@ -33,8 +34,8 @@ https://arxiv.org/abs/1711.07319
     - FPN
     - mask-RCNN
 
-# Method
 
+## 3. Method
   - network structure:  
     [Fig-1](https://arxiv.org/pdf/1711.07319.pdf)
 
@@ -50,7 +51,8 @@ https://arxiv.org/abs/1711.07319
   - ohkm
     根据 loss 判断出 hard keypoint，然后只对部分关键点的 loss 进行反向传播。
 
-# Experiment
+
+## 4. Experiment
   - Cropping Strategy  
     `bbox --(extend)--> 256:192  --(crop)--> block --(resize)--> 256:192`
   - Data Augmentation  
@@ -64,20 +66,18 @@ https://arxiv.org/abs/1711.07319
     **Rescore: S(pose) = S(bbox) \* avg(S(key-point))**
 
 
-# Result
-
+# 5. Result
 **Ablation experiment**
-|| AP | FLOPs | Params |
+
+|                                     | AP    | FLOPs     | Params |
 |- |- | - | - |
-| ResNet-50 + dilation(res4-5) | 66.5 | 17.71G | 92M |
-| GlobalNet only | 66.6 | 3.90G | 94M |
-| CPN w/o ohkm | 68.6 | 6.20G | 102M |
-| CPN | 69.4 | 6.20G | 102M |
-| GlobalNet + Concat | 68.5 | 5.87G | - |
-| GlobalNet + 1 bottleneck +Concat | 69.2 | 6.92G | - |
-| CPN (384 × 288) | 71.6 | 13.9G | - |
-
-
+| ResNet-50 + dilation(res4-5)        | 66.5  | 17.71G    | 92M   |
+| GlobalNet only                      | 66.6  | 3.90G     | 94M   |
+| CPN w/o ohkm                        | 68.6  | 6.20G     | 102M  |
+| CPN                                 | 69.4  | 6.20G     | 102M  |
+| GlobalNet + Concat                  | 68.5  | 5.87G     | -     |
+| GlobalNet + 1 bottleneck + Concat   | 69.2  | 6.92G     | -     |
+| CPN (384 × 288)                     | 71.6  | 13.9G     | -     |
 
 在 **refineNet** 中使用不同的 layer
 
